@@ -4,13 +4,6 @@ import ProductsTable from '../components/ProductsTable';
 import ManageProducts from '../components/ManageProducts';
 
 const ProductScreen = () => {
-    // const setProducts = useStore((state) => state.setProducts);
-    // useEffect(() => {
-    //     console.count('hi');
-
-    //     setProducts();
-    // });
-
     return (
         <div
             style={{

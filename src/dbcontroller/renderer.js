@@ -1,7 +1,6 @@
 const { ipcRenderer } = window.require('electron');
 
 export const allAsync = (sql) => {
-    console.log(sql);
     return new Promise((resolve) => {
         ipcRenderer.send('all-msg', sql);
 
@@ -12,7 +11,6 @@ export const allAsync = (sql) => {
 };
 
 export const runAsync = (sql) => {
-    console.log(sql);
     return new Promise((resolve) => {
         ipcRenderer.send('run-msg', sql);
 

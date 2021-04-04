@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import useStore from '../store';
 
@@ -45,14 +45,25 @@ const columns = [
 //     },
 // ];
 
+const selectedProds = (state) => state.selectedProducts;
+
 export default function ProductsTable() {
     const setProducts = useStore((state) => state.setProducts);
-    useEffect(() => {
-        setProducts();
-        console.count('hi');
-    }, [setProducts]);
+
+    const selectedProducts = useStore(selectedProds);
 
     const products = useStore((state) => state.products);
+
+    const [selectionModel, setSelectionModel] = useState([]);
+
+    useEffect(() => {
+        const model = selectedProducts.map((row) => row.id.toString());
+        setSelectionModel(model);
+        setProducts();
+        console.count('hi');
+    }, [selectedProducts, setProducts]);
+
+    const setSelection = useStore((state) => state.setSelection);
 
     return (
         <div
@@ -66,6 +77,11 @@ export default function ProductsTable() {
                 columns={columns}
                 checkboxSelection
                 pageSize={20}
+                onRowSelected={(row) => setSelection(row)}
+                onSelectionModelChange={(newSelection) => {
+                    setSelectionModel(newSelection.selectionModel);
+                }}
+                selectionModel={selectionModel}
             />
         </div>
     );
