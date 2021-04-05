@@ -19,3 +19,13 @@ export const runAsync = (sql) => {
         });
     });
 };
+
+export const serialAsync = (sql) => {
+    return new Promise((resolve) => {
+        ipcRenderer.send('serial-msg', sql);
+
+        ipcRenderer.once('serial-reply', (_, arg) => {
+            resolve(arg);
+        });
+    });
+};

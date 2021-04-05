@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import useStore from '../store';
+import useStore from '../../store';
 
 const columns = [
     { field: 'id', headerName: 'ID', type: 'number', width: 70 },

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import useStore from '../store';
+import useStore from '../../store';
 
 const FormCtrl = withStyles({
     root: {

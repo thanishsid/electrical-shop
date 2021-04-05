@@ -1,5 +1,3 @@
-// require('../src/dbcontroller/main');
-
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 const sqlite3 = require('sqlite3');
@@ -63,3 +61,13 @@ ipcMain.on('run-msg', (event, arg) => {
         );
     });
 });
+
+// ipcMain.on('serial-msg', (event, arg) => {
+//     const sql = arg;
+//     database.run(sql, (err) => {
+//         event.reply(
+//             'run-reply',
+//             (err && err.message) || `${this.lastID} ${this.changes}`
+//         );
+//     });
+// });

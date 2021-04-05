@@ -2,10 +2,11 @@ import create from 'zustand';
 import { allAsync, runAsync } from './dbcontroller/renderer';
 
 const commands = {
-    getProducts: 'SELECT * FROM products',
+    getProducts:
+        'SELECT product_id as id, product_name, qty, cost, wholesalePrice, retailPrice FROM products',
     insert: (name, qty, cost, wprice, rprice) =>
         `INSERT INTO products VALUES(null, '${name}', ${qty}, ${cost}, ${wprice}, ${rprice})`,
-    delete: (id) => `DELETE FROM products WHERE id = ${id}`,
+    delete: (id) => `DELETE FROM products WHERE product_id = ${id}`,
 };
 
 const removeSelection = (currentSelections, rowToRemove) => {
@@ -28,6 +29,10 @@ const useStore = create((set) => ({
         );
         console.log(data);
     },
+    deleteProduct: async (id) => {
+        const data = await runAsync(commands.delete(id));
+        console.log(data);
+    },
     selectedProducts: [],
     setSelection: ({ isSelected, data }) => {
         if (isSelected) {
@@ -39,6 +44,9 @@ const useStore = create((set) => ({
                 selectedProducts: removeSelection(state.selectedProducts, data),
             }));
         }
+    },
+    clearSelectedProducts: () => {
+        set(() => ({ selectedProducts: [] }));
     },
     username: '',
     isAdmin: false,

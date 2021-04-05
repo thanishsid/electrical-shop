@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import NavTabs from './components/NavTabs';
+import NavTabs from './components/common/NavTabs';
 import ProductScreen from './screens/ProductScreen';
 import SalesScreen from './screens/SalesScreen';
 import OrdersScreen from './screens/OrdersScreen';
@@ -13,7 +13,7 @@ function App() {
                 <NavTabs />
             </>
             <Switch>
-                <Route path="/" exact>
+                <Route path="/products">
                     <ProductScreen />
                 </Route>
                 <Route path="/sales">

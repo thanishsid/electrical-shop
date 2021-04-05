@@ -1,7 +1,6 @@
 import React from 'react';
-// import useStore from '../store';
-import ProductsTable from '../components/ProductsTable';
-import ManageProducts from '../components/ManageProducts';
+import ProductsTable from '../components/products/ProductsTable';
+import ManageProducts from '../components/products/ManageProducts';
 
 const ProductScreen = () => {
     return (
