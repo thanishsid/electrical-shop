@@ -4,9 +4,17 @@ import { allAsync, runAsync } from './dbcontroller/renderer';
 const commands = {
     getProducts:
         'SELECT product_id as id, product_name, qty, cost, wholesalePrice, retailPrice FROM products',
-    insert: (name, qty, cost, wprice, rprice) =>
+    insertProduct: (name, qty, cost, wprice, rprice) =>
         `INSERT INTO products VALUES(null, '${name}', ${qty}, ${cost}, ${wprice}, ${rprice})`,
-    delete: (id) => `DELETE FROM products WHERE product_id = ${id}`,
+    editProduct: (id, productData) => `UPDATE products
+    SET product_name = '${productData.name}',
+        qty = ${productData.qty},
+        cost = ${productData.cost},
+        wholesalePrice = ${productData.wprice},
+        retailPrice = ${productData.rprice}
+    WHERE
+        prouct_id = ${id};`,
+    deleteProduct: (id) => `DELETE FROM products WHERE product_id = ${id}`,
 };
 
 const removeSelection = (currentSelections, rowToRemove) => {
@@ -25,12 +33,16 @@ const useStore = create((set) => ({
     },
     insertProducts: async (...args) => {
         const data = await runAsync(
-            commands.insert(args[0], args[1], args[2], args[3], args[4])
+            commands.insertProduct(args[0], args[1], args[2], args[3], args[4])
         );
         console.log(data);
     },
+    editProduct: async (id, productData) => {
+        const data = await runAsync(commands.editProduct(id, productData));
+        console.log(data);
+    },
     deleteProduct: async (id) => {
-        const data = await runAsync(commands.delete(id));
+        const data = await runAsync(commands.deleteProduct(id));
         console.log(data);
     },
     selectedProducts: [],
