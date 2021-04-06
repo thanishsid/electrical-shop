@@ -13,7 +13,7 @@ const commands = {
         wholesalePrice = ${productData.wprice},
         retailPrice = ${productData.rprice}
     WHERE
-        prouct_id = ${id};`,
+        product_id = ${id};`,
     deleteProduct: (id) => `DELETE FROM products WHERE product_id = ${id}`,
 };
 
@@ -38,6 +38,8 @@ const useStore = create((set) => ({
         console.log(data);
     },
     editProduct: async (id, productData) => {
+        console.log(id);
+        console.log(productData);
         const data = await runAsync(commands.editProduct(id, productData));
         console.log(data);
     },
