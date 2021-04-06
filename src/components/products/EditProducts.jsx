@@ -50,7 +50,7 @@ const EditProducts = () => {
     };
 
     if (selections.length > 1) {
-        return <h3>Please Select Only One Product</h3>;
+        return <h3>Please Select One Product Only</h3>;
     }
     if (selections.length < 1) {
         return <h3>Please Select a Product</h3>;
