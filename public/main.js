@@ -61,13 +61,3 @@ ipcMain.on('run-msg', (event, arg) => {
         );
     });
 });
-
-// ipcMain.on('serial-msg', (event, arg) => {
-//     const sql = arg;
-//     database.run(sql, (err) => {
-//         event.reply(
-//             'run-reply',
-//             (err && err.message) || `${this.lastID} ${this.changes}`
-//         );
-//     });
-// });

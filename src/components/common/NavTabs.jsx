@@ -31,6 +31,7 @@ export default function CenteredTabs() {
                 <Tab label="Products" component={Link} to="/products" />
                 <Tab label="Sales" component={Link} to="/sales" />
                 <Tab label="Orders" component={Link} to="/orders" />
+                <Tab label="Customers" component={Link} to="/customers" />
                 <Tab label="Settings" component={Link} to="/settings" />
             </Tabs>
         </Paper>

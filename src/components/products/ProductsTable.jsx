@@ -66,12 +66,7 @@ export default function ProductsTable() {
     const setSelection = useStore((state) => state.setSelection);
 
     return (
-        <div
-            style={{
-                height: '90vh',
-                width: '50%',
-            }}
-        >
+        <div className="leftHalf">
             <DataGrid
                 rows={products || []}
                 columns={columns}

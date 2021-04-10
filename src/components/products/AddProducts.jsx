@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import useStore from '../../store';
+import './AddProducts.css';
 
 const FormCtrl = withStyles({
     root: {
@@ -29,17 +30,16 @@ const AddProducts = () => {
             parseFloat(rPrice)
         );
     };
+
+    const clearEntries = () => {
+        setName('');
+        setQty('');
+        setRprice('');
+        setWprice('');
+        setCost('');
+    };
     return (
-        <form
-            style={{
-                width: '16rem',
-                marginLeft: '2rem',
-                marginTop: '3rem',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-            onSubmit={handleSubmit}
-        >
+        <form className="addProductsForm" onSubmit={handleSubmit}>
             <FormCtrl>
                 <InputLabel htmlFor="prod-name">Product Name</InputLabel>
                 <Input
@@ -95,14 +95,20 @@ const AddProducts = () => {
                     onChange={(event) => setRprice(event.target.value)}
                 />
             </FormCtrl>
+            <div className="btnContainer">
+                <Button variant="contained" type="submit" className="btn">
+                    Add Product
+                </Button>
 
-            <Button
-                style={{ marginTop: '1rem' }}
-                variant="contained"
-                type="submit"
-            >
-                Add Product
-            </Button>
+                <Button
+                    variant="contained"
+                    type="button"
+                    className="btn"
+                    onClick={() => clearEntries()}
+                >
+                    Clear Entries
+                </Button>
+            </div>
         </form>
     );
 };

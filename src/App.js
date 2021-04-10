@@ -4,7 +4,9 @@ import NavTabs from './components/common/NavTabs';
 import ProductScreen from './screens/ProductScreen';
 import SalesScreen from './screens/SalesScreen';
 import OrdersScreen from './screens/OrdersScreen';
+import CustomersScreen from './screens/CustomersScreen';
 import SettingsScreen from './screens/SettingsScreen';
+import './App.css';
 
 function App() {
     return (
@@ -21,6 +23,9 @@ function App() {
                 </Route>
                 <Route path="/orders">
                     <OrdersScreen />
+                </Route>
+                <Route path="/customers">
+                    <CustomersScreen />
                 </Route>
                 <Route path="/settings">
                     <SettingsScreen />
