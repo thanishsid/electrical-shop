@@ -13,3 +13,7 @@
     height: 90vh;
     width: 50%;
 }
+
+body {
+    overflow: hidden;
+}

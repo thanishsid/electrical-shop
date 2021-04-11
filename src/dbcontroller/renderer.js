@@ -1,31 +1,25 @@
 const { ipcRenderer } = window.require('electron');
 
-export const allAsync = (sql) => {
-    return new Promise((resolve) => {
-        ipcRenderer.send('all-msg', sql);
+// neDb
 
-        ipcRenderer.once('all-reply', (_, arg) => {
-            resolve(arg);
+export const getProducts = () => {
+    return new Promise((resolve) => {
+        ipcRenderer.send('get-products');
+
+        ipcRenderer.once('get-products-reply', (_, msg) => {
+            resolve(msg);
         });
     });
 };
 
-export const runAsync = (sql) => {
+export const dbFunction = (type, data) => {
+    console.log(type);
+    console.log(data);
     return new Promise((resolve) => {
-        ipcRenderer.send('run-msg', sql);
+        ipcRenderer.send(type, data);
 
-        ipcRenderer.once('run-reply', (_, arg) => {
-            resolve(arg);
-        });
-    });
-};
-
-export const serialAsync = (sql) => {
-    return new Promise((resolve) => {
-        ipcRenderer.send('serial-msg', sql);
-
-        ipcRenderer.once('serial-reply', (_, arg) => {
-            resolve(arg);
+        ipcRenderer.once(`${type}-reply`, (_, msg) => {
+            resolve(msg);
         });
     });
 };

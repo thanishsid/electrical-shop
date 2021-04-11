@@ -1,25 +1,10 @@
 import create from 'zustand';
-import { allAsync, runAsync } from './dbcontroller/renderer';
-
-const commands = {
-    getProducts:
-        'SELECT product_id as id, product_name, qty, cost, wholesalePrice, retailPrice FROM products',
-    insertProduct: (name, qty, cost, wprice, rprice) =>
-        `INSERT INTO products VALUES(null, '${name}', ${qty}, ${cost}, ${wprice}, ${rprice})`,
-    editProduct: (id, productData) => `UPDATE products
-    SET product_name = '${productData.name}',
-        qty = ${productData.qty},
-        cost = ${productData.cost},
-        wholesalePrice = ${productData.wprice},
-        retailPrice = ${productData.rprice}
-    WHERE
-        product_id = ${id};`,
-    deleteProduct: (id) => `DELETE FROM products WHERE product_id = ${id}`,
-};
+import { getProducts, dbFunction } from './dbcontroller/renderer';
 
 const removeSelection = (currentSelections, rowToRemove) => {
     const newSelections = currentSelections.filter(
-        (rows) => rows.id !== rowToRemove.id
+        // eslint-disable-next-line no-underscore-dangle
+        (rows) => rows._id !== rowToRemove._id
     );
     return newSelections;
 };
@@ -27,24 +12,21 @@ const removeSelection = (currentSelections, rowToRemove) => {
 const useStore = create((set) => ({
     products: [],
     setProducts: async () => {
-        const data = await allAsync(commands.getProducts);
+        const data = await getProducts();
         set(() => ({ products: data }));
-        // console.log(data);
     },
-    insertProducts: async (...args) => {
-        const data = await runAsync(
-            commands.insertProduct(args[0], args[1], args[2], args[3], args[4])
-        );
+    insertProducts: async (product) => {
+        const data = await dbFunction('insert-product', product);
         console.log(data);
     },
     editProduct: async (id, productData) => {
         console.log(id);
         console.log(productData);
-        const data = await runAsync(commands.editProduct(id, productData));
+        const data = await dbFunction('edit-product', { id, productData });
         console.log(data);
     },
     deleteProduct: async (id) => {
-        const data = await runAsync(commands.deleteProduct(id));
+        const data = await dbFunction('delete-product', id);
         console.log(data);
     },
     selectedProducts: [],

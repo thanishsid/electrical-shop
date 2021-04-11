@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 
-const sqlite3 = require('sqlite3');
+const Datastore = require('nedb');
 const path = require('path');
 const isDev = require('electron-is-dev');
 
@@ -41,23 +41,61 @@ app.on('activate', () => {
 
 // Database connectivity
 
-const database = new sqlite3.Database('./public/mse.db', (err) => {
-    if (err) console.error('Database opening error: ', err);
+const products = new Datastore({
+    filename: './public/db-store/products.db',
+    autoload: true,
 });
 
-ipcMain.on('all-msg', (event, arg) => {
-    const sql = arg;
-    database.all(sql, (err, rows) => {
-        event.reply('all-reply', (err && err.message) || rows);
+ipcMain.on('get-products', (event) => {
+    products.find({}, (err, result) => {
+        if (err) {
+            event.reply('get-products-reply', err);
+        } else {
+            event.reply('get-products-reply', result);
+        }
     });
 });
 
-ipcMain.on('run-msg', (event, arg) => {
-    const sql = arg;
-    database.run(sql, (err) => {
-        event.reply(
-            'run-reply',
-            (err && err.message) || `${this.lastID} ${this.changes}`
-        );
+ipcMain.on('insert-product', (event, arg) => {
+    const product = arg;
+    products.insert(product, (err, newProduct) => {
+        if (err) {
+            event.reply('insert-product-reply', err);
+        } else if (newProduct) {
+            event.reply('insert-product-reply', 'Product Added Successfully');
+        }
     });
+});
+
+ipcMain.on('delete-product', (event, arg) => {
+    const id = arg;
+    products.remove({ _id: id }, {}, (err, numRemoved) => {
+        if (err) {
+            event.reply('delete-product-reply', err);
+        } else if (numRemoved) {
+            event.reply('delete-product-reply', 'Product Deleted Successfully');
+        }
+    });
+});
+
+ipcMain.on('edit-product', (event, arg) => {
+    console.log(arg);
+    const { id, productData } = arg;
+    products.update(
+        { _id: id },
+        {
+            $set: { ...productData },
+        },
+        {},
+        (err, numUpdated) => {
+            if (err) {
+                event.reply('edit-product-reply', err);
+            } else if (numUpdated) {
+                event.reply(
+                    'edit-product-reply',
+                    'Product Edited Successfully'
+                );
+            }
+        }
+    );
 });

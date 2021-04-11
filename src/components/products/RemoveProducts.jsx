@@ -7,7 +7,8 @@ const RemoveProducts = () => {
     const removeSelectedProduct = useStore((state) => state.deleteProduct);
 
     const removeProducts = () => {
-        selections.forEach((selection) => removeSelectedProduct(selection.id));
+        // eslint-disable-next-line no-underscore-dangle
+        selections.forEach((selection) => removeSelectedProduct(selection._id));
     };
 
     return (
@@ -21,7 +22,8 @@ const RemoveProducts = () => {
             <div>
                 {selections.map((row) => {
                     return (
-                        <h4 key={row.id}>{`${row.id} ${row.product_name}`}</h4>
+                        // eslint-disable-next-line no-underscore-dangle
+                        <h4 key={row._id}>{`${row._id} ${row.prdName}`}</h4>
                     );
                 })}
             </div>

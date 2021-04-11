@@ -11,24 +11,26 @@ const FormCtrl = withStyles({
 })(FormControl);
 
 const AddProducts = () => {
-    const [name, setName] = useState('');
-    const [qty, setQty] = useState('');
-    const [cost, setCost] = useState('');
-    const [wPrice, setWprice] = useState('');
-    const [rPrice, setRprice] = useState('');
+    const [prdName, setName] = useState('');
+    const [prdQty, setQty] = useState('');
+    const [prdCost, setCost] = useState('');
+    const [prdWhPrice, setWprice] = useState('');
+    const [prdRePrice, setRprice] = useState('');
 
     const insertProducts = useStore((state) => state.insertProducts);
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        insertProducts(
-            name,
-            parseInt(qty, 10),
-            parseFloat(cost),
-            parseFloat(wPrice),
-            parseFloat(rPrice)
-        );
+        const product = {
+            prdName,
+            prdQty: parseInt(prdQty, 10),
+            prdCost: parseFloat(prdCost),
+            prdWhPrice: parseFloat(prdWhPrice),
+            prdRePrice: parseFloat(prdRePrice),
+        };
+
+        insertProducts(product);
     };
 
     const clearEntries = () => {
@@ -46,7 +48,7 @@ const AddProducts = () => {
                     id="prod-na"
                     type="text"
                     placeholder="Add Product Name"
-                    value={name}
+                    value={prdName}
                     onChange={(event) => setName(event.target.value)}
                     required
                 />
@@ -58,7 +60,7 @@ const AddProducts = () => {
                     type="number"
                     inputProps={{ min: '0' }}
                     placeholder="Add Quantity"
-                    value={qty}
+                    value={prdQty}
                     onChange={(event) => setQty(event.target.value)}
                 />
             </FormCtrl>
@@ -69,7 +71,7 @@ const AddProducts = () => {
                     type="number"
                     inputProps={{ step: '0.01', min: '0' }}
                     placeholder="Add Cost"
-                    value={cost}
+                    value={prdCost}
                     onChange={(event) => setCost(event.target.value)}
                 />
             </FormCtrl>
@@ -80,7 +82,7 @@ const AddProducts = () => {
                     type="number"
                     inputProps={{ step: '0.01', min: '0' }}
                     placeholder="Add Wholesale Price"
-                    value={wPrice}
+                    value={prdWhPrice}
                     onChange={(event) => setWprice(event.target.value)}
                 />
             </FormCtrl>
@@ -91,7 +93,7 @@ const AddProducts = () => {
                     type="number"
                     inputProps={{ step: '0.01' }}
                     placeholder="Add Retail Price"
-                    value={rPrice}
+                    value={prdRePrice}
                     onChange={(event) => setRprice(event.target.value)}
                 />
             </FormCtrl>

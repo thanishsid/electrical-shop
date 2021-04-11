@@ -24,11 +24,11 @@ const EditProducts = () => {
         const fillEdits = async () => {
             const product = await selections[0];
             if (product) {
-                setName(product.product_name);
-                setQty(product.qty);
-                setCost(product.cost);
-                setWprice(product.wholesalePrice);
-                setRprice(product.retailPrice);
+                setName(product.prdName);
+                setQty(product.prdQty);
+                setCost(product.prdCost);
+                setWprice(product.prdWhPrice);
+                setRprice(product.prdRePrice);
             }
         };
 
@@ -39,12 +39,13 @@ const EditProducts = () => {
         event.preventDefault();
 
         if (selections.length === 1) {
-            editProduct(selections[0].id, {
-                name: pname,
-                qty: parseInt(pqty, 10),
-                cost: parseFloat(pcost),
-                wprice: parseFloat(pwPrice),
-                rprice: parseFloat(prPrice),
+            // eslint-disable-next-line no-underscore-dangle
+            editProduct(selections[0]._id, {
+                prdName: pname,
+                prdQty: parseInt(pqty, 10),
+                prdCost: parseFloat(pcost),
+                prdWhPrice: parseFloat(pwPrice),
+                prdRePrice: parseFloat(prPrice),
             });
         }
     };
