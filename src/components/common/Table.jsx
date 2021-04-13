@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useMemo } from 'react';
-import { useTable } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 import Selector from './Selector';
 import './Table.css';
 
@@ -15,47 +15,51 @@ export default function ProductsTable({ rowData, columnData }) {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({ columns, data: products || [] });
+    } = useTable({ columns, data: products || [] }, useSortBy);
 
     return (
-        <div className="tableContainer">
-            <table {...getTableProps()} className="table">
-                <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            <th className="selectHeaders widen"> </th>
-                            {headerGroup.headers.map((column) => (
-                                <th
-                                    {...column.getHeaderProps()}
-                                    className="tableHeaders"
-                                >
-                                    {column.render('Header')}
-                                </th>
-                            ))}
+        <table {...getTableProps()}>
+            <thead>
+                {headerGroups.map((headerGroup) => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        <th className="widen"> </th>
+                        {headerGroup.headers.map((column) => (
+                            <th
+                                {...column.getHeaderProps(
+                                    column.getSortByToggleProps()
+                                )}
+                            >
+                                {column.render('Header')}
+                                <span>
+                                    {column.isSorted &&
+                                        (column.isSortedDesc ? ' 🔻' : ' 🔺')}
+                                </span>
+                            </th>
+                        ))}
+                    </tr>
+                ))}
+            </thead>
+
+            <tbody {...getTableBodyProps()} className="tableBody">
+                {rows.map((row) => {
+                    prepareRow(row);
+                    return (
+                        <tr {...row.getRowProps()}>
+                            <Selector row={row.original} />
+                            {row.cells.map((cell) => {
+                                return (
+                                    <td
+                                        {...cell.getCellProps()}
+                                        className="tableCell"
+                                    >
+                                        {cell.render('Cell')}
+                                    </td>
+                                );
+                            })}
                         </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {rows.map((row) => {
-                        prepareRow(row);
-                        return (
-                            <tr {...row.getRowProps()}>
-                                <Selector row={row.original} />
-                                {row.cells.map((cell) => {
-                                    return (
-                                        <td
-                                            {...cell.getCellProps()}
-                                            className="tableCell widenData"
-                                        >
-                                            {cell.render('Cell')}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
+                    );
+                })}
+            </tbody>
+        </table>
     );
 }

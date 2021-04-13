@@ -45,7 +45,7 @@ const AddProducts = () => {
             <FormCtrl>
                 <InputLabel htmlFor="prod-name">Product Name</InputLabel>
                 <Input
-                    id="prod-na"
+                    id="prod-name"
                     type="text"
                     placeholder="Add Product Name"
                     value={prdName}

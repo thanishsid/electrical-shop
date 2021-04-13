@@ -19,7 +19,7 @@ const RemoveProducts = () => {
                 padding: '1rem',
             }}
         >
-            <div>
+            <div style={{ overflowY: 'scroll', height: '60vh' }}>
                 {selections.map((row) => {
                     return (
                         // eslint-disable-next-line no-underscore-dangle

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +18,22 @@ export default function CenteredTabs() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const { pathname } = useLocation();
+
+    React.useEffect(() => {
+        if (pathname.includes('products')) {
+            setValue(0);
+        } else if (pathname.includes('sales')) {
+            setValue(1);
+        } else if (pathname.includes('orders')) {
+            setValue(2);
+        } else if (pathname.includes('customers')) {
+            setValue(3);
+        } else if (pathname.includes('settings')) {
+            setValue(4);
+        }
+    }, [pathname]);
 
     return (
         <Paper className={classes.root}>

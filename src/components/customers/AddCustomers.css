@@ -1,0 +1,17 @@
+.addCustomersForm {
+    margin-left: 2rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.btnContainer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn {
+    width: 40%;
+    height: 3rem;
+}

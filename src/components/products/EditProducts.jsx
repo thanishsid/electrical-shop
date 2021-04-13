@@ -59,7 +59,6 @@ const EditProducts = () => {
     return (
         <form
             style={{
-                width: '16rem',
                 marginLeft: '2rem',
                 marginTop: '3rem',
                 display: 'flex',

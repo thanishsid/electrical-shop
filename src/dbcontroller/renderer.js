@@ -1,22 +1,18 @@
 const { ipcRenderer } = window.require('electron');
 
-// neDb
-
-export const getProducts = () => {
+export const getData = (type) => {
     return new Promise((resolve) => {
-        ipcRenderer.send('get-products');
+        ipcRenderer.send('get', type);
 
-        ipcRenderer.once('get-products-reply', (_, msg) => {
+        ipcRenderer.once('get-reply', (_, msg) => {
             resolve(msg);
         });
     });
 };
 
-export const dbFunction = (type, data) => {
-    console.log(type);
-    console.log(data);
+export const dbFunction = (type, database, data) => {
     return new Promise((resolve) => {
-        ipcRenderer.send(type, data);
+        ipcRenderer.send(type, database, data);
 
         ipcRenderer.once(`${type}-reply`, (_, msg) => {
             resolve(msg);

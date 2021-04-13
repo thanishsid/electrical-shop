@@ -1,5 +1,5 @@
 import create from 'zustand';
-import { getProducts, dbFunction } from './dbcontroller/renderer';
+import { getData, dbFunction } from './dbcontroller/renderer';
 
 const removeSelection = (currentSelections, rowToRemove) => {
     const newSelections = currentSelections.filter(
@@ -12,21 +12,19 @@ const removeSelection = (currentSelections, rowToRemove) => {
 const useStore = create((set) => ({
     products: [],
     setProducts: async () => {
-        const data = await getProducts();
+        const data = await getData('products');
         set(() => ({ products: data }));
     },
     insertProducts: async (product) => {
-        const data = await dbFunction('insert-product', product);
+        const data = await dbFunction('insert', 'products', product);
         console.log(data);
     },
     editProduct: async (id, productData) => {
-        console.log(id);
-        console.log(productData);
-        const data = await dbFunction('edit-product', { id, productData });
+        const data = await dbFunction('edit', 'products', { id, productData });
         console.log(data);
     },
     deleteProduct: async (id) => {
-        const data = await dbFunction('delete-product', id);
+        const data = await dbFunction('delete', 'products', id);
         console.log(data);
     },
     selectedProducts: [],
@@ -43,6 +41,27 @@ const useStore = create((set) => ({
     },
     clearSelectedProducts: () => {
         set(() => ({ selectedProducts: [] }));
+    },
+    customers: [],
+    setCustomers: async () => {
+        const data = await getData('customers');
+        set(() => ({ customers: data }));
+        console.log(data);
+    },
+    insertCustomers: async (customer) => {
+        const data = await dbFunction('insert', 'customers', customer);
+        console.log(data);
+    },
+    deleteCustomers: async (id) => {
+        const data = await dbFunction('delete', 'customers', id);
+        console.log(data);
+    },
+    editCustomers: async (id, customerData) => {
+        const data = await dbFunction('edit', 'customers', {
+            id,
+            customerData,
+        });
+        console.log(data);
     },
     username: '',
     isAdmin: false,

@@ -46,55 +46,87 @@ const products = new Datastore({
     autoload: true,
 });
 
-ipcMain.on('get-products', (event) => {
-    products.find({}, (err, result) => {
+const customers = new Datastore({
+    filename: './public/db-store/customers.db',
+    autoload: true,
+});
+
+// const mockData = require('./MOCK_DATA.json');
+
+// mockData.forEach((row) => {
+//     products.insert(row, (err, newProduct) => {
+//         if (err) {
+//             console.error(err);
+//         } else if (newProduct) {
+//             console.log(newProduct);
+//         }
+//     });
+// });
+
+// <<<<<<<<<<<#  PRODUCTS FUNCTIONS START  #>>>>>>>>>>>>>>
+
+// function to choose which database collection to access
+
+const selectDb = (type) => {
+    let db;
+
+    if (type === 'products') {
+        db = products;
+    } else if (type === 'customers') {
+        db = customers;
+    }
+
+    return db;
+};
+
+ipcMain.on('get', (event, arg) => {
+    const type = selectDb(arg);
+
+    type.find({}, (err, result) => {
         if (err) {
-            event.reply('get-products-reply', err);
+            event.reply('get-reply', err);
         } else {
-            event.reply('get-products-reply', result);
+            event.reply('get-reply', result);
         }
     });
 });
 
-ipcMain.on('insert-product', (event, arg) => {
-    const product = arg;
-    products.insert(product, (err, newProduct) => {
+ipcMain.on('insert', (event, targetDb, data) => {
+    const db = selectDb(targetDb);
+    db.insert(data, (err, newData) => {
         if (err) {
-            event.reply('insert-product-reply', err);
-        } else if (newProduct) {
-            event.reply('insert-product-reply', 'Product Added Successfully');
+            event.reply('insert-reply', err);
+        } else if (newData) {
+            event.reply('insert-reply', 'Added Successfully');
         }
     });
 });
 
-ipcMain.on('delete-product', (event, arg) => {
-    const id = arg;
-    products.remove({ _id: id }, {}, (err, numRemoved) => {
+ipcMain.on('delete', (event, targetDb, data) => {
+    const db = selectDb(targetDb);
+    db.remove({ _id: data }, {}, (err, numRemoved) => {
         if (err) {
-            event.reply('delete-product-reply', err);
+            event.reply('delete-reply', err);
         } else if (numRemoved) {
-            event.reply('delete-product-reply', 'Product Deleted Successfully');
+            event.reply('delete-reply', 'Deleted Successfully');
         }
     });
 });
 
-ipcMain.on('edit-product', (event, arg) => {
-    console.log(arg);
-    const { id, productData } = arg;
-    products.update(
+ipcMain.on('edit', (event, targetDb, data) => {
+    const db = selectDb(targetDb);
+    const { id, newData } = data;
+    db.update(
         { _id: id },
         {
-            $set: { ...productData },
+            $set: { ...newData },
         },
         {},
         (err, numUpdated) => {
             if (err) {
-                event.reply('edit-product-reply', err);
+                event.reply('edit-reply', err);
             } else if (numUpdated) {
-                event.reply(
-                    'edit-product-reply',
-                    'Product Edited Successfully'
-                );
+                event.reply('edit-reply', 'Edited Successfully');
             }
         }
     );
