@@ -20,7 +20,10 @@ const useStore = create((set) => ({
         console.log(data);
     },
     editProduct: async (id, productData) => {
-        const data = await dbFunction('edit', 'products', { id, productData });
+        const data = await dbFunction('edit', 'products', {
+            id,
+            newData: productData,
+        });
         console.log(data);
     },
     deleteProduct: async (id) => {
@@ -28,7 +31,7 @@ const useStore = create((set) => ({
         console.log(data);
     },
     selectedProducts: [],
-    setSelection: ({ isSelected, data }) => {
+    setProductSelection: ({ isSelected, data }) => {
         if (isSelected) {
             set((state) => ({
                 selectedProducts: [...state.selectedProducts, data],
@@ -46,22 +49,36 @@ const useStore = create((set) => ({
     setCustomers: async () => {
         const data = await getData('customers');
         set(() => ({ customers: data }));
-        console.log(data);
     },
     insertCustomers: async (customer) => {
         const data = await dbFunction('insert', 'customers', customer);
         console.log(data);
     },
-    deleteCustomers: async (id) => {
+    deleteCustomer: async (id) => {
         const data = await dbFunction('delete', 'customers', id);
         console.log(data);
     },
-    editCustomers: async (id, customerData) => {
+    editCustomer: async (id, customerData) => {
         const data = await dbFunction('edit', 'customers', {
             id,
-            customerData,
+            newData: customerData,
         });
         console.log(data);
+    },
+    selectedCustomers: [],
+    setCustomerSelection: ({ isSelected, data }) => {
+        if (isSelected) {
+            set((state) => ({
+                selectedCustomers: [...state.selectedCustomers, data],
+            }));
+        } else {
+            set((state) => ({
+                selectedCustomers: removeSelection(
+                    state.selectedCustomers,
+                    data
+                ),
+            }));
+        }
     },
     username: '',
     isAdmin: false,

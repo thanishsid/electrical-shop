@@ -51,19 +51,23 @@ const customers = new Datastore({
     autoload: true,
 });
 
-// const mockData = require('./MOCK_DATA.json');
+products.ensureIndex({ fieldName: 'prdName', unique: true }, (err) =>
+    console.error(err)
+);
 
-// mockData.forEach((row) => {
-//     products.insert(row, (err, newProduct) => {
-//         if (err) {
-//             console.error(err);
-//         } else if (newProduct) {
-//             console.log(newProduct);
-//         }
-//     });
+customers.ensureIndex({ fieldName: 'custName', unique: true }, (err) =>
+    console.error(err)
+);
+
+// const sales = new Datastore({
+//     filename: './public/db-store/sales.db',
+//     autoload: true,
 // });
 
-// <<<<<<<<<<<#  PRODUCTS FUNCTIONS START  #>>>>>>>>>>>>>>
+// const orders = new Datastore({
+//     filename: './public/db-store/orders.db',
+//     autoload: true,
+// });
 
 // function to choose which database collection to access
 
@@ -79,10 +83,12 @@ const selectDb = (type) => {
     return db;
 };
 
-ipcMain.on('get', (event, arg) => {
-    const type = selectDb(arg);
+// <<<<<<<<<<<#  DB FUNCTIONS START  #>>>>>>>>>>>>>>
 
-    type.find({}, (err, result) => {
+ipcMain.on('get', (event, targetDb) => {
+    const db = selectDb(targetDb);
+
+    db.find({}, (err, result) => {
         if (err) {
             event.reply('get-reply', err);
         } else {
@@ -114,6 +120,9 @@ ipcMain.on('delete', (event, targetDb, data) => {
 });
 
 ipcMain.on('edit', (event, targetDb, data) => {
+    console.log(event);
+    console.log(targetDb);
+    console.log(data);
     const db = selectDb(targetDb);
     const { id, newData } = data;
     db.update(
@@ -131,3 +140,5 @@ ipcMain.on('edit', (event, targetDb, data) => {
         }
     );
 });
+
+// <<<<<<<<<<<#  DB FUNCTIONS END  #>>>>>>>>>>>>>>

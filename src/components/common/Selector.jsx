@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
 import useStore from '../../store';
 
-const Selector = ({ row }) => {
+const Selector = ({ row, type }) => {
     const [selected, setSelected] = useState(false);
 
-    const setSelection = useStore((state) => state.setSelection);
+    const setProductSelection = useStore((state) => state.setProductSelection);
+
+    const setCustomerSelection = useStore(
+        (state) => state.setCustomerSelection
+    );
 
     const handleChange = (event) => {
         event.persist();
         setSelected(event.target.checked);
-        setSelection({ isSelected: event.target.checked, data: row });
+
+        if (type === 'products') {
+            setProductSelection({
+                isSelected: event.target.checked,
+                data: row,
+            });
+        } else if (type === 'customers') {
+            setCustomerSelection({
+                isSelected: event.target.checked,
+                data: row,
+            });
+        }
     };
     return (
         <td className="tableCell widen">

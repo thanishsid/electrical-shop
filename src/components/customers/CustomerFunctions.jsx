@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import AddCustomers from './AddCustomers';
 import EditCustomer from './EditCustomer';
-import RemoveCustomer from './RemoveCustomer';
+import RemoveCustomers from './RemoveCustomers';
 
 const CustomerFunctions = () => {
     const { funcId } = useParams();
@@ -14,7 +14,7 @@ const CustomerFunctions = () => {
         case 'edit':
             return <EditCustomer />;
         case 'remove':
-            return <RemoveCustomer />;
+            return <RemoveCustomers />;
         default:
             return null;
     }

@@ -4,8 +4,8 @@ import { useTable, useSortBy } from 'react-table';
 import Selector from './Selector';
 import './Table.css';
 
-export default function ProductsTable({ rowData, columnData }) {
-    const products = rowData;
+export default function Table({ rowData, columnData, type }) {
+    const allRows = rowData;
 
     const columns = useMemo(() => columnData, [columnData]);
 
@@ -15,7 +15,7 @@ export default function ProductsTable({ rowData, columnData }) {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({ columns, data: products || [] }, useSortBy);
+    } = useTable({ columns, data: allRows || [] }, useSortBy);
 
     return (
         <table {...getTableProps()}>
@@ -45,7 +45,7 @@ export default function ProductsTable({ rowData, columnData }) {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
-                            <Selector row={row.original} />
+                            <Selector row={row.original} type={type} />
                             {row.cells.map((cell) => {
                                 return (
                                     <td

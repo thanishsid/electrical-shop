@@ -52,7 +52,7 @@ const AddCustomers = () => {
                 </InputLabel>
                 <Input
                     id="cust-phone"
-                    type="text"
+                    type="tel"
                     inputProps={{ min: '0' }}
                     placeholder="Add Customer Phone Number"
                     value={custPhone}
