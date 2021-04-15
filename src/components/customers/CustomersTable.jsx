@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import Table from '../common/Table';
-import useStore from '../../store';
+import { useCustomers } from '../../store';
 
 const CustomersTable = () => {
-    const data = useStore((state) => state.customers);
+    const data = useCustomers((state) => state.customers);
 
     const columns = useMemo(
         () => [

@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-key */
 import React, { useMemo } from 'react';
 import Table from '../common/Table';
-import useStore from '../../store';
+import { useProducts } from '../../store';
 
 // const selectedProds = (state) => state.selectedProducts;
 
 export default function ProductsTable() {
-    const data = useStore((state) => state.products);
+    const data = useProducts((state) => state.products);
 
     const columns = useMemo(
         () => [

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import useStore from '../../store';
+import { useCustomers } from '../../store';
 
 const FormCtrl = withStyles({
     root: {
@@ -13,9 +13,9 @@ const EditCustomers = () => {
     const [cname, setName] = useState('');
     const [cphone, setPhone] = useState('');
 
-    const selections = useStore((state) => state.selectedCustomers);
+    const selections = useCustomers((state) => state.selectedCustomers);
 
-    const editCustomer = useStore((state) => state.editCustomer);
+    const editCustomer = useCustomers((state) => state.editCustomer);
 
     useEffect(() => {
         const fillEdits = async () => {

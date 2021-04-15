@@ -1,11 +1,11 @@
 import React from 'react';
 import DeleteItems from '../common/DeleteItems';
-import useStore from '../../store';
+import { useProducts } from '../../store';
 
 const RemoveProducts = () => {
-    const selections = useStore((state) => state.selectedProducts);
+    const selections = useProducts((state) => state.selectedProducts);
 
-    const removeSelectedProduct = useStore((state) => state.deleteProduct);
+    const removeSelectedProduct = useProducts((state) => state.deleteProduct);
 
     const removeProducts = () => {
         // eslint-disable-next-line no-underscore-dangle

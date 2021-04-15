@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import useStore from '../../store';
+import { useProducts } from '../../store';
 import './AddProducts.css';
 
 const FormCtrl = withStyles({
@@ -17,7 +17,7 @@ const AddProducts = () => {
     const [prdWhPrice, setWprice] = useState('');
     const [prdRePrice, setRprice] = useState('');
 
-    const insertProducts = useStore((state) => state.insertProducts);
+    const insertProducts = useProducts((state) => state.insertProducts);
 
     const handleSubmit = (event) => {
         event.preventDefault();

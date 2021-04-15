@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import useStore from '../../store';
+import { useProducts } from '../../store';
 
 const FormCtrl = withStyles({
     root: {
@@ -16,9 +16,9 @@ const EditProducts = () => {
     const [pwPrice, setWprice] = useState('');
     const [prPrice, setRprice] = useState('');
 
-    const selections = useStore((state) => state.selectedProducts);
+    const selections = useProducts((state) => state.selectedProducts);
 
-    const editProduct = useStore((state) => state.editProduct);
+    const editProduct = useProducts((state) => state.editProduct);
 
     useEffect(() => {
         const fillEdits = async () => {

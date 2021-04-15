@@ -1,11 +1,13 @@
 import React from 'react';
 import DeleteItems from '../common/DeleteItems';
-import useStore from '../../store';
+import { useCustomers } from '../../store';
 
 const RemoveCustomers = () => {
-    const selections = useStore((state) => state.selectedCustomers);
+    const selections = useCustomers((state) => state.selectedCustomers);
 
-    const removeSelectedCustomer = useStore((state) => state.deleteCustomer);
+    const removeSelectedCustomer = useCustomers(
+        (state) => state.deleteCustomer
+    );
 
     const removeCustomers = () => {
         selections.forEach((selection) =>

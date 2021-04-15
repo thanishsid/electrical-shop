@@ -9,7 +9,7 @@ const removeSelection = (currentSelections, rowToRemove) => {
     return newSelections;
 };
 
-const useStore = create((set) => ({
+export const useProducts = create((set) => ({
     products: [],
     setProducts: async () => {
         const data = await getData('products');
@@ -45,6 +45,9 @@ const useStore = create((set) => ({
     clearSelectedProducts: () => {
         set(() => ({ selectedProducts: [] }));
     },
+}));
+
+export const useCustomers = create((set) => ({
     customers: [],
     setCustomers: async () => {
         const data = await getData('customers');
@@ -80,8 +83,10 @@ const useStore = create((set) => ({
             }));
         }
     },
-    username: '',
-    isAdmin: false,
+    clearSelectedCustomers: () => {
+        set(() => ({ selectedCustomers: [] }));
+    },
 }));
 
-export default useStore;
+// username: '',
+//     isAdmin: false,

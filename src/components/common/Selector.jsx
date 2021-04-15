@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import useStore from '../../store';
+import { useProducts, useCustomers } from '../../store';
 
 const Selector = ({ row, type }) => {
     const [selected, setSelected] = useState(false);
 
-    const setProductSelection = useStore((state) => state.setProductSelection);
+    const setProductSelection = useProducts(
+        (state) => state.setProductSelection
+    );
 
-    const setCustomerSelection = useStore(
+    const setCustomerSelection = useCustomers(
         (state) => state.setCustomerSelection
     );
 
