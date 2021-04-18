@@ -88,5 +88,51 @@ export const useCustomers = create((set) => ({
     },
 }));
 
+const addCartItem = (currentItems, itemsToAdd) => {
+    const newItems = itemsToAdd.filter(
+        // eslint-disable-next-line no-underscore-dangle
+        (item) => currentItems.every((itm) => itm._id !== item._id)
+    );
+
+    if (newItems) {
+        return [...currentItems, ...newItems];
+    }
+
+    return currentItems;
+};
+
+const changeQty = (currentItems, itemToChange, type) => {
+    const targetItem = currentItems.find(
+        // eslint-disable-next-line no-underscore-dangle
+        (item) => item._id === itemToChange._id
+    );
+
+    let quantity = itemToChange.prdQty;
+
+    if (type === 'inc') {
+        quantity += 1;
+    } else if (type === 'dec') {
+        quantity -= 1;
+    }
+
+    if (targetItem) {
+        return [...currentItems, { ...itemToChange, prdQty: quantity }];
+    }
+    console.log('bruh');
+    return currentItems;
+};
+
+export const useCart = create((set) => ({
+    items: [],
+    addItem: (items) =>
+        set((state) => ({
+            items: addCartItem(state.items, items),
+        })),
+    changeQuantity: (itemToChange, type) =>
+        set((state) => ({
+            items: changeQty(state.items, itemToChange, type),
+        })),
+}));
+
 // username: '',
 //     isAdmin: false,

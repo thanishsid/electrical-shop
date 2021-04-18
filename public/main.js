@@ -59,25 +59,29 @@ customers.ensureIndex({ fieldName: 'custName', unique: true }, (err) =>
     console.error(err)
 );
 
-// const sales = new Datastore({
-//     filename: './public/db-store/sales.db',
-//     autoload: true,
-// });
+const sales = new Datastore({
+    filename: './public/db-store/sales.db',
+    autoload: true,
+});
 
-// const orders = new Datastore({
-//     filename: './public/db-store/orders.db',
-//     autoload: true,
-// });
+const orders = new Datastore({
+    filename: './public/db-store/orders.db',
+    autoload: true,
+});
 
 // function to choose which database collection to access
 
 const selectDb = (type) => {
-    let db;
+    let db = null;
 
     if (type === 'products') {
         db = products;
     } else if (type === 'customers') {
         db = customers;
+    } else if (type === 'sales') {
+        db = sales;
+    } else if (type === 'orders') {
+        db = orders;
     }
 
     return db;
@@ -120,9 +124,6 @@ ipcMain.on('delete', (event, targetDb, data) => {
 });
 
 ipcMain.on('edit', (event, targetDb, data) => {
-    console.log(event);
-    console.log(targetDb);
-    console.log(data);
     const db = selectDb(targetDb);
     const { id, newData } = data;
     db.update(
@@ -139,6 +140,11 @@ ipcMain.on('edit', (event, targetDb, data) => {
             }
         }
     );
+});
+
+ipcMain.on('newSale', (event, data) => {
+    console.log(event);
+    console.log(data);
 });
 
 // <<<<<<<<<<<#  DB FUNCTIONS END  #>>>>>>>>>>>>>>

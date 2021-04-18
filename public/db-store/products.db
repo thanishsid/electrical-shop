@@ -1,4 +1,4 @@
 {"prdName":"Bulb","prdQty":57,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
 {"prdName":"Torch","prdQty":75,"prdCost":358,"prdWhPrice":685,"prdRePrice":1155,"_id":"SnOLOEVRYFNskcUc"}
-{"$$indexCreated":{"fieldName":"prdName","unique":true,"sparse":false}}
 {"prdName":"Chainsaw","prdQty":21,"prdCost":5789,"prdWhPrice":7635,"prdRePrice":9569,"_id":"zJ77PwFLbBe7eGbv"}
+{"$$indexCreated":{"fieldName":"prdName","unique":true,"sparse":false}}

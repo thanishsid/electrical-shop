@@ -23,7 +23,7 @@ const AddProducts = () => {
         event.preventDefault();
 
         const product = {
-            prdName,
+            prdName: prdName.trim(),
             prdQty: parseInt(prdQty, 10),
             prdCost: parseFloat(prdCost),
             prdWhPrice: parseFloat(prdWhPrice),

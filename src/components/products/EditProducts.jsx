@@ -41,7 +41,7 @@ const EditProducts = () => {
         if (selections.length === 1) {
             // eslint-disable-next-line no-underscore-dangle
             editProduct(selections[0]._id, {
-                prdName: pname,
+                prdName: pname.trim(),
                 prdQty: parseInt(pqty, 10),
                 prdCost: parseFloat(pcost),
                 prdWhPrice: parseFloat(pwPrice),
