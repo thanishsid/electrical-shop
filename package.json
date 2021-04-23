@@ -14,22 +14,27 @@
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-repeatable": "^2.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-table": "^7.6.3",
     "zustand": "^3.3.3"
   },
+  "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-empty": "BROWSER=none yarn start",
+    "start-empty": "BROWSER=none yarn react-start",
     "only-electron": "electron .",
-    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "lint": "eslint ."
+    "start": "concurrently \"BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "lint": "eslint .",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build"
   },
-  "main": "public/main.js",
+  "main": "public/electron.js",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -47,7 +52,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
-    "electron": "^11.4.1",
+    "electron": "^12.0.4",
     "electron-builder": "^22.10.5",
     "electron-rebuild": "^2.3.5",
     "eslint-config-airbnb": "^18.2.1",

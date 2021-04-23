@@ -19,7 +19,6 @@ import CustomerTransactions from './CustomerTransactions';
 
 const useStyles = makeStyles({
     root: {
-        flexGrow: 1,
         maxWidth: '100%',
         margin: '0, auto',
     },
@@ -50,9 +49,10 @@ export default function IconLabelTabs() {
     }, [pathname]);
 
     return (
-        <div className="rightHalf">
+        <div className="half">
             <Paper square className={classes.root}>
                 <Tabs
+                    style={{ height: '10vh' }}
                     value={value}
                     onChange={handleChange}
                     variant="fullWidth"

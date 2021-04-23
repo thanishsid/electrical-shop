@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useProducts, useCustomers } from '../../store';
+import { useProducts, useCustomers, useSales } from '../../store';
 
 const Selector = ({ row, type }) => {
     const [selected, setSelected] = useState(false);
@@ -16,6 +16,8 @@ const Selector = ({ row, type }) => {
 
     const customerSelection = useCustomers((state) => state.selectedCustomers);
 
+    const salesSelection = useSales((state) => state.selectedSales);
+
     useEffect(() => {
         if (type === 'products') {
             productSelection.forEach((product) => {
@@ -31,9 +33,16 @@ const Selector = ({ row, type }) => {
                     setSelected(true);
                 }
             });
+        } else if (type === 'sales') {
+            salesSelection.forEach((sale) => {
+                // eslint-disable-next-line no-underscore-dangle
+                if (sale._id === row._id) {
+                    setSelected(true);
+                }
+            });
         }
         // eslint-disable-next-line no-underscore-dangle
-    }, [customerSelection, productSelection, row._id, type]);
+    }, [customerSelection, productSelection, row._id, salesSelection, type]);
 
     const handleChange = (event) => {
         // event.persist();

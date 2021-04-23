@@ -3,8 +3,7 @@ import SalesTable from '../components/sales/SalesTable';
 
 const SalesScreen = () => {
     return (
-        <div>
-            <p>Sales</p>
+        <div className="screens">
             <SalesTable />
         </div>
     );

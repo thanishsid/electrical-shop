@@ -1,4 +1,11 @@
-{"prdName":"Bulb","prdQty":57,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
+{"prdName":"Bulb","prdQty":46,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
 {"prdName":"Torch","prdQty":75,"prdCost":358,"prdWhPrice":685,"prdRePrice":1155,"_id":"SnOLOEVRYFNskcUc"}
-{"prdName":"Chainsaw","prdQty":21,"prdCost":5789,"prdWhPrice":7635,"prdRePrice":9569,"_id":"zJ77PwFLbBe7eGbv"}
+{"prdName":"Heater","prdQty":9,"prdCost":3789,"prdWhPrice":5321,"prdRePrice":7658,"_id":"ouXDbYHCTpD84S1D"}
+{"prdName":"Chainsaw","prdQty":16,"prdCost":5789,"prdWhPrice":7635,"prdRePrice":9569,"_id":"zJ77PwFLbBe7eGbv"}
 {"$$indexCreated":{"fieldName":"prdName","unique":true,"sparse":false}}
+{"prdName":"Drill","prdQty":15,"prdCost":3265,"prdWhPrice":4385,"prdRePrice":6495,"_id":"cc8uhtULEX54ohKG"}
+{"prdName":"Grinder","prdQty":9,"prdCost":2365,"prdWhPrice":3145,"prdRePrice":4295,"_id":"ZlDyX8kHt0FoBxX0"}
+{"prdName":"ssdrhvcbusdh","prdQty":45,"prdCost":274,"prdWhPrice":456,"prdRePrice":875,"_id":"o6n50ZdR3uuaGomt"}
+{"prdName":"sethtgsdettbd","prdQty":45,"prdCost":654,"prdWhPrice":754,"prdRePrice":864,"_id":"o8pfE3zmVx037Xru"}
+{"$$deleted":true,"_id":"o6n50ZdR3uuaGomt"}
+{"$$deleted":true,"_id":"o8pfE3zmVx037Xru"}

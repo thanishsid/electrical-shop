@@ -1,13 +1,11 @@
 import create from 'zustand';
 import { getData, dbFunction } from './dbcontroller/renderer';
-
-const removeSelection = (currentSelections, rowToRemove) => {
-    const newSelections = currentSelections.filter(
-        // eslint-disable-next-line no-underscore-dangle
-        (rows) => rows._id !== rowToRemove._id
-    );
-    return newSelections;
-};
+import {
+    removeItems,
+    addCartItem,
+    changeQty,
+    editSalePrice,
+} from './functions/storeFunctions';
 
 export const useProducts = create((set) => ({
     products: [],
@@ -38,7 +36,7 @@ export const useProducts = create((set) => ({
             }));
         } else {
             set((state) => ({
-                selectedProducts: removeSelection(state.selectedProducts, data),
+                selectedProducts: removeItems(state.selectedProducts, data),
             }));
         }
     },
@@ -76,10 +74,7 @@ export const useCustomers = create((set) => ({
             }));
         } else {
             set((state) => ({
-                selectedCustomers: removeSelection(
-                    state.selectedCustomers,
-                    data
-                ),
+                selectedCustomers: removeItems(state.selectedCustomers, data),
             }));
         }
     },
@@ -87,40 +82,6 @@ export const useCustomers = create((set) => ({
         set(() => ({ selectedCustomers: [] }));
     },
 }));
-
-const addCartItem = (currentItems, itemsToAdd) => {
-    const newItems = itemsToAdd.filter(
-        // eslint-disable-next-line no-underscore-dangle
-        (item) => currentItems.every((itm) => itm._id !== item._id)
-    );
-
-    if (newItems) {
-        return [...currentItems, ...newItems];
-    }
-
-    return currentItems;
-};
-
-const changeQty = (currentItems, itemToChange, type) => {
-    const targetItem = currentItems.find(
-        // eslint-disable-next-line no-underscore-dangle
-        (item) => item._id === itemToChange._id
-    );
-
-    let quantity = itemToChange.prdQty;
-
-    if (type === 'inc') {
-        quantity += 1;
-    } else if (type === 'dec') {
-        quantity -= 1;
-    }
-
-    if (targetItem) {
-        return [...currentItems, { ...itemToChange, prdQty: quantity }];
-    }
-    console.log('bruh');
-    return currentItems;
-};
 
 export const useCart = create((set) => ({
     items: [],
@@ -132,7 +93,44 @@ export const useCart = create((set) => ({
         set((state) => ({
             items: changeQty(state.items, itemToChange, type),
         })),
+    changeSalePrice: (itemToChange, amount) =>
+        set((state) => ({
+            items: editSalePrice(state.items, itemToChange, amount),
+        })),
+    removeItem: (item) =>
+        set((state) => ({
+            items: removeItems(state.items, item),
+        })),
 }));
 
-// username: '',
-//     isAdmin: false,
+export const useSales = create((set) => ({
+    sales: [],
+    setSales: async () => {
+        const data = await getData('sales');
+        set(() => ({ sales: data }));
+    },
+    insertSale: async (items, { _id, custName }) => {
+        const saleData = {
+            items,
+            customer: { customerId: _id, customerName: custName },
+            time: new Date().toISOString(),
+        };
+        const data = await dbFunction('sale', null, saleData);
+        console.log(data);
+    },
+    selectedSales: [],
+    setSalesSelection: ({ isSelected, data }) => {
+        if (isSelected) {
+            set((state) => ({
+                selectedSales: [...state.selectedCustomers, data],
+            }));
+        } else {
+            set((state) => ({
+                selectedSales: removeItems(state.selectedCustomers, data),
+            }));
+        }
+    },
+    clearSelectedSales: () => {
+        set(() => ({ selectedSales: [] }));
+    },
+}));

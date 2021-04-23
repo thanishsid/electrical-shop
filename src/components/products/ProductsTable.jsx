@@ -35,7 +35,7 @@ export default function ProductsTable() {
     );
 
     return (
-        <div className="leftHalf">
+        <div className="half">
             <Table type="products" rowData={data} columnData={columns} />
         </div>
     );

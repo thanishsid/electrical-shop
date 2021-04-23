@@ -20,7 +20,7 @@ const CustomersTable = () => {
     );
 
     return (
-        <div className="leftHalf">
+        <div className="half">
             <Table type="customers" rowData={data} columnData={columns} />
         </div>
     );

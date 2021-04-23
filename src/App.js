@@ -1,26 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import NavTabs from './components/common/NavTabs';
 import ProductScreen from './screens/ProductScreen';
 import SalesScreen from './screens/SalesScreen';
 import OrdersScreen from './screens/OrdersScreen';
 import CustomersScreen from './screens/CustomersScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import { useProducts, useCustomers } from './store';
+import { useProducts, useCustomers, useSales } from './store';
 import './App.css';
 
 function App() {
     const setProducts = useProducts((state) => state.setProducts);
     const setCustomers = useCustomers((state) => state.setCustomers);
+    const setSales = useSales((state) => state.setSales);
 
     React.useEffect(() => {
         const setData = async () => {
             await setProducts();
             await setCustomers();
+            await setSales();
         };
 
         setData();
-    }, [setProducts, setCustomers]);
+    }, [setProducts, setCustomers, setSales]);
 
     return (
         <Router>

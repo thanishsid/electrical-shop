@@ -8,8 +8,8 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 900,
-        height: 680,
+        width: 1440,
+        height: 900,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -24,6 +24,8 @@ function createWindow() {
         mainWindow = null;
     });
 }
+
+// console.log(app.getPath('appData'));
 
 app.on('ready', createWindow);
 
@@ -142,9 +144,59 @@ ipcMain.on('edit', (event, targetDb, data) => {
     );
 });
 
-ipcMain.on('newSale', (event, data) => {
-    console.log(event);
-    console.log(data);
+ipcMain.on('sale', (event, _targetDb, saleData) => {
+    sales.insert(saleData, (err, newData) => {
+        if (err) {
+            event.reply('sale-reply', err);
+        } else if (newData) {
+            const errors = [];
+            let updatedProducts = 0;
+            let updatedCustomers = 0;
+            const { customerId } = newData.customer;
+
+            newData.items.forEach((item) => {
+                const { _id, origQty, prdQty } = item;
+
+                const updatedQty = origQty - prdQty;
+
+                products.update(
+                    { _id },
+                    { $set: { prdQty: updatedQty } },
+                    {},
+                    (prderr, numUpdated) => {
+                        if (prderr) {
+                            errors.push(prderr);
+                        } else if (numUpdated) {
+                            updatedProducts += numUpdated;
+                        }
+                    }
+                );
+            });
+
+            customers.update(
+                { _id: customerId },
+                {
+                    // eslint-disable-next-line no-underscore-dangle
+                    $push: { custSales: newData._id },
+                },
+                {},
+                (custErr, numUpdated) => {
+                    if (custErr) {
+                        errors.push(custErr);
+                    } else if (numUpdated) {
+                        updatedCustomers = 1;
+                    }
+                }
+            );
+
+            if (!errors.length) {
+                event.reply(
+                    'sale-reply',
+                    `Sale Successful Upadated ${updatedProducts} products and ${updatedCustomers} customers.`
+                );
+            }
+        }
+    });
 });
 
 // <<<<<<<<<<<#  DB FUNCTIONS END  #>>>>>>>>>>>>>>

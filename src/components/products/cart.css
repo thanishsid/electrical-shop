@@ -1,0 +1,59 @@
+.cartTableRow {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.cartTableBody {
+    display: block;
+    height: 40vh;
+    overflow-y: auto;
+}
+.cartTableHeader {
+    width: calc(
+        100% - 0em
+    ); /* scrollbar is average 1em/16px width, remove it from thead width */
+    border-bottom: solid 2px rgb(209, 27, 27);
+    background: rgba(9, 167, 80, 0.116);
+    color: black;
+    font-weight: bold;
+    height: 4vh;
+    position: relative;
+    display: block;
+}
+.cartTable {
+    border: solid 2px rgb(161, 155, 155);
+    border-radius: 0.5em;
+    /* margin-top: 1em; */
+    width: 100%;
+}
+
+.cartTableCell {
+    padding: 0.3rem;
+    border: solid 1px gray;
+    background: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.removeItem {
+    color: rgb(168, 1, 1);
+    border: none;
+    background: white;
+    transform: scale(1.5);
+    font-weight: 700;
+}
+
+.removeItem:hover {
+    transform: scale(2);
+}
+
+.priceGrp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty {
+    margin-left: 10%;
+    margin-right: 10%;
+}

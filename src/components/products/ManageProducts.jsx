@@ -1,5 +1,11 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch, Link } from 'react-router-dom';
+import {
+    Switch,
+    Route,
+    useRouteMatch,
+    Link,
+    useLocation,
+} from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -13,7 +19,6 @@ import ProductTransaction from './ProductTransaction';
 
 const useStyles = makeStyles({
     root: {
-        flexGrow: 1,
         maxWidth: '100%',
         margin: '0, auto',
     },
@@ -29,10 +34,25 @@ export default function IconLabelTabs() {
 
     const { path, url } = useRouteMatch();
 
+    const { pathname } = useLocation();
+
+    React.useEffect(() => {
+        if (pathname === '/products') {
+            setValue(0);
+        } else if (pathname === '/products/edit') {
+            setValue(1);
+        } else if (pathname === '/products/add') {
+            setValue(2);
+        } else if (pathname === '/products/remove') {
+            setValue(3);
+        }
+    }, [pathname]);
+
     return (
-        <div className="rightHalf">
+        <div className="half">
             <Paper square className={classes.root}>
                 <Tabs
+                    style={{ height: '10vh' }}
                     value={value}
                     onChange={handleChange}
                     variant="fullWidth"
