@@ -25,13 +25,12 @@ export default function Table({ rowData, columnData, type }) {
                         {...headerGroup.getHeaderGroupProps()}
                         className="tableRow"
                     >
-                        <th className="tableHead widen"> </th>
+                        <th className="shrink"> </th>
                         {headerGroup.headers.map((column) => (
                             <th
                                 {...column.getHeaderProps(
                                     column.getSortByToggleProps()
                                 )}
-                                className="tableHead"
                             >
                                 {column.render('Header')}
                                 <span>

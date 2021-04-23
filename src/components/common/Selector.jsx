@@ -61,7 +61,7 @@ const Selector = ({ row, type }) => {
         }
     };
     return (
-        <td className="tableCell widen">
+        <td className="tableCell shrink">
             <input
                 className="selectBox"
                 type="checkbox"

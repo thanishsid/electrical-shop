@@ -6,25 +6,21 @@
 
 .cartTableBody {
     display: block;
-    height: 40vh;
+    height: 35vh;
     overflow-y: auto;
 }
 .cartTableHeader {
-    width: calc(
-        100% - 0em
-    ); /* scrollbar is average 1em/16px width, remove it from thead width */
+    width: 100%;
     border-bottom: solid 2px rgb(209, 27, 27);
     background: rgba(9, 167, 80, 0.116);
     color: black;
-    font-weight: bold;
-    height: 4vh;
-    position: relative;
+    /* height: 4vh; */
+    /* position: relative; */
     display: block;
 }
 .cartTable {
     border: solid 2px rgb(161, 155, 155);
     border-radius: 0.5em;
-    /* margin-top: 1em; */
     width: 100%;
 }
 
