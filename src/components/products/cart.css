@@ -6,7 +6,7 @@
 
 .cartTableBody {
     display: block;
-    height: 35vh;
+    height: 40vh;
     overflow-y: auto;
 }
 .cartTableHeader {
@@ -41,6 +41,7 @@
 
 .removeItem:hover {
     transform: scale(2);
+    cursor: pointer;
 }
 
 .priceGrp {
