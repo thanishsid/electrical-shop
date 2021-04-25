@@ -5,3 +5,5 @@
 {"prdName":"Heater","prdQty":9,"prdCost":3789,"prdWhPrice":5321,"prdRePrice":7658,"_id":"ouXDbYHCTpD84S1D"}
 {"prdName":"Chainsaw","prdQty":16,"prdCost":5789,"prdWhPrice":7635,"prdRePrice":9569,"_id":"zJ77PwFLbBe7eGbv"}
 {"$$indexCreated":{"fieldName":"prdName","unique":true,"sparse":false}}
+{"prdName":"Bulb","prdQty":37,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
+{"prdName":"Torch","prdQty":69,"prdCost":358,"prdWhPrice":685,"prdRePrice":1155,"_id":"SnOLOEVRYFNskcUc"}

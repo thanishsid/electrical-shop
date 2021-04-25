@@ -5,3 +5,4 @@
 {"custName":"Gaveen","custPhone":"0777987035","custOrders":[],"custSales":[],"_id":"qiR1NwNNWWMWkK6v"}
 {"custName":"Thanish","custPhone":"0720728232","custOrders":[],"custSales":[],"_id":"uVQmGfa8HzUoXtKZ"}
 {"$$indexCreated":{"fieldName":"custName","unique":true,"sparse":false}}
+{"custName":"Upekshana","custPhone":"0766970693","custOrders":[],"custSales":["iZmYJiNlqhuVpvA7"],"_id":"Gj73WAjFZ6e1tZjH"}

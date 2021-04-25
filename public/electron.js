@@ -192,7 +192,7 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
             if (!errors.length) {
                 event.reply(
                     'sale-reply',
-                    `Sale Successful Upadated ${updatedProducts} products and ${updatedCustomers} customers.`
+                    `Sale Successful Updated ${updatedProducts} products and ${updatedCustomers} customers.`
                 );
             }
         }
