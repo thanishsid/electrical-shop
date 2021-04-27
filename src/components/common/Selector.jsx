@@ -12,6 +12,8 @@ const Selector = ({ row, type }) => {
         (state) => state.setCustomerSelection
     );
 
+    const setSalesSelection = useSales((state) => state.setSalesSelection);
+
     const productSelection = useProducts((state) => state.selectedProducts);
 
     const customerSelection = useCustomers((state) => state.selectedCustomers);
@@ -55,6 +57,11 @@ const Selector = ({ row, type }) => {
             });
         } else if (type === 'customers') {
             setCustomerSelection({
+                isSelected: event.target.checked,
+                data: row,
+            });
+        } else if (type === 'sales') {
+            setSalesSelection({
                 isSelected: event.target.checked,
                 data: row,
             });

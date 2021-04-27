@@ -10,8 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import EditIcon from '@material-ui/icons/Edit';
+import DetailsIcon from '@material-ui/icons/Details';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import SaleDetails from './SaleDetails';
+import SaleFunctions from './SaleFunctions';
 
 const useStyles = makeStyles({
     root: {
@@ -33,14 +36,12 @@ export default function IconLabelTabs() {
     const { pathname } = useLocation();
 
     React.useEffect(() => {
-        if (pathname === '/customers') {
+        if (pathname === '/sales') {
             setValue(0);
-        } else if (pathname === '/customers/add') {
+        } else if (pathname === '/sales/return') {
             setValue(1);
-        } else if (pathname === '/customers/edit') {
+        } else if (pathname === '/sales/remove') {
             setValue(2);
-        } else if (pathname === '/customers/remove') {
-            setValue(3);
         }
     }, [pathname]);
 
@@ -57,22 +58,16 @@ export default function IconLabelTabs() {
                     aria-label="icon label tabs example"
                 >
                     <Tab
-                        icon={<AddShoppingCartIcon />}
-                        label="SALES & ORDERS"
+                        icon={<DetailsIcon />}
+                        label="Details"
                         component={Link}
                         to={`${url}`}
                     />
                     <Tab
-                        icon={<AddIcon />}
-                        label="ADD"
+                        icon={<ArrowBackIcon />}
+                        label="Return"
                         component={Link}
-                        to={`${url}/add`}
-                    />
-                    <Tab
-                        icon={<EditIcon />}
-                        label="EDIT"
-                        component={Link}
-                        to={`${url}/edit`}
+                        to={`${url}/return`}
                     />
                     <Tab
                         icon={<DeleteForeverIcon />}
@@ -84,10 +79,10 @@ export default function IconLabelTabs() {
             </Paper>
             <Switch>
                 <Route path={path} exact>
-                    <CustomerTransactions />
+                    <SaleDetails />
                 </Route>
                 <Route path={`${path}/:funcId`}>
-                    <CustomerFunctions />
+                    <SaleFunctions />
                 </Route>
             </Switch>
         </div>

@@ -122,11 +122,11 @@ export const useSales = create((set) => ({
     setSalesSelection: ({ isSelected, data }) => {
         if (isSelected) {
             set((state) => ({
-                selectedSales: [...state.selectedCustomers, data],
+                selectedSales: [...state.selectedSales, data],
             }));
         } else {
             set((state) => ({
-                selectedSales: removeItems(state.selectedCustomers, data),
+                selectedSales: removeItems(state.selectedSales, data),
             }));
         }
     },
