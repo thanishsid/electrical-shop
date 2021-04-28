@@ -49,7 +49,8 @@
         "no-console": "off",
         "react/prop-types": 0,
         "prettier/prettier": [
-            "error"
+            "error",
+            {"endOfLine":"auto"}
         ]
     },
     "globals": {

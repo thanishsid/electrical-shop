@@ -1,0 +1,43 @@
+.saleDetails {
+    margin-top: 2rem;
+}
+
+.tbl {
+    display: table;
+    width: 100%;
+}
+
+.tr {
+    display: flex;
+}
+
+.tc {
+    float: left;
+    text-align: center;
+    width: 25%;
+    display: table-column;
+    border: 1px solid #ccc;
+}
+
+.vwBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btnViewItems {
+    border: 2px solid rgba(0, 0, 0, 0.404);
+    border-radius: 0.5em;
+    height: 50%;
+}
+
+.tcitems .tc {
+    width: 100%;
+}
+
+.itemSpace {
+    margin-bottom: 1rem;
+}
+
+.hide {
+    display: none;
+}
