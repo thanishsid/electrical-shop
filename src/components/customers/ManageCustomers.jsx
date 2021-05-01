@@ -6,8 +6,8 @@ import {
     Link,
     useLocation,
 } from 'react-router-dom';
+import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
@@ -17,15 +17,14 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import CustomerFunctions from './CustomerFunctions';
 import CustomerTransactions from './CustomerTransactions';
 
-const useStyles = makeStyles({
-    root: {
-        maxWidth: '100%',
-        margin: '0, auto',
-    },
-});
+const FunctionPanel = styled(Paper)`
+    max-width: 100%;
+    margin: 0, auto;
+    border: 1px solid #888888;
+    border-bottom: none;
+`;
 
 export default function IconLabelTabs() {
-    const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -50,7 +49,7 @@ export default function IconLabelTabs() {
 
     return (
         <div className="half">
-            <Paper square className={classes.root}>
+            <FunctionPanel square>
                 <Tabs
                     style={{ height: '10vh' }}
                     value={value}
@@ -85,7 +84,7 @@ export default function IconLabelTabs() {
                         to={`${url}/remove`}
                     />
                 </Tabs>
-            </Paper>
+            </FunctionPanel>
             <Switch>
                 <Route path={path} exact>
                     <CustomerTransactions />

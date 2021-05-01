@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import { useCustomers } from '../../store';
 
-const FormCtrl = withStyles({
-    root: {
-        marginTop: '1rem',
-    },
-})(FormControl);
+const Form = styled.form`
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+`;
+
+const FormCtrl = styled(FormControl)`
+    margin-top: 1rem;
+`;
+
+const EditButton = styled(Button)`
+    margin-top: 1rem;
+`;
 
 const EditCustomers = () => {
     const [cname, setName] = useState('');
@@ -48,15 +58,7 @@ const EditCustomers = () => {
         return <h3>Please Select a Customer to Edit</h3>;
     }
     return (
-        <form
-            style={{
-                marginLeft: '2rem',
-                marginTop: '3rem',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-            onSubmit={handleSubmit}
-        >
+        <Form onSubmit={handleSubmit}>
             <FormCtrl>
                 <InputLabel htmlFor="cust-name">Customer Name</InputLabel>
                 <Input
@@ -80,14 +82,10 @@ const EditCustomers = () => {
                 />
             </FormCtrl>
 
-            <Button
-                style={{ marginTop: '1rem' }}
-                variant="contained"
-                type="submit"
-            >
+            <EditButton variant="contained" type="submit">
                 Edit Customer
-            </Button>
-        </form>
+            </EditButton>
+        </Form>
     );
 };
 

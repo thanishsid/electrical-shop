@@ -152,7 +152,9 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
             const errors = [];
             let updatedProducts = 0;
             let updatedCustomers = 0;
-            const { customerId } = newData.customer;
+            const custId = newData.customer
+                ? newData.customer.customerId
+                : null;
 
             newData.items.forEach((item) => {
                 const { _id, origQty, prdQty } = item;
@@ -173,21 +175,23 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
                 );
             });
 
-            customers.update(
-                { _id: customerId },
-                {
-                    // eslint-disable-next-line no-underscore-dangle
-                    $push: { custSales: newData._id },
-                },
-                {},
-                (custErr, numUpdated) => {
-                    if (custErr) {
-                        errors.push(custErr);
-                    } else if (numUpdated) {
-                        updatedCustomers = 1;
+            if (custId) {
+                customers.update(
+                    { _id: custId },
+                    {
+                        // eslint-disable-next-line no-underscore-dangle
+                        $push: { custSales: newData._id },
+                    },
+                    {},
+                    (custErr, numUpdated) => {
+                        if (custErr) {
+                            errors.push(custErr);
+                        } else if (numUpdated) {
+                            updatedCustomers = 1;
+                        }
                     }
-                }
-            );
+                );
+            }
 
             if (!errors.length) {
                 event.reply(

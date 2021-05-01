@@ -30,8 +30,10 @@ export default function CenteredTabs() {
             setValue(2);
         } else if (pathname.includes('customers')) {
             setValue(3);
-        } else if (pathname.includes('settings')) {
+        } else if (pathname.includes('returns')) {
             setValue(4);
+        } else if (pathname.includes('settings')) {
+            setValue(5);
         }
     }, [pathname]);
 
@@ -48,6 +50,7 @@ export default function CenteredTabs() {
                 <Tab label="Sales" component={Link} to="/sales" />
                 <Tab label="Orders" component={Link} to="/orders" />
                 <Tab label="Customers" component={Link} to="/customers" />
+                <Tab label="Returns" component={Link} to="/returns" />
                 <Tab label="Settings" component={Link} to="/settings" />
             </Tabs>
         </Paper>

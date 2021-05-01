@@ -13,7 +13,9 @@ const SaleItem = ({ sale }) => {
                     <p>{sale.time}</p>
                 </div>
                 <div className="tc">
-                    <p>{sale.customer.customerName}</p>
+                    <p>
+                        {sale.customer ? sale.customer.customerName : 'Normal'}
+                    </p>
                 </div>
                 <div className="tc vwBtnContainer">
                     <button

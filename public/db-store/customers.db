@@ -1,7 +1,7 @@
-{"custName":"Upekshana","custPhone":"0766970693","custOrders":[],"custSales":["iZmYJiNlqhuVpvA7"],"_id":"Gj73WAjFZ6e1tZjH"}
-{"custName":"Dhiyan","custPhone":"0766538912","custOrders":[],"custSales":["yKXiCtFJ2yZKQj4O"],"_id":"Jy9tSRGxMv3HZI3O"}
+{"custName":"Nisath","custPhone":"0761905737","custOrders":[],"custSales":[],"_id":"3EPm4QYxNKiuua9l"}
 {"custName":"Sarah","custPhone":"0720728230","custOrders":[],"custSales":[],"_id":"S3UhuNq4J4jm8K1U"}
 {"custName":"Thaaqib","custPhone":"0773219875","custOrders":[],"custSales":[],"_id":"e0qVNrfGNbIv0Y34"}
+{"custName":"John","custPhone":"0775189756","custOrders":[],"custSales":[],"_id":"iXAOPSH9hMb6gMw2"}
 {"custName":"Gaveen","custPhone":"0777987035","custOrders":[],"custSales":[],"_id":"qiR1NwNNWWMWkK6v"}
-{"custName":"Thanish","custPhone":"0720728232","custOrders":[],"custSales":[],"_id":"uVQmGfa8HzUoXtKZ"}
+{"custName":"Thanish","custPhone":"0720728232","custOrders":[],"custSales":["QBZ9fJZpposqux9s"],"_id":"uVQmGfa8HzUoXtKZ"}
 {"$$indexCreated":{"fieldName":"custName","unique":true,"sparse":false}}

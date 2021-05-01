@@ -1,12 +1,33 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import './DeleteItems.css';
+
+const DeleteContainer = styled.section`
+    border: 2px solid #a19b9b;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+`;
+
+const Items = styled.section`
+    height: 100%;
+    overflow-y: auto;
+`;
+
+const DeleteButton = styled(Button)`
+    width: 100%;
+    margin-top: 1rem;
+    height: 4vh;
+`;
 
 const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
     return (
-        <div className="deleteContainer">
-            <div className="deleteItems">
+        <DeleteContainer>
+            <Items>
                 {items.map((row) => {
                     return (
                         // eslint-disable-next-line no-underscore-dangle
@@ -15,8 +36,8 @@ const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
                         }`}</h4>
                     );
                 })}
-            </div>
-            <Button
+            </Items>
+            <DeleteButton
                 onClick={deleteFunction}
                 variant="contained"
                 color="secondary"
@@ -24,8 +45,8 @@ const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
                 startIcon={<DeleteIcon />}
             >
                 {`${btnLabel}`}
-            </Button>
-        </div>
+            </DeleteButton>
+        </DeleteContainer>
     );
 };
 

@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import { useProducts } from '../../store';
 
-const FormCtrl = withStyles({
-    root: {
-        marginTop: '1rem',
-    },
-})(FormControl);
+const FormCtrl = styled(FormControl)`
+    margin-top: 1rem;
+`;
+
+const Form = styled.form`
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+`;
+
+const MessageContainer = styled.section`
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgb(161, 155, 155);
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+`;
 
 const EditProducts = () => {
     const [pname, setName] = useState('');
@@ -51,21 +67,21 @@ const EditProducts = () => {
     };
 
     if (selections.length > 1) {
-        return <h3>Please Select One Product Only</h3>;
+        return (
+            <MessageContainer>
+                <h3>Please Select One Product Only</h3>
+            </MessageContainer>
+        );
     }
     if (selections.length < 1) {
-        return <h3>Please Select a Product to Edit</h3>;
+        return (
+            <MessageContainer>
+                <h3>Please Select a Product to Edit</h3>;
+            </MessageContainer>
+        );
     }
     return (
-        <form
-            style={{
-                marginLeft: '2rem',
-                marginTop: '3rem',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-            onSubmit={handleSubmit}
-        >
+        <Form onSubmit={handleSubmit}>
             <FormCtrl>
                 <InputLabel htmlFor="prod-name">Product Name</InputLabel>
                 <Input
@@ -129,7 +145,7 @@ const EditProducts = () => {
             >
                 Edit Product
             </Button>
-        </form>
+        </Form>
     );
 };
 

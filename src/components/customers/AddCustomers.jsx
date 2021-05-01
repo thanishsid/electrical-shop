@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import { useCustomers } from '../../store';
-import './AddCustomers.css';
 
-const FormCtrl = withStyles({
-    root: {
-        marginTop: '1rem',
-    },
-})(FormControl);
+const FormCtrl = styled(FormControl)`
+    margin-top: 1rem;
+`;
+
+const Form = styled.form`
+    margin: 0rem 2rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+`;
+
+const ButtonContainer = styled.section`
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+`;
 
 const AddCustomers = () => {
     const [custName, setCustName] = useState('');
@@ -34,7 +44,7 @@ const AddCustomers = () => {
         setCustPhone('');
     };
     return (
-        <form className="addCustomersForm" onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <FormCtrl>
                 <InputLabel htmlFor="cust-name">Customer Name</InputLabel>
                 <Input
@@ -60,7 +70,7 @@ const AddCustomers = () => {
                 />
             </FormCtrl>
 
-            <div className="btnContainer">
+            <ButtonContainer>
                 <Button variant="contained" type="submit" className="btn">
                     Add Customer
                 </Button>
@@ -73,8 +83,8 @@ const AddCustomers = () => {
                 >
                     Clear Entries
                 </Button>
-            </div>
-        </form>
+            </ButtonContainer>
+        </Form>
     );
 };
 

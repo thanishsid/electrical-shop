@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { useMemo } from 'react';
-import Table from '../common/Table';
+import DataTable from '../common/Table';
 import { useProducts } from '../../store';
 
 // const selectedProds = (state) => state.selectedProducts;
@@ -36,7 +36,7 @@ export default function ProductsTable() {
 
     return (
         <div className="half">
-            <Table type="products" rowData={data} columnData={columns} />
+            <DataTable type="products" rowData={data} columnData={columns} />
         </div>
     );
 }

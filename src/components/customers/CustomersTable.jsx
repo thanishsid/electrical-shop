@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import Table from '../common/Table';
+import DataTable from '../common/Table';
 import { useCustomers } from '../../store';
 
 const CustomersTable = () => {
@@ -21,7 +21,7 @@ const CustomersTable = () => {
 
     return (
         <div className="half">
-            <Table type="customers" rowData={data} columnData={columns} />
+            <DataTable type="customers" rowData={data} columnData={columns} />
         </div>
     );
 };

@@ -1,23 +1,58 @@
 import React from 'react';
+import styled from 'styled-components';
 import Repeatable from 'react-repeatable';
 import { useCart } from '../../store';
 import PriceSelector from '../common/PriceSelector';
 import { roundToTwo } from '../../functions/generalFunctions';
 
+const TableRow = styled.tr`
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+`;
+
+const PriceGroup = styled.section`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const TableCell = styled.td`
+    padding: 0.3rem;
+    border: solid 1px gray;
+    background: rgb(255, 255, 255);
+    text-align: center;
+`;
+
+const Quantity = styled.p`
+    margin-left: 10%;
+    margin-right: 10%;
+`;
+
+const RemoveButton = styled.button`
+    color: rgb(168, 1, 1);
+    border: none;
+    background: white;
+    transform: scale(1.5);
+    font-weight: 700;
+    &:hover {
+        transform: scale(2);
+        cursor: pointer;
+    }
+`;
+
 const CartItem = ({ item }) => {
     const changeQuantity = useCart((state) => state.changeQuantity);
-
     const changeSalePrice = useCart((state) => state.changeSalePrice);
-
     const removeItem = useCart((state) => state.removeItem);
 
     return (
-        <tr className="cartTableRow">
+        <TableRow>
             {item && (
                 <>
-                    <td className="cartTableCell">{item.prdName}</td>
-                    <td className="cartTableCell">
-                        <div className="priceGrp">
+                    <TableCell>{item.prdName}</TableCell>
+                    <TableCell>
+                        <PriceGroup>
                             <Repeatable
                                 tag="button"
                                 type="button"
@@ -26,7 +61,7 @@ const CartItem = ({ item }) => {
                             >
                                 -
                             </Repeatable>
-                            <p className="qty">{item.prdQty}</p>
+                            <Quantity>{item.prdQty}</Quantity>
                             <Repeatable
                                 tag="button"
                                 type="button"
@@ -35,31 +70,30 @@ const CartItem = ({ item }) => {
                             >
                                 +
                             </Repeatable>
-                        </div>
-                    </td>
+                        </PriceGroup>
+                    </TableCell>
 
-                    <td className="cartTableCell">
+                    <TableCell>
                         <PriceSelector
                             item={item}
                             custPriceChange={changeSalePrice}
                         />
-                    </td>
-                    <td className="cartTableCell">{`${item.prdQty} x ${item.salePrice}`}</td>
-                    <td className="cartTableCell">
+                    </TableCell>
+                    <TableCell>{`${item.prdQty} x ${item.salePrice}`}</TableCell>
+                    <TableCell>
                         {roundToTwo(item.prdQty * item.salePrice)}
-                    </td>
-                    <td className="cartTableCell">
-                        <button
-                            className="removeItem"
+                    </TableCell>
+                    <TableCell>
+                        <RemoveButton
                             onClick={() => removeItem(item)}
                             type="button"
                         >
                             X
-                        </button>
-                    </td>
+                        </RemoveButton>
+                    </TableCell>
                 </>
             )}
-        </tr>
+        </TableRow>
     );
 };
 

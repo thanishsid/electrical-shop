@@ -1,5 +1,19 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { useProducts, useCustomers, useSales } from '../../store';
+
+const TableCell = styled.td`
+    padding: 0.3rem;
+    border: solid 1px gray;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    width: ${(props) => (props.shrink ? '3rem' : '')};
+`;
+
+const SelectBox = styled.input`
+    transform: scale(1.3);
+`;
 
 const Selector = ({ row, type }) => {
     const [selected, setSelected] = useState(false);
@@ -13,37 +27,30 @@ const Selector = ({ row, type }) => {
     );
 
     const setSalesSelection = useSales((state) => state.setSalesSelection);
-
     const productSelection = useProducts((state) => state.selectedProducts);
-
     const customerSelection = useCustomers((state) => state.selectedCustomers);
-
     const salesSelection = useSales((state) => state.selectedSales);
 
     useEffect(() => {
         if (type === 'products') {
             productSelection.forEach((product) => {
-                // eslint-disable-next-line no-underscore-dangle
                 if (product._id === row._id) {
                     setSelected(true);
                 }
             });
         } else if (type === 'customers') {
             customerSelection.forEach((customer) => {
-                // eslint-disable-next-line no-underscore-dangle
                 if (customer._id === row._id) {
                     setSelected(true);
                 }
             });
         } else if (type === 'sales') {
             salesSelection.forEach((sale) => {
-                // eslint-disable-next-line no-underscore-dangle
                 if (sale._id === row._id) {
                     setSelected(true);
                 }
             });
         }
-        // eslint-disable-next-line no-underscore-dangle
     }, [customerSelection, productSelection, row._id, salesSelection, type]);
 
     const handleChange = (event) => {
@@ -68,14 +75,13 @@ const Selector = ({ row, type }) => {
         }
     };
     return (
-        <td className="tableCell shrink">
-            <input
-                className="selectBox"
+        <TableCell shrink>
+            <SelectBox
                 type="checkbox"
                 checked={selected}
                 onChange={handleChange}
             />
-        </td>
+        </TableCell>
     );
 };
 

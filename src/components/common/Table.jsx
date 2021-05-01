@@ -1,10 +1,48 @@
 /* eslint-disable react/jsx-key */
 import React, { useMemo } from 'react';
 import { useTable, useSortBy } from 'react-table';
+import styled from 'styled-components';
 import Selector from './Selector';
-import './Table.css';
 
-export default function Table({ rowData, columnData, type }) {
+const Table = styled.table`
+    border: 2px solid rgb(161, 155, 155);
+    border-radius: 0.5em;
+    width: 100%;
+`;
+
+const TableHeader = styled.thead`
+    width: 100%;
+    border-bottom: solid 2px rgb(209, 27, 27);
+    background: aliceblue;
+    color: black;
+    display: block;
+`;
+
+const TableBody = styled.tbody`
+    display: block;
+    height: 80vh;
+    overflow-y: auto;
+`;
+
+const TableRow = styled.tr`
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+`;
+
+const Th = styled.th`
+    width: ${(props) => (props.shrink ? '3rem' : '')};
+`;
+
+const TableCell = styled.td`
+    padding: 0.3rem;
+    border: solid 1px gray;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    width: ${(props) => (props.shrink ? '3rem' : '')};
+`;
+
+export default function DataTable({ rowData, columnData, type }) {
     const allRows = rowData;
 
     const columns = useMemo(() => columnData, [columnData]);
@@ -18,14 +56,11 @@ export default function Table({ rowData, columnData, type }) {
     } = useTable({ columns, data: allRows || [] }, useSortBy);
 
     return (
-        <table {...getTableProps()} className="table">
-            <thead className="tableHeader">
+        <Table {...getTableProps()}>
+            <TableHeader>
                 {headerGroups.map((headerGroup) => (
-                    <tr
-                        {...headerGroup.getHeaderGroupProps()}
-                        className="tableRow"
-                    >
-                        <th className="shrink"> </th>
+                    <TableRow {...headerGroup.getHeaderGroupProps()}>
+                        <Th shrink> </Th>
                         {headerGroup.headers.map((column) => (
                             <th
                                 {...column.getHeaderProps(
@@ -39,30 +74,27 @@ export default function Table({ rowData, columnData, type }) {
                                 </span>
                             </th>
                         ))}
-                    </tr>
+                    </TableRow>
                 ))}
-            </thead>
+            </TableHeader>
 
-            <tbody {...getTableBodyProps()} className="tableBody">
+            <TableBody {...getTableBodyProps()}>
                 {rows.map((row) => {
                     prepareRow(row);
                     return (
-                        <tr className="tableRow" {...row.getRowProps()}>
+                        <TableRow {...row.getRowProps()}>
                             <Selector row={row.original} type={type} />
                             {row.cells.map((cell) => {
                                 return (
-                                    <td
-                                        {...cell.getCellProps()}
-                                        className="tableCell"
-                                    >
+                                    <TableCell {...cell.getCellProps()}>
                                         {cell.render('Cell')}
-                                    </td>
+                                    </TableCell>
                                 );
                             })}
-                        </tr>
+                        </TableRow>
                     );
                 })}
-            </tbody>
-        </table>
+            </TableBody>
+        </Table>
     );
 }

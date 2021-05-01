@@ -1,7 +1,10 @@
-{"prdName":"Bulb","prdQty":37,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
-{"prdName":"Torch","prdQty":60,"prdCost":358,"prdWhPrice":685,"prdRePrice":1155,"_id":"SnOLOEVRYFNskcUc"}
-{"prdName":"Grinder","prdQty":9,"prdCost":2365,"prdWhPrice":3145,"prdRePrice":4295,"_id":"ZlDyX8kHt0FoBxX0"}
-{"prdName":"Drill","prdQty":15,"prdCost":3265,"prdWhPrice":4385,"prdRePrice":6495,"_id":"cc8uhtULEX54ohKG"}
+{"prdName":"Bulb","prdQty":25,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
+{"prdName":"Laptop","prdQty":12,"prdCost":24550,"prdWhPrice":28650,"prdRePrice":35550,"_id":"NE6lj2HE2P5TvOMk"}
+{"prdName":"Torch","prdQty":55,"prdCost":358,"prdWhPrice":685,"prdRePrice":1155,"_id":"SnOLOEVRYFNskcUc"}
+{"prdName":"Grinder","prdQty":7,"prdCost":2365,"prdWhPrice":3145,"prdRePrice":4295,"_id":"ZlDyX8kHt0FoBxX0"}
+{"prdName":"Drill","prdQty":12,"prdCost":3265,"prdWhPrice":4385,"prdRePrice":6495,"_id":"cc8uhtULEX54ohKG"}
 {"prdName":"Heater","prdQty":13,"prdCost":3789,"prdWhPrice":5321,"prdRePrice":7658,"_id":"ouXDbYHCTpD84S1D"}
-{"prdName":"Chainsaw","prdQty":14,"prdCost":5789,"prdWhPrice":7635,"prdRePrice":9569,"_id":"zJ77PwFLbBe7eGbv"}
+{"prdName":"Chainsaw","prdQty":10,"prdCost":5789,"prdWhPrice":7635,"prdRePrice":9569,"_id":"zJ77PwFLbBe7eGbv"}
 {"$$indexCreated":{"fieldName":"prdName","unique":true,"sparse":false}}
+{"prdName":"Bulb","prdQty":23,"prdCost":125,"prdWhPrice":155,"prdRePrice":225,"_id":"AgKcT1dxjaDnr22N"}
+{"prdName":"Laptop","prdQty":11,"prdCost":24550,"prdWhPrice":28650,"prdRePrice":35550,"_id":"NE6lj2HE2P5TvOMk"}

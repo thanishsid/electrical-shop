@@ -1,14 +1,42 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
+import styled from 'styled-components';
+import {
+    FormControl,
+    InputLabel,
+    Input,
+    Button as Btn,
+} from '@material-ui/core';
 import { useProducts } from '../../store';
-import './AddProducts.css';
 
-const FormCtrl = withStyles({
-    root: {
-        marginTop: '1rem',
-    },
-})(FormControl);
+const FormCtrl = styled(FormControl)`
+    margin-top: 1rem;
+`;
+
+const Form = styled.form`
+    margin: 0rem 2rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+`;
+
+const Button = styled(Btn)`
+    width: 40%;
+    height: 3rem;
+    background: ${(props) => props.bgColor};
+    color: ${(props) => props.textColor};
+    &:hover {
+        background: rgb(189, 184, 184);
+        color: black;
+    }
+`;
+
+const ButtonContainer = styled.section`
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+`;
 
 const AddProducts = () => {
     const [prdName, setName] = useState('');
@@ -41,7 +69,7 @@ const AddProducts = () => {
         setCost('');
     };
     return (
-        <form className="addProductsForm" onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <FormCtrl>
                 <InputLabel htmlFor="prod-name">Product Name</InputLabel>
                 <Input
@@ -97,21 +125,29 @@ const AddProducts = () => {
                     onChange={(event) => setRprice(event.target.value)}
                 />
             </FormCtrl>
-            <div className="btnContainer">
-                <Button variant="contained" type="submit" className="btn">
+            <ButtonContainer>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    bgColor="#1c7f10"
+                    textColor="white"
+                    startIcon={<AddIcon />}
+                >
                     Add Product
                 </Button>
 
                 <Button
                     variant="contained"
                     type="button"
-                    className="btn"
+                    bgColor="#ab003c"
+                    textColor="white"
+                    startIcon={<ClearIcon />}
                     onClick={() => clearEntries()}
                 >
-                    Clear Entries
+                    Clear All
                 </Button>
-            </div>
-        </form>
+            </ButtonContainer>
+        </Form>
     );
 };
 

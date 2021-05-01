@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import create from 'zustand';
 import { getData, dbFunction } from './dbcontroller/renderer';
 import {
@@ -109,10 +110,14 @@ export const useSales = create((set) => ({
         const data = await getData('sales');
         set(() => ({ sales: data }));
     },
-    insertSale: async (items, { _id, custName }) => {
+    insertSale: async (items, customer) => {
+        const saleCustomer = customer
+            ? { customerId: customer._id, customerName: customer.custName }
+            : null;
+
         const saleData = {
             items,
-            customer: { customerId: _id, customerName: custName },
+            customer: saleCustomer,
             time: new Date().toISOString(),
         };
         const data = await dbFunction('sale', null, saleData);

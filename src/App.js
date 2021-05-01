@@ -5,6 +5,7 @@ import ProductScreen from './screens/ProductScreen';
 import SalesScreen from './screens/SalesScreen';
 import OrdersScreen from './screens/OrdersScreen';
 import CustomersScreen from './screens/CustomersScreen';
+import ReturnsScreen from './screens/ReturnsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { useProducts, useCustomers, useSales } from './store';
 import './App.css';
@@ -41,6 +42,9 @@ function App() {
                 </Route>
                 <Route path="/customers">
                     <CustomersScreen />
+                </Route>
+                <Route path="/returns">
+                    <ReturnsScreen />
                 </Route>
                 <Route path="/settings">
                     <SettingsScreen />

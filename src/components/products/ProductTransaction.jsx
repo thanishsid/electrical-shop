@@ -1,15 +1,70 @@
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useProducts, useCustomers, useCart, useSales } from '../../store';
 import CartItem from './CartItem';
-import './ProductTransaction.css';
-import './cart.css';
+
+const TransactionContainer = styled.section`
+    margin-top: 1rem;
+`;
+
+const AddToCartButton = styled(Button)`
+    &:hover {
+        background: #44cc44;
+        font-weight: Bold;
+    }
+`;
+
+const CartContainer = styled.section`
+    margin-top: 1rem;
+`;
+
+const Table = styled.table`
+    border: solid 2px rgb(161, 155, 155);
+    border-radius: 0.5em;
+    width: 100%;
+`;
+
+const TableHeader = styled.thead`
+    width: 100%;
+    border-bottom: solid 2px rgb(209, 27, 27);
+    background: rgba(9, 167, 80, 0.116);
+    color: black;
+    display: block;
+`;
+
+const TableBody = styled.tbody`
+    display: block;
+    height: 40vh;
+    overflow-y: auto;
+`;
+
+const CartTableRow = styled.tr`
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+`;
+
+const CustomerSelector = styled(Autocomplete)`
+    width: 100%;
+    margin: 1rem auto;
+`;
+
+const ConfirmSaletButton = styled(Button)`
+    width: 100%;
+    &:hover {
+        background: #44cc44;
+        font-weight: Bold;
+    }
+`;
 
 const ProductTransaction = () => {
     const customers = useCustomers((state) => state.customers);
-    const [selectedCustomer, setselectedCustomer] = useState(customers[0]);
+    const [selectedCustomer, setselectedCustomer] = useState(null);
     const selectedProducts = useProducts((state) => state.selectedProducts);
 
     const addCartItems = useCart((state) => state.addItem);
@@ -26,34 +81,35 @@ const ProductTransaction = () => {
     };
 
     return (
-        <div style={{ marginTop: '1rem' }}>
-            <button
+        <TransactionContainer>
+            <AddToCartButton
                 disabled={!selectedProducts.length}
                 onClick={handleAdd}
-                type="button"
-            >{`Add ${selectedProducts.length} items to the cart`}</button>
+                variant="contained"
+                startIcon={<AddIcon />}
+            >{`Add ${selectedProducts.length} items to the cart`}</AddToCartButton>
 
-            <div className="cart">
-                <table className="cartTable">
-                    <thead className="cartTableHeader">
-                        <tr className="cartTableRow">
+            <CartContainer>
+                <Table>
+                    <TableHeader>
+                        <CartTableRow>
                             <th>Name</th>
                             <th>Qty</th>
                             <th>Price</th>
                             <th>Net</th>
                             <th>Total</th>
                             <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody className="cartTableBody">
+                        </CartTableRow>
+                    </TableHeader>
+                    <TableBody>
                         {cartItems.length !== 0 &&
                             cartItems.map((item) => (
                                 <CartItem key={item.prdName} item={item} />
                             ))}
-                    </tbody>
-                </table>
-            </div>
-            <Autocomplete
+                    </TableBody>
+                </Table>
+            </CartContainer>
+            <CustomerSelector
                 value={selectedCustomer}
                 onChange={(_event, newValue) => {
                     setselectedCustomer(newValue);
@@ -61,7 +117,6 @@ const ProductTransaction = () => {
                 id="combo-box-demo"
                 options={customers}
                 getOptionLabel={(option) => option.custName}
-                style={{ width: '70%', margin: '2rem auto' }}
                 renderInput={(params) => (
                     <TextField
                         {...params}
@@ -70,14 +125,14 @@ const ProductTransaction = () => {
                     />
                 )}
             />
-            <button
+            <ConfirmSaletButton
                 disabled={!cartItems.length}
-                type="button"
+                variant="contained"
                 onClick={handleSale}
             >
                 Confirm Sale
-            </button>
-        </div>
+            </ConfirmSaletButton>
+        </TransactionContainer>
     );
 };
 
