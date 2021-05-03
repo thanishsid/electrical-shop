@@ -1,34 +1,54 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import styled from 'styled-components';
 import { useSales } from '../../store';
 import SaleItem from './SaleItem';
-import './SaleDetails.css';
+
+// styled components
+const SaleDetailsContainer = styled.section`
+    margin-top: 2rem;
+`;
+const Table = styled.section`
+    display: table;
+    width: 100%;
+`;
+const TableRow = styled.section`
+    display: flex;
+`;
+const TableColumn = styled.section`
+    float: left;
+    text-align: center;
+    width: 25%;
+    display: table-column;
+    border: 1px solid #ccc;
+`;
+// styled components
 
 const SaleDetails = () => {
     const selectedSales = useSales((state) => state.selectedSales);
 
     return (
-        <div className="saleDetails">
-            <div className="tbl">
-                <div className="tr">
-                    <div className="tc">
+        <SaleDetailsContainer>
+            <Table>
+                <TableRow>
+                    <TableColumn>
                         <p>ID</p>
-                    </div>
-                    <div className="tc">
+                    </TableColumn>
+                    <TableColumn>
                         <p>Time</p>
-                    </div>
-                    <div className="tc">
+                    </TableColumn>
+                    <TableColumn>
                         <p>Customer</p>
-                    </div>
-                    <div className="tc">
+                    </TableColumn>
+                    <TableColumn>
                         <p>Items</p>
-                    </div>
-                </div>
+                    </TableColumn>
+                </TableRow>
                 {selectedSales.map((sale) => (
                     <SaleItem key={sale._id} sale={sale} />
                 ))}
-            </div>
-        </div>
+            </Table>
+        </SaleDetailsContainer>
     );
 };
 

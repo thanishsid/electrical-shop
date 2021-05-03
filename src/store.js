@@ -11,7 +11,7 @@ import {
 export const useProducts = create((set) => ({
     products: [],
     setProducts: async () => {
-        const data = await getData('products');
+        const data = await getData('products', {});
         set(() => ({ products: data }));
     },
     insertProducts: async (product) => {
@@ -49,7 +49,7 @@ export const useProducts = create((set) => ({
 export const useCustomers = create((set) => ({
     customers: [],
     setCustomers: async () => {
-        const data = await getData('customers');
+        const data = await getData('customers', {});
         set(() => ({ customers: data }));
     },
     insertCustomers: async (customer) => {
@@ -107,7 +107,7 @@ export const useCart = create((set) => ({
 export const useSales = create((set) => ({
     sales: [],
     setSales: async () => {
-        const data = await getData('sales');
+        const data = await getData('sales', {});
         set(() => ({ sales: data }));
     },
     insertSale: async (items, customer) => {

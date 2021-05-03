@@ -1,8 +1,8 @@
 const { ipcRenderer } = window.require('electron');
 
-export const getData = (type) => {
+export const getData = (type, query) => {
     return new Promise((resolve) => {
-        ipcRenderer.send('get', type);
+        ipcRenderer.send('get', type, query);
 
         ipcRenderer.once('get-reply', (_, msg) => {
             resolve(msg);

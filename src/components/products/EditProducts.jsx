@@ -20,9 +20,6 @@ const MessageContainer = styled.section`
     height: 100%;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgb(161, 155, 155);
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
 `;
 
 const EditProducts = () => {
@@ -76,7 +73,7 @@ const EditProducts = () => {
     if (selections.length < 1) {
         return (
             <MessageContainer>
-                <h3>Please Select a Product to Edit</h3>;
+                <h3>Please Select a Product to Edit</h3>
             </MessageContainer>
         );
     }

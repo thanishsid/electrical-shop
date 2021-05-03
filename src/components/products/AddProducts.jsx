@@ -24,8 +24,8 @@ const Form = styled.form`
 const Button = styled(Btn)`
     width: 40%;
     height: 3rem;
-    background: ${(props) => props.bgColor};
-    color: ${(props) => props.textColor};
+    background: ${(props) => (props.bgcolor ? props.bgcolor : '')};
+    color: ${(props) => (props.textcolor ? props.textcolor : '')};
     &:hover {
         background: rgb(189, 184, 184);
         color: black;
@@ -129,8 +129,8 @@ const AddProducts = () => {
                 <Button
                     variant="contained"
                     type="submit"
-                    bgColor="#1c7f10"
-                    textColor="white"
+                    bgcolor="#1c7f10"
+                    textcolor="white"
                     startIcon={<AddIcon />}
                 >
                     Add Product
@@ -139,8 +139,8 @@ const AddProducts = () => {
                 <Button
                     variant="contained"
                     type="button"
-                    bgColor="#ab003c"
-                    textColor="white"
+                    bgcolor="#ab003c"
+                    textcolor="white"
                     startIcon={<ClearIcon />}
                     onClick={() => clearEntries()}
                 >

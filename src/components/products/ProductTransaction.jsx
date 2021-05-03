@@ -9,13 +9,12 @@ import { useProducts, useCustomers, useCart, useSales } from '../../store';
 import CartItem from './CartItem';
 
 const TransactionContainer = styled.section`
-    margin-top: 1rem;
+    padding: 1rem;
 `;
 
 const AddToCartButton = styled(Button)`
     &:hover {
         background: #44cc44;
-        font-weight: Bold;
     }
 `;
 
@@ -58,7 +57,6 @@ const ConfirmSaletButton = styled(Button)`
     width: 100%;
     &:hover {
         background: #44cc44;
-        font-weight: Bold;
     }
 `;
 

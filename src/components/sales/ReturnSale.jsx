@@ -1,10 +1,46 @@
-import React from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import ReturnItem from './ReturnItem';
 import { useSales } from '../../store';
+
+// styled components
+const Table = styled.section`
+    display: table;
+    width: 100%;
+    margin-top: 1rem;
+`;
+const TableRow = styled.section`
+    display: flex;
+`;
+const TableColumn = styled.section`
+    float: left;
+    text-align: center;
+    width: 25%;
+    display: table-column;
+    border: 1px solid #ccc;
+`;
+// styled components
 
 const ReturnSale = () => {
     const selectedSales = useSales((state) => state.selectedSales);
+    const [returnSale, setReturnSale] = useState([]);
 
-    const returnSale = selectedSales[0];
+    useEffect(() => {
+        if (selectedSales.length) {
+            setReturnSale(selectedSales[0].items);
+        }
+    }, [selectedSales]);
+
+    const changeReturnQty = (id, qty) => {
+        const targetSale = returnSale.map((item) => {
+            if (item._id === id) {
+                return { ...item, returnQty: qty };
+            }
+            return item;
+        });
+        setReturnSale(targetSale);
+    };
 
     if (selectedSales.length < 1) {
         return <h3>Please Select a Sale to Return</h3>;
@@ -13,24 +49,22 @@ const ReturnSale = () => {
         return <h3>Please Select Only One Sale</h3>;
     }
     return (
-        <div className="tbl">
-            <div className="tr">
-                <div className="tc">Name</div>
-                <div className="tc">Qty</div>
-                <div className="tc">Sale Price</div>
-                <div className="tc">Return</div>
-            </div>
-            {returnSale.items.map((item) => {
-                return (
-                    <div key={item.prdName} className="tr">
-                        <div className="tc">{item.prdName}</div>
-                        <div className="tc">{item.prdQty}</div>
-                        <div className="tc">{item.salePrice}</div>
-                        <div className="tc">↩</div>
-                    </div>
-                );
-            })}
-        </div>
+        <Table>
+            <TableRow>
+                <TableColumn>Name</TableColumn>
+                <TableColumn>Purchased Qty</TableColumn>
+                <TableColumn>Sale Price</TableColumn>
+                <TableColumn>Return Qty</TableColumn>
+            </TableRow>
+            {returnSale.length &&
+                returnSale.map((item) => (
+                    <ReturnItem
+                        item={item}
+                        changeReturnQty={changeReturnQty}
+                        key={item._id}
+                    />
+                ))}
+        </Table>
     );
 };
 

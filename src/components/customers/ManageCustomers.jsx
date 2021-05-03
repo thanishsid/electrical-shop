@@ -20,8 +20,7 @@ import CustomerTransactions from './CustomerTransactions';
 const FunctionPanel = styled(Paper)`
     max-width: 100%;
     margin: 0, auto;
-    border: 1px solid #888888;
-    border-bottom: none;
+    border-radius: 0.5em;
 `;
 
 export default function IconLabelTabs() {

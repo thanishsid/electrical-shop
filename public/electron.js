@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const { app, BrowserWindow, ipcMain } = require('electron');
 
 const Datastore = require('nedb');
@@ -8,13 +9,15 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1440,
-        height: 900,
+        width: 1280,
+        height: 720,
+        backgroundColor: 'black',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
         },
     });
+    // mainWindow.removeMenu();
     mainWindow.loadURL(
         isDev
             ? 'http://localhost:3000'
@@ -53,12 +56,17 @@ const customers = new Datastore({
     autoload: true,
 });
 
+const returns = new Datastore({
+    filename: './public/db-store/returns.db',
+    autoload: true,
+});
+
 products.ensureIndex({ fieldName: 'prdName', unique: true }, (err) =>
-    console.error(err)
+    err ? console.error(err) : console.log('Products Index Check Passed')
 );
 
 customers.ensureIndex({ fieldName: 'custName', unique: true }, (err) =>
-    console.error(err)
+    err ? console.error(err) : console.log('Customers Index Check Passed')
 );
 
 const sales = new Datastore({
@@ -91,10 +99,10 @@ const selectDb = (type) => {
 
 // <<<<<<<<<<<#  DB FUNCTIONS START  #>>>>>>>>>>>>>>
 
-ipcMain.on('get', (event, targetDb) => {
+ipcMain.on('get', (event, targetDb, queryObj) => {
     const db = selectDb(targetDb);
 
-    db.find({}, (err, result) => {
+    db.find(queryObj, (err, result) => {
         if (err) {
             event.reply('get-reply', err);
         } else {
@@ -151,10 +159,6 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
         } else if (newData) {
             const errors = [];
             let updatedProducts = 0;
-            let updatedCustomers = 0;
-            const custId = newData.customer
-                ? newData.customer.customerId
-                : null;
 
             newData.items.forEach((item) => {
                 const { _id, origQty, prdQty } = item;
@@ -175,30 +179,25 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
                 );
             });
 
-            if (custId) {
-                customers.update(
-                    { _id: custId },
-                    {
-                        // eslint-disable-next-line no-underscore-dangle
-                        $push: { custSales: newData._id },
-                    },
-                    {},
-                    (custErr, numUpdated) => {
-                        if (custErr) {
-                            errors.push(custErr);
-                        } else if (numUpdated) {
-                            updatedCustomers = 1;
-                        }
-                    }
-                );
-            }
-
             if (!errors.length) {
                 event.reply(
                     'sale-reply',
-                    `Sale Successful Updated ${updatedProducts} products and ${updatedCustomers} customers.`
+                    `Sale Successful Updated ${updatedProducts} products.`
                 );
             }
+        }
+    });
+});
+
+ipcMain.on('return', (event, _targetDb, returnData) => {
+    returns.insert(returnData, (err, newData) => {
+        if (err) {
+            event.reply('return-reply', err);
+        } else if (newData) {
+            newData.items.forEach((data) => {
+                const { _id } = data;
+                sales.update({ _id }, { $inc: {} });
+            });
         }
     });
 });

@@ -4,9 +4,6 @@ import { Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const DeleteContainer = styled.section`
-    border: 2px solid #a19b9b;
-    border-bottom-left-radius: 0.5em;
-    border-bottom-right-radius: 0.5em;
     height: 100%;
     display: flex;
     flex-direction: column;

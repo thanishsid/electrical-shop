@@ -32,8 +32,6 @@ const AddCustomers = () => {
         const customer = {
             custName,
             custPhone,
-            custOrders: [],
-            custSales: [],
         };
 
         insertCustomer(customer);

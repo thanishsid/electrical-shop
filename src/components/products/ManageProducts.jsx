@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     root: {
         maxWidth: '100%',
         margin: '0, auto',
+        borderRadius: '0.5em',
     },
 });
 

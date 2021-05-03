@@ -1,51 +1,81 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import styled from 'styled-components';
+
+// styled components
+const Table = styled.section`
+    display: table;
+    width: 100%;
+`;
+const TableRow = styled.section`
+    display: ${(props) => (props.hide ? 'none' : 'flex')};
+    margin-bottom: ${(props) =>
+        props.spaceBottom ? props.spaceBottom : '0rem'};
+`;
+const TableColumn = styled.section`
+    float: left;
+    text-align: center;
+    width: ${(props) => (props.maxWidth ? '100%' : '25%')};
+    display: table-column;
+    border: 1px solid #ccc;
+`;
+const ViewButtonContainer = styled.section`
+    float: left;
+    text-align: center;
+    width: 25%;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+const ViewButton = styled.button`
+    border: 2px solid rgba(0, 0, 0, 0.404);
+    border-radius: 0.5em;
+    height: 50%;
+`;
+// styled components
 
 const SaleItem = ({ sale }) => {
     const [hideItems, sethideItems] = React.useState(true);
     return (
         <>
-            <div className="tr">
-                <div className="tc">
+            <TableRow>
+                <TableColumn>
                     <p>{sale._id}</p>
-                </div>
-                <div className="tc">
+                </TableColumn>
+                <TableColumn>
                     <p>{sale.time}</p>
-                </div>
-                <div className="tc">
+                </TableColumn>
+                <TableColumn>
                     <p>
                         {sale.customer ? sale.customer.customerName : 'Normal'}
                     </p>
-                </div>
-                <div className="tc vwBtnContainer">
-                    <button
-                        className="btnViewItems"
+                </TableColumn>
+                <ViewButtonContainer>
+                    <ViewButton
                         type="button"
                         onClick={() => sethideItems(!hideItems)}
                     >
                         View Items
-                    </button>
-                </div>
-            </div>
-            <div className="tr itemSpace">
-                <div className="tbl">
-                    <div className={`tr tcitems ${hideItems && 'hide'}`}>
-                        <div className="tc">Name</div>
-                        <div className="tc">Qty</div>
-                        <div className="tc">Sale Price</div>
-                    </div>
+                    </ViewButton>
+                </ViewButtonContainer>
+            </TableRow>
+            <TableRow spaceBottom="1rem">
+                <Table>
+                    <TableRow hide={hideItems}>
+                        <TableColumn maxWidth>Name</TableColumn>
+                        <TableColumn maxWidth>Qty</TableColumn>
+                        <TableColumn maxWidth>Sale Price</TableColumn>
+                    </TableRow>
                     {sale.items.map((item) => (
-                        <div
-                            key={item._id}
-                            className={`tr tcitems ${hideItems && 'hide'}`}
-                        >
-                            <div className="tc">{item.prdName}</div>
-                            <div className="tc">{item.prdQty}</div>
-                            <div className="tc">{item.salePrice}</div>
-                        </div>
+                        <TableRow hide={hideItems} key={item._id}>
+                            <TableColumn maxWidth>{item.prdName}</TableColumn>
+                            <TableColumn maxWidth>{item.prdQty}</TableColumn>
+                            <TableColumn maxWidth>{item.salePrice}</TableColumn>
+                        </TableRow>
                     ))}
-                </div>
-            </div>
+                </Table>
+            </TableRow>
         </>
     );
 };

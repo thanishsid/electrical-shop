@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import Selector from './Selector';
 
 const Table = styled.table`
-    border: 2px solid rgb(161, 155, 155);
-    border-radius: 0.5em;
+    /* border: 2px solid rgb(161, 155, 155);
+    border-radius: 0.5em; */
     width: 100%;
 `;
 
