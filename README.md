@@ -2,9 +2,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## ERS stack
 
-Electron, react and SQLite stack.
+Electron, react and nedb stack.
 
-### `yarn electron-dev`
+### `yarn start`
 
 Runs the app in the development mode.<br />
 A window will be opened by electron automatically.
