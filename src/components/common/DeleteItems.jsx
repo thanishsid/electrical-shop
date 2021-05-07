@@ -22,6 +22,8 @@ const DeleteButton = styled(Button)`
 `;
 
 const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
+    console.log(items);
+
     return (
         <DeleteContainer>
             <Items>
@@ -29,7 +31,7 @@ const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
                     return (
                         // eslint-disable-next-line no-underscore-dangle
                         <h4 key={row._id}>{`${row._id} ${
-                            row.prdName || row.custName
+                            row.prdName || row.custName || row.time
                         }`}</h4>
                     );
                 })}
@@ -38,7 +40,6 @@ const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
                 onClick={deleteFunction}
                 variant="contained"
                 color="secondary"
-                className="deleteBtn"
                 startIcon={<DeleteIcon />}
             >
                 {`${btnLabel}`}

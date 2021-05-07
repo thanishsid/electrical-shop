@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import Repeatable from 'react-repeatable';
 import styled from 'styled-components';
 
 // styled components
@@ -41,13 +42,23 @@ const ReturnItem = ({ item, changeReturnQty }) => {
             <TableColumn>{item.prdQty}</TableColumn>
             <TableColumn>{item.salePrice}</TableColumn>
             <ReturnQtyContainer>
-                <button type="button" onClick={() => handleChange('dec')}>
+                <Repeatable
+                    tag="button"
+                    type="button"
+                    onHold={() => handleChange('dec')}
+                    onPress={() => handleChange('dec')}
+                >
                     -
-                </button>
+                </Repeatable>
                 <ReturnQtyIndicator>{returnQty}</ReturnQtyIndicator>
-                <button type="button" onClick={() => handleChange('inc')}>
+                <Repeatable
+                    tag="button"
+                    type="button"
+                    onHold={() => handleChange('inc')}
+                    onPress={() => handleChange('inc')}
+                >
                     +
-                </button>
+                </Repeatable>
             </ReturnQtyContainer>
         </TableRow>
     );

@@ -135,6 +135,10 @@ export const useSales = create((set) => ({
             }));
         }
     },
+    deleteSale: async (id) => {
+        const data = await dbFunction('delete', 'sales', id);
+        console.log(data);
+    },
     clearSelectedSales: () => {
         set(() => ({ selectedSales: [] }));
     },

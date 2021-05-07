@@ -6,7 +6,7 @@ import SaleItem from './SaleItem';
 
 // styled components
 const SaleDetailsContainer = styled.section`
-    margin-top: 2rem;
+    padding: 1rem;
 `;
 const Table = styled.section`
     display: table;

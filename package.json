@@ -1,6 +1,7 @@
 {
   "name": "electrical-shop",
   "version": "0.1.0",
+  "main": "public/electron.js",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -39,7 +40,6 @@
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "yarn react-build && yarn electron-build"
   },
-  "main": "public/electron.js",
   "eslintConfig": {
     "extends": "react-app"
   },

@@ -1,10 +1,23 @@
 import React from 'react';
+import DeleteItems from '../common/DeleteItems';
+import { useSales } from '../../store';
 
 const RemoveSales = () => {
+    const selections = useSales((state) => state.selectedSales);
+
+    const removeSelectedSale = useSales((state) => state.deleteSale);
+
+    const removeSales = () => {
+        // eslint-disable-next-line no-underscore-dangle
+        selections.forEach((selection) => removeSelectedSale(selection._id));
+    };
+
     return (
-        <div>
-            <h2>Delete Sales</h2>
-        </div>
+        <DeleteItems
+            btnLabel="Delete Sales"
+            items={selections}
+            deleteFunction={removeSales}
+        />
     );
 };
 

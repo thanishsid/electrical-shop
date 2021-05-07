@@ -1,14 +1,23 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Button } from '@material-ui/core';
 import ReturnItem from './ReturnItem';
 import { useSales } from '../../store';
 
 // styled components
+const ReturnContainer = styled.section`
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
 const Table = styled.section`
     display: table;
     width: 100%;
-    margin-top: 1rem;
+    height: 100%;
 `;
 const TableRow = styled.section`
     display: flex;
@@ -19,6 +28,12 @@ const TableColumn = styled.section`
     width: 25%;
     display: table-column;
     border: 1px solid #ccc;
+`;
+
+const ReturnButton = styled(Button)`
+    width: 100%;
+    margin-top: 1rem;
+    height: 4vh;
 `;
 // styled components
 
@@ -49,22 +64,27 @@ const ReturnSale = () => {
         return <h3>Please Select Only One Sale</h3>;
     }
     return (
-        <Table>
-            <TableRow>
-                <TableColumn>Name</TableColumn>
-                <TableColumn>Purchased Qty</TableColumn>
-                <TableColumn>Sale Price</TableColumn>
-                <TableColumn>Return Qty</TableColumn>
-            </TableRow>
-            {returnSale.length &&
-                returnSale.map((item) => (
-                    <ReturnItem
-                        item={item}
-                        changeReturnQty={changeReturnQty}
-                        key={item._id}
-                    />
-                ))}
-        </Table>
+        <ReturnContainer>
+            <Table>
+                <TableRow>
+                    <TableColumn>Name</TableColumn>
+                    <TableColumn>Purchased Qty</TableColumn>
+                    <TableColumn>Sale Price</TableColumn>
+                    <TableColumn>Return Qty</TableColumn>
+                </TableRow>
+                {returnSale.length &&
+                    returnSale.map((item) => (
+                        <ReturnItem
+                            item={item}
+                            changeReturnQty={changeReturnQty}
+                            key={item._id}
+                        />
+                    ))}
+            </Table>
+            <ReturnButton variant="contained" color="secondary">
+                Return Items
+            </ReturnButton>
+        </ReturnContainer>
     );
 };
 
