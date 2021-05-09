@@ -21,14 +21,14 @@ function createWindow() {
     mainWindow.loadURL(
         isDev
             ? 'http://localhost:3000'
-            : `file://${path.join(__dirname, '../build/index.html')}`
+            : `file://${path.join(__dirname, './index.html')}`
     );
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
 }
 
-// console.log(app.getPath('appData'));
+const dataDir = `${app.getPath('appData')}/mse/db/`;
 
 app.on('ready', createWindow);
 
@@ -47,17 +47,17 @@ app.on('activate', () => {
 // Database connectivity
 
 const products = new Datastore({
-    filename: './public/db-store/products.db',
+    filename: `${dataDir}/products.db`,
     autoload: true,
 });
 
 const customers = new Datastore({
-    filename: './public/db-store/customers.db',
+    filename: `${dataDir}/customers.db`,
     autoload: true,
 });
 
 const returns = new Datastore({
-    filename: './public/db-store/returns.db',
+    filename: `${dataDir}/returns.db`,
     autoload: true,
 });
 
@@ -117,7 +117,7 @@ ipcMain.on('insert', (event, targetDb, data) => {
         if (err) {
             event.reply('insert-reply', err);
         } else if (newData) {
-            event.reply('insert-reply', 'Added Successfully');
+            event.reply('insert-reply', 'Inserted Successfully');
         }
     });
 });
@@ -182,7 +182,7 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
             if (!errors.length) {
                 event.reply(
                     'sale-reply',
-                    `Sale Successful Updated ${updatedProducts} products.`
+                    `Sale Successful, Updated ${updatedProducts} products.`
                 );
             }
         }

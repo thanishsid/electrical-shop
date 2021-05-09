@@ -6,6 +6,10 @@ const RemoveProducts = () => {
     const selections = useProducts((state) => state.selectedProducts);
 
     const removeSelectedProduct = useProducts((state) => state.deleteProduct);
+    const setProducts = useProducts((state) => state.setProducts);
+    const clearSelectedProducts = useProducts(
+        (state) => state.clearSelectedProducts
+    );
 
     const removeProducts = () => {
         // eslint-disable-next-line no-underscore-dangle
@@ -17,6 +21,7 @@ const RemoveProducts = () => {
             btnLabel="Delete Products"
             items={selections}
             deleteFunction={removeProducts}
+            updateFunctions={{ setProducts, clearSelectedProducts }}
         />
     );
 };

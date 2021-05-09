@@ -1,5 +1,0 @@
-{"prdName":"Laptop","prdQty":13,"prdCost":65550,"prdWhPrice":75655,"prdRePrice":89990,"_id":"2GR5Q5TYsa6cuv1u"}
-{"prdName":"Motor","prdQty":17,"prdCost":3596,"prdWhPrice":5689,"prdRePrice":7855,"_id":"U0G06D4ei9Nvjq2Q"}
-{"prdName":"Bulb","prdQty":48,"prdCost":155,"prdWhPrice":225,"prdRePrice":345,"_id":"Wh5cHzhxs0IJMstE"}
-{"prdName":"Torch","prdQty":38,"prdCost":375,"prdWhPrice":565,"prdRePrice":795,"_id":"aH88s5HHuzqv4op1"}
-{"$$indexCreated":{"fieldName":"prdName","unique":true,"sparse":false}}

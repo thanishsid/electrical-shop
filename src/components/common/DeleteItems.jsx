@@ -21,8 +21,12 @@ const DeleteButton = styled(Button)`
     height: 4vh;
 `;
 
-const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
-    console.log(items);
+const DeleteItems = ({ btnLabel, items, deleteFunction, updateFunctions }) => {
+    const handleDelete = () => {
+        deleteFunction();
+        updateFunctions.setProducts();
+        updateFunctions.clearSelectedProducts();
+    };
 
     return (
         <DeleteContainer>
@@ -37,7 +41,7 @@ const DeleteItems = ({ btnLabel, items, deleteFunction }) => {
                 })}
             </Items>
             <DeleteButton
-                onClick={deleteFunction}
+                onClick={handleDelete}
                 variant="contained"
                 color="secondary"
                 startIcon={<DeleteIcon />}

@@ -32,6 +32,7 @@ const EditProducts = () => {
     const selections = useProducts((state) => state.selectedProducts);
 
     const editProduct = useProducts((state) => state.editProduct);
+    const setProducts = useProducts((state) => state.setProducts);
 
     useEffect(() => {
         const fillEdits = async () => {
@@ -61,6 +62,7 @@ const EditProducts = () => {
                 prdRePrice: parseFloat(prPrice),
             });
         }
+        setProducts();
     };
 
     if (selections.length > 1) {

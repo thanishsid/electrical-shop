@@ -19,6 +19,13 @@ const EditButton = styled(Button)`
     margin-top: 1rem;
 `;
 
+const MessageContainer = styled.section`
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
 const EditCustomers = () => {
     const [cname, setName] = useState('');
     const [cphone, setPhone] = useState('');
@@ -52,10 +59,18 @@ const EditCustomers = () => {
     };
 
     if (selections.length > 1) {
-        return <h3>Please Select One Customer Only</h3>;
+        return (
+            <MessageContainer>
+                <h3>Please Select One Customer Only</h3>;
+            </MessageContainer>
+        );
     }
     if (selections.length < 1) {
-        return <h3>Please Select a Customer to Edit</h3>;
+        return (
+            <MessageContainer>
+                <h3>Please Select a Customer to Edit</h3>;
+            </MessageContainer>
+        );
     }
     return (
         <Form onSubmit={handleSubmit}>

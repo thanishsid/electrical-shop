@@ -35,6 +35,13 @@ const ReturnButton = styled(Button)`
     margin-top: 1rem;
     height: 4vh;
 `;
+
+const MessageContainer = styled.section`
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
 // styled components
 
 const ReturnSale = () => {
@@ -58,10 +65,18 @@ const ReturnSale = () => {
     };
 
     if (selectedSales.length < 1) {
-        return <h3>Please Select a Sale to Return</h3>;
+        return (
+            <MessageContainer>
+                <h3>Please Select a Sale to Return</h3>;
+            </MessageContainer>
+        );
     }
     if (selectedSales.length > 1) {
-        return <h3>Please Select Only One Sale</h3>;
+        return (
+            <MessageContainer>
+                <h3>Please Select Only One Sale</h3>;
+            </MessageContainer>
+        );
     }
     return (
         <ReturnContainer>

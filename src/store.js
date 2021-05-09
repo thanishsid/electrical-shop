@@ -102,6 +102,7 @@ export const useCart = create((set) => ({
         set((state) => ({
             items: removeItems(state.items, item),
         })),
+    clearCart: () => set(() => ({ items: [] })),
 }));
 
 export const useSales = create((set) => ({

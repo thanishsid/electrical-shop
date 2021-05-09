@@ -10,17 +10,16 @@ import {
 } from '@material-ui/core';
 import { useProducts } from '../../store';
 
+// Styled Components
 const FormCtrl = styled(FormControl)`
     margin-top: 1rem;
 `;
-
 const Form = styled.form`
     margin: 0rem 2rem;
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
 `;
-
 const Button = styled(Btn)`
     width: 40%;
     height: 3rem;
@@ -31,12 +30,12 @@ const Button = styled(Btn)`
         color: black;
     }
 `;
-
 const ButtonContainer = styled.section`
     margin-top: 2rem;
     display: flex;
     justify-content: space-around;
 `;
+// Styled Components
 
 const AddProducts = () => {
     const [prdName, setName] = useState('');
@@ -46,6 +45,15 @@ const AddProducts = () => {
     const [prdRePrice, setRprice] = useState('');
 
     const insertProducts = useProducts((state) => state.insertProducts);
+    const setProducts = useProducts((state) => state.setProducts);
+
+    const clearEntries = () => {
+        setName('');
+        setQty('');
+        setRprice('');
+        setWprice('');
+        setCost('');
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -59,15 +67,10 @@ const AddProducts = () => {
         };
 
         insertProducts(product);
+        setProducts();
+        clearEntries();
     };
 
-    const clearEntries = () => {
-        setName('');
-        setQty('');
-        setRprice('');
-        setWprice('');
-        setCost('');
-    };
     return (
         <Form onSubmit={handleSubmit}>
             <FormCtrl>
