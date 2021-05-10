@@ -21,7 +21,7 @@ const RemoveProducts = () => {
             btnLabel="Delete Products"
             items={selections}
             deleteFunction={removeProducts}
-            updateFunctions={{ setProducts, clearSelectedProducts }}
+            updateFunctions={[clearSelectedProducts, setProducts]}
         />
     );
 };

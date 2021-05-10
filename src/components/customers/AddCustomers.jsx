@@ -25,6 +25,7 @@ const AddCustomers = () => {
     const [custPhone, setCustPhone] = useState('');
 
     const insertCustomer = useCustomers((state) => state.insertCustomers);
+    const setCustomers = useCustomers((state) => state.setCustomers);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -35,6 +36,7 @@ const AddCustomers = () => {
         };
 
         insertCustomer(customer);
+        setCustomers();
     };
 
     const clearEntries = () => {

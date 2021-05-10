@@ -21,12 +21,11 @@ const Selector = ({ row, type }) => {
     const setProductSelection = useProducts(
         (state) => state.setProductSelection
     );
-
     const setCustomerSelection = useCustomers(
         (state) => state.setCustomerSelection
     );
-
     const setSalesSelection = useSales((state) => state.setSalesSelection);
+
     const productSelection = useProducts((state) => state.selectedProducts);
     const customerSelection = useCustomers((state) => state.selectedCustomers);
     const salesSelection = useSales((state) => state.selectedSales);

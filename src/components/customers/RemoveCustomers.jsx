@@ -9,6 +9,11 @@ const RemoveCustomers = () => {
         (state) => state.deleteCustomer
     );
 
+    const setCustomers = useCustomers((state) => state.setCustomers);
+    const clearSelectedCustomers = useCustomers(
+        (state) => state.clearSelectedCustomers
+    );
+
     const removeCustomers = () => {
         selections.forEach((selection) =>
             // eslint-disable-next-line no-underscore-dangle
@@ -21,6 +26,7 @@ const RemoveCustomers = () => {
             btnLabel="Delete Customers"
             items={selections}
             deleteFunction={removeCustomers}
+            updateFunctions={[clearSelectedCustomers, setCustomers]}
         />
     );
 };

@@ -41,6 +41,11 @@ export const useProducts = create((set) => ({
             }));
         }
     },
+    refreshProductSelection: (data) => {
+        set(() => ({
+            selectedProducts: [data],
+        }));
+    },
     clearSelectedProducts: () => {
         set(() => ({ selectedProducts: [] }));
     },
@@ -78,6 +83,11 @@ export const useCustomers = create((set) => ({
                 selectedCustomers: removeItems(state.selectedCustomers, data),
             }));
         }
+    },
+    refreshCustomerSelection: (data) => {
+        set(() => ({
+            selectedCustomers: [data],
+        }));
     },
     clearSelectedCustomers: () => {
         set(() => ({ selectedCustomers: [] }));

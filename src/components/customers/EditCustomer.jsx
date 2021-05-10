@@ -34,6 +34,14 @@ const EditCustomers = () => {
 
     const editCustomer = useCustomers((state) => state.editCustomer);
 
+    const setCustomers = useCustomers((state) => state.setCustomers);
+
+    const refreshCustomerSelection = useCustomers(
+        (state) => state.refreshCustomerSelection
+    );
+
+    console.log(selections[0]);
+
     useEffect(() => {
         const fillEdits = async () => {
             const customer = await selections[0];
@@ -49,13 +57,20 @@ const EditCustomers = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (selections.length === 1) {
-            // eslint-disable-next-line no-underscore-dangle
-            editCustomer(selections[0]._id, {
-                custName: cname,
-                custPhone: cphone,
-            });
-        }
+        const custObj = {
+            custName: cname,
+            custPhone: cphone,
+        };
+
+        // eslint-disable-next-line no-underscore-dangle
+        editCustomer(selections[0]._id, custObj);
+
+        refreshCustomerSelection({
+            ...selections[0],
+            ...custObj,
+        });
+
+        setCustomers();
     };
 
     if (selections.length > 1) {
@@ -75,7 +90,9 @@ const EditCustomers = () => {
     return (
         <Form onSubmit={handleSubmit}>
             <FormCtrl>
-                <InputLabel htmlFor="cust-name">Customer Name</InputLabel>
+                <InputLabel disableAnimation htmlFor="cust-name">
+                    Customer Name
+                </InputLabel>
                 <Input
                     id="cust-name"
                     type="text"
@@ -86,7 +103,9 @@ const EditCustomers = () => {
                 />
             </FormCtrl>
             <FormCtrl>
-                <InputLabel htmlFor="cust-phone">Customer Phone</InputLabel>
+                <InputLabel disableAnimation htmlFor="cust-phone">
+                    Customer Phone
+                </InputLabel>
                 <Input
                     id="cust-phone"
                     type="tel"

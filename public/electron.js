@@ -70,12 +70,12 @@ customers.ensureIndex({ fieldName: 'custName', unique: true }, (err) =>
 );
 
 const sales = new Datastore({
-    filename: './public/db-store/sales.db',
+    filename: `${dataDir}/sales.db`,
     autoload: true,
 });
 
 const orders = new Datastore({
-    filename: './public/db-store/orders.db',
+    filename: `${dataDir}/orders.db`,
     autoload: true,
 });
 

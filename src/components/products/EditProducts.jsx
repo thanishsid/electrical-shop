@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import { useProducts } from '../../store';
+import { useProducts, useCart } from '../../store';
 
 const FormCtrl = styled(FormControl)`
     margin-top: 1rem;
@@ -33,6 +33,10 @@ const EditProducts = () => {
 
     const editProduct = useProducts((state) => state.editProduct);
     const setProducts = useProducts((state) => state.setProducts);
+    const refreshProductSelection = useProducts(
+        (state) => state.refreshProductSelection
+    );
+    const clearCart = useCart((state) => state.clearCart);
 
     useEffect(() => {
         const fillEdits = async () => {
@@ -52,16 +56,20 @@ const EditProducts = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (selections.length === 1) {
-            // eslint-disable-next-line no-underscore-dangle
-            editProduct(selections[0]._id, {
-                prdName: pname.trim(),
-                prdQty: parseInt(pqty, 10),
-                prdCost: parseFloat(pcost),
-                prdWhPrice: parseFloat(pwPrice),
-                prdRePrice: parseFloat(prPrice),
-            });
-        }
+        const prdObj = {
+            prdName: pname.trim(),
+            prdQty: parseInt(pqty, 10),
+            prdCost: parseFloat(pcost),
+            prdWhPrice: parseFloat(pwPrice),
+            prdRePrice: parseFloat(prPrice),
+        };
+        // eslint-disable-next-line no-underscore-dangle
+        editProduct(selections[0]._id, prdObj);
+
+        refreshProductSelection({ ...selections[0], ...prdObj });
+
+        clearCart();
+
         setProducts();
     };
 
@@ -82,7 +90,9 @@ const EditProducts = () => {
     return (
         <Form onSubmit={handleSubmit}>
             <FormCtrl>
-                <InputLabel htmlFor="prod-name">Product Name</InputLabel>
+                <InputLabel disableAnimation htmlFor="prod-name">
+                    Product Name
+                </InputLabel>
                 <Input
                     id="prod-name"
                     type="text"
@@ -93,7 +103,9 @@ const EditProducts = () => {
                 />
             </FormCtrl>
             <FormCtrl>
-                <InputLabel htmlFor="prod-qty">Quantity</InputLabel>
+                <InputLabel disableAnimation htmlFor="prod-qty">
+                    Quantity
+                </InputLabel>
                 <Input
                     id="prod-qty"
                     type="number"
@@ -104,7 +116,9 @@ const EditProducts = () => {
                 />
             </FormCtrl>
             <FormCtrl>
-                <InputLabel htmlFor="prod-cost">Cost</InputLabel>
+                <InputLabel disableAnimation htmlFor="prod-cost">
+                    Cost
+                </InputLabel>
                 <Input
                     id="prod-cost"
                     type="number"
@@ -115,7 +129,9 @@ const EditProducts = () => {
                 />
             </FormCtrl>
             <FormCtrl>
-                <InputLabel htmlFor="prod-wprice">Wholesale Price</InputLabel>
+                <InputLabel disableAnimation htmlFor="prod-wprice">
+                    Wholesale Price
+                </InputLabel>
                 <Input
                     id="prod-wprice"
                     type="number"
@@ -126,7 +142,9 @@ const EditProducts = () => {
                 />
             </FormCtrl>
             <FormCtrl>
-                <InputLabel htmlFor="prod-rprice">Retail Price</InputLabel>
+                <InputLabel disableAnimation htmlFor="prod-rprice">
+                    Retail Price
+                </InputLabel>
                 <Input
                     id="prod-rprice"
                     type="number"

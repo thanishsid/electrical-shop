@@ -24,8 +24,8 @@ const DeleteButton = styled(Button)`
 const DeleteItems = ({ btnLabel, items, deleteFunction, updateFunctions }) => {
     const handleDelete = () => {
         deleteFunction();
-        updateFunctions.setProducts();
-        updateFunctions.clearSelectedProducts();
+        updateFunctions[0]();
+        updateFunctions[1]();
     };
 
     return (
