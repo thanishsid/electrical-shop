@@ -1,16 +1,12 @@
 import React, { useMemo } from 'react';
 import DataTable from '../common/Table';
-import { useSales } from '../../store';
+import { useSales } from '../../stores/store';
 
 const SalesTable = () => {
     const data = useSales((state) => state.sales);
 
     const columns = useMemo(
         () => [
-            {
-                Header: 'ID',
-                accessor: '_id',
-            },
             {
                 Header: 'Time',
                 accessor: 'time',

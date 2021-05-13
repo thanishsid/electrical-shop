@@ -8,7 +8,7 @@ import {
     Input,
     Button as Btn,
 } from '@material-ui/core';
-import { useProducts } from '../../store';
+import { useProducts } from '../../stores/store';
 
 // Styled Components
 const FormCtrl = styled(FormControl)`
@@ -45,7 +45,6 @@ const AddProducts = () => {
     const [prdRePrice, setRprice] = useState('');
 
     const insertProducts = useProducts((state) => state.insertProducts);
-    const setProducts = useProducts((state) => state.setProducts);
 
     const clearEntries = () => {
         setName('');
@@ -67,7 +66,7 @@ const AddProducts = () => {
         };
 
         insertProducts(product);
-        setProducts();
+
         clearEntries();
     };
 

@@ -7,7 +7,7 @@ import OrdersScreen from './screens/OrdersScreen';
 import CustomersScreen from './screens/CustomersScreen';
 import ReturnsScreen from './screens/ReturnsScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import { useProducts, useCustomers, useSales } from './store';
+import { useProducts, useCustomers, useSales } from './stores/store';
 import './App.css';
 
 function App() {

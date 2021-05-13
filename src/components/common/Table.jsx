@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-key */
 import React, { useMemo } from 'react';
 import { useTable, useSortBy } from 'react-table';
@@ -35,6 +36,7 @@ const Th = styled.th`
 `;
 
 const TableCell = styled.td`
+    word-wrap: break-word;
     padding: 0.3rem;
     border: solid 1px gray;
     background: rgb(255, 255, 255);
@@ -83,7 +85,11 @@ export default function DataTable({ rowData, columnData, type }) {
                     prepareRow(row);
                     return (
                         <TableRow {...row.getRowProps()}>
-                            <Selector row={row.original} type={type} />
+                            <Selector
+                                key={row.original._id}
+                                row={row.original}
+                                type={type}
+                            />
                             {row.cells.map((cell) => {
                                 return (
                                     <TableCell {...cell.getCellProps()}>

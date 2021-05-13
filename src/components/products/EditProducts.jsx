@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import { useProducts, useCart } from '../../store';
+import { useProducts, useCart } from '../../stores/store';
 
 const FormCtrl = styled(FormControl)`
     margin-top: 1rem;
@@ -32,7 +33,7 @@ const EditProducts = () => {
     const selections = useProducts((state) => state.selectedProducts);
 
     const editProduct = useProducts((state) => state.editProduct);
-    const setProducts = useProducts((state) => state.setProducts);
+
     const refreshProductSelection = useProducts(
         (state) => state.refreshProductSelection
     );
@@ -63,14 +64,12 @@ const EditProducts = () => {
             prdWhPrice: parseFloat(pwPrice),
             prdRePrice: parseFloat(prPrice),
         };
-        // eslint-disable-next-line no-underscore-dangle
+
         editProduct(selections[0]._id, prdObj);
 
         refreshProductSelection({ ...selections[0], ...prdObj });
 
         clearCart();
-
-        setProducts();
     };
 
     if (selections.length > 1) {

@@ -1,15 +1,39 @@
+/* eslint-disable no-underscore-dangle */
 export const removeItems = (currentSelections, itemToRemove) => {
     const newItems = currentSelections.filter(
-        // eslint-disable-next-line no-underscore-dangle
         (rows) => rows._id !== itemToRemove._id
     );
     return newItems;
 };
 
+export const removeItem = (
+    targetState,
+    currentItems,
+    deleteItemId,
+    deleteConfirmation
+) => {
+    if (deleteConfirmation === 1) {
+        const filtereditems = currentItems.filter(
+            ({ _id }) => _id !== deleteItemId
+        );
+
+        return { [targetState]: filtereditems };
+    }
+
+    return { [targetState]: currentItems };
+};
+
+export const updateProduct = (currentProducts, productId, updatedProduct) => {
+    const updatedProducts = currentProducts.map((product) =>
+        product._id === productId ? { ...product, ...updatedProduct } : product
+    );
+
+    return { products: updatedProducts };
+};
+
 export const addCartItem = (currentItems, itemsToAdd) => {
     const newItems = itemsToAdd.filter(
         (item) =>
-            // eslint-disable-next-line no-underscore-dangle
             currentItems.every((itm) => itm._id !== item._id) &&
             item.prdQty !== 0
     );
@@ -40,7 +64,6 @@ export const changeQty = (currentItems, itemToChange, type) => {
     }
 
     const changedItems = currentItems.map((item) => {
-        // eslint-disable-next-line no-underscore-dangle
         if (item._id === itemToChange._id) {
             return { ...item, prdQty: quantity };
         }
@@ -53,7 +76,6 @@ export const changeQty = (currentItems, itemToChange, type) => {
 
 export const editSalePrice = (currentItems, itemToChange, amount) => {
     const changedItems = currentItems.map((item) => {
-        // eslint-disable-next-line no-underscore-dangle
         if (item._id === itemToChange._id) {
             return { ...item, salePrice: amount };
         }
@@ -62,4 +84,39 @@ export const editSalePrice = (currentItems, itemToChange, amount) => {
     });
 
     return changedItems;
+};
+
+export const updatePrdQty = ({ products: currentProducts }, newData) => {
+    const updatedProducts = currentProducts.map((product) => {
+        let updatedProduct = { ...product };
+
+        for (let i = 0; i < newData.length; i += 1) {
+            if (product._id === newData[i]._id) {
+                updatedProduct = {
+                    ...product,
+                    prdQty: product.prdQty - newData[i].prdQty,
+                };
+            }
+        }
+
+        return updatedProduct;
+    });
+
+    return { products: updatedProducts };
+};
+
+export const refreshMultipleQty = (currentSelections, refreshData) => {
+    const updatedSelections = currentSelections.map((selection) => {
+        for (let i = 0; i < refreshData.length; i += 1) {
+            if (selection._id === refreshData[i]._id) {
+                return {
+                    ...selection,
+                    prdQty: selection.prdQty - refreshData[i].prdQty,
+                };
+            }
+        }
+        return selection;
+    });
+
+    return { selectedProducts: updatedSelections };
 };

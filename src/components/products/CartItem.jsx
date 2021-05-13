@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Repeatable from 'react-repeatable';
-import { useCart } from '../../store';
+import { useCart } from '../../stores/store';
 import PriceSelector from '../common/PriceSelector';
 import { roundToTwo } from '../../functions/generalFunctions';
 

@@ -21,11 +21,10 @@ const DeleteButton = styled(Button)`
     height: 4vh;
 `;
 
-const DeleteItems = ({ btnLabel, items, deleteFunction, updateFunctions }) => {
+const DeleteItems = ({ btnLabel, items, deleteFunction, updateFunction }) => {
     const handleDelete = () => {
         deleteFunction();
-        updateFunctions[0]();
-        updateFunctions[1]();
+        updateFunction();
     };
 
     return (

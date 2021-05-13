@@ -1,12 +1,16 @@
 /* eslint-disable no-underscore-dangle */
 import create from 'zustand';
-import { getData, dbFunction } from './dbcontroller/renderer';
+import { getData, dbFunction } from '../dbcontroller/renderer';
 import {
     removeItems,
+    removeItem,
+    updateProduct,
+    refreshMultipleQty,
     addCartItem,
     changeQty,
     editSalePrice,
-} from './functions/storeFunctions';
+    updatePrdQty,
+} from '../functions/storeFunctions';
 
 export const useProducts = create((set) => ({
     products: [],
@@ -16,18 +20,18 @@ export const useProducts = create((set) => ({
     },
     insertProducts: async (product) => {
         const data = await dbFunction('insert', 'products', product);
-        console.log(data);
+        set((state) => ({ products: [...state.products, data] }));
     },
     editProduct: async (id, productData) => {
         const data = await dbFunction('edit', 'products', {
             id,
             newData: productData,
         });
-        console.log(data);
+        set((state) => updateProduct(state.products, id, data));
     },
     deleteProduct: async (id) => {
         const data = await dbFunction('delete', 'products', id);
-        console.log(data);
+        set((state) => removeItem('products', state.products, id, data));
     },
     selectedProducts: [],
     setProductSelection: ({ isSelected, data }) => {
@@ -41,10 +45,17 @@ export const useProducts = create((set) => ({
             }));
         }
     },
-    refreshProductSelection: (data) => {
-        set(() => ({
-            selectedProducts: [data],
-        }));
+    refreshProductSelection: (data, isMany) => {
+        if (isMany) {
+            set((state) => refreshMultipleQty(state.selectedProducts, data));
+        } else {
+            set(() => ({
+                selectedProducts: [data],
+            }));
+        }
+    },
+    updateProductQty: (newData) => {
+        set((state) => updatePrdQty(state, newData));
     },
     clearSelectedProducts: () => {
         set(() => ({ selectedProducts: [] }));
@@ -59,18 +70,18 @@ export const useCustomers = create((set) => ({
     },
     insertCustomers: async (customer) => {
         const data = await dbFunction('insert', 'customers', customer);
-        console.log(data);
+        return data;
     },
     deleteCustomer: async (id) => {
         const data = await dbFunction('delete', 'customers', id);
-        console.log(data);
+        return data;
     },
     editCustomer: async (id, customerData) => {
         const data = await dbFunction('edit', 'customers', {
             id,
             newData: customerData,
         });
-        console.log(data);
+        return data;
     },
     selectedCustomers: [],
     setCustomerSelection: ({ isSelected, data }) => {
@@ -132,7 +143,9 @@ export const useSales = create((set) => ({
             time: new Date().toISOString(),
         };
         const data = await dbFunction('sale', null, saleData);
-        console.log(data);
+        const { newSale } = data;
+        set((state) => ({ sales: [...state.sales, newSale] }));
+        return data;
     },
     selectedSales: [],
     setSalesSelection: ({ isSelected, data }) => {
@@ -148,7 +161,7 @@ export const useSales = create((set) => ({
     },
     deleteSale: async (id) => {
         const data = await dbFunction('delete', 'sales', id);
-        console.log(data);
+        set((state) => removeItem('sales', state.sales, id, data));
     },
     clearSelectedSales: () => {
         set(() => ({ selectedSales: [] }));

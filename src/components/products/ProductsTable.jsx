@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useMemo } from 'react';
 import DataTable from '../common/Table';
-import { useProducts } from '../../store';
+import { useProducts } from '../../stores/store';
 
 // const selectedProds = (state) => state.selectedProducts;
 

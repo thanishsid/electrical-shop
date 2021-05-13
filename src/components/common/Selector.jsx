@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useProducts, useCustomers, useSales } from '../../store';
+import { useProducts, useCustomers, useSales } from '../../stores/store';
 
 const TableCell = styled.td`
     padding: 0.3rem;
@@ -53,7 +53,6 @@ const Selector = ({ row, type }) => {
     }, [customerSelection, productSelection, row._id, salesSelection, type]);
 
     const handleChange = (event) => {
-        // event.persist();
         setSelected(event.target.checked);
 
         if (type === 'products') {

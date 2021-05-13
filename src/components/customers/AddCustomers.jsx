@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import { useCustomers } from '../../store';
+import { useCustomers } from '../../stores/store';
 
 const FormCtrl = styled(FormControl)`
     margin-top: 1rem;
@@ -27,6 +27,11 @@ const AddCustomers = () => {
     const insertCustomer = useCustomers((state) => state.insertCustomers);
     const setCustomers = useCustomers((state) => state.setCustomers);
 
+    const clearEntries = () => {
+        setCustName('');
+        setCustPhone('');
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -37,12 +42,9 @@ const AddCustomers = () => {
 
         insertCustomer(customer);
         setCustomers();
+        clearEntries();
     };
 
-    const clearEntries = () => {
-        setCustName('');
-        setCustPhone('');
-    };
     return (
         <Form onSubmit={handleSubmit}>
             <FormCtrl>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import ReturnItem from './ReturnItem';
-import { useSales } from '../../store';
+import { useSales } from '../../stores/store';
 
 // styled components
 const ReturnContainer = styled.section`

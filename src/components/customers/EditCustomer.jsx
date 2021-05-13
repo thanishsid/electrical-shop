@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
-import { useCustomers } from '../../store';
+import { useCustomers } from '../../stores/store';
 
 const Form = styled.form`
     margin-left: 2rem;

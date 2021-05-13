@@ -5,11 +5,19 @@ import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { useProducts, useCustomers, useCart, useSales } from '../../store';
+import {
+    useProducts,
+    useCustomers,
+    useCart,
+    useSales,
+} from '../../stores/store';
 import CartItem from './CartItem';
 
 const TransactionContainer = styled.section`
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
+    height: 100%;
 `;
 
 const AddToCartButton = styled(Button)`
@@ -55,6 +63,7 @@ const CustomerSelector = styled(Autocomplete)`
 
 const ConfirmSaletButton = styled(Button)`
     width: 100%;
+    margin-top: auto;
     &:hover {
         background: #44cc44;
     }
@@ -64,18 +73,29 @@ const ProductTransaction = () => {
     const customers = useCustomers((state) => state.customers);
     const [selectedCustomer, setselectedCustomer] = useState(null);
     const selectedProducts = useProducts((state) => state.selectedProducts);
+    const updateProductQty = useProducts((state) => state.updateProductQty);
+    const refreshProductSelection = useProducts(
+        (state) => state.refreshProductSelection
+    );
 
     const addCartItems = useCart((state) => state.addItem);
     const cartItems = useCart((state) => state.items);
-
+    const clearCart = useCart((state) => state.clearCart);
     const insertSale = useSales((state) => state.insertSale);
 
     const handleAdd = () => {
         addCartItems(selectedProducts);
     };
 
-    const handleSale = () => {
-        insertSale(cartItems, selectedCustomer);
+    const handleSale = async () => {
+        const { updatedProducts } = await insertSale(
+            cartItems,
+            selectedCustomer
+        );
+        updateProductQty(updatedProducts);
+        refreshProductSelection(updatedProducts, true);
+        clearCart();
+        setselectedCustomer(null);
     };
 
     return (

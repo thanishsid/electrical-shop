@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import DataTable from '../common/Table';
-import { useCustomers } from '../../store';
+import { useCustomers } from '../../stores/store';
 
 const CustomersTable = () => {
     const data = useCustomers((state) => state.customers);

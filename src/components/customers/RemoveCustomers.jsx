@@ -1,6 +1,6 @@
 import React from 'react';
 import DeleteItems from '../common/DeleteItems';
-import { useCustomers } from '../../store';
+import { useCustomers } from '../../stores/store';
 
 const RemoveCustomers = () => {
     const selections = useCustomers((state) => state.selectedCustomers);

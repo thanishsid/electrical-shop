@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import styled from 'styled-components';
-import { useSales } from '../../store';
+import { useSales } from '../../stores/store';
 import SaleItem from './SaleItem';
 
 // styled components

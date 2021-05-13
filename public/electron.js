@@ -98,6 +98,7 @@ const selectDb = (type) => {
 };
 
 // <<<<<<<<<<<#  DB FUNCTIONS START  #>>>>>>>>>>>>>>
+// ipcMain.setMaxListeners(10);
 
 ipcMain.on('get', (event, targetDb, queryObj) => {
     const db = selectDb(targetDb);
@@ -113,11 +114,11 @@ ipcMain.on('get', (event, targetDb, queryObj) => {
 
 ipcMain.on('insert', (event, targetDb, data) => {
     const db = selectDb(targetDb);
-    db.insert(data, (err, newData) => {
+    db.insert(data, (err, newDoc) => {
         if (err) {
             event.reply('insert-reply', err);
-        } else if (newData) {
-            event.reply('insert-reply', 'Inserted Successfully');
+        } else {
+            event.reply('insert-reply', newDoc);
         }
     });
 });
@@ -128,7 +129,7 @@ ipcMain.on('delete', (event, targetDb, data) => {
         if (err) {
             event.reply('delete-reply', err);
         } else if (numRemoved) {
-            event.reply('delete-reply', 'Deleted Successfully');
+            event.reply('delete-reply', numRemoved);
         }
     });
 });
@@ -136,55 +137,60 @@ ipcMain.on('delete', (event, targetDb, data) => {
 ipcMain.on('edit', (event, targetDb, data) => {
     const db = selectDb(targetDb);
     const { id, newData } = data;
+    console.log(newData);
     db.update(
         { _id: id },
         {
             $set: { ...newData },
         },
-        {},
-        (err, numUpdated) => {
+        { returnUpdatedDocs: true },
+        (err, _numUpdated, updatedDocs) => {
             if (err) {
                 event.reply('edit-reply', err);
-            } else if (numUpdated) {
-                event.reply('edit-reply', 'Edited Successfully');
+            } else {
+                event.reply('edit-reply', updatedDocs);
             }
         }
     );
 });
 
+// function to decrease quantity of products in stock upon a successful sale
+const updateProducts = (data) => {
+    const updatedProducts = data.items.map((item) => {
+        const { _id, prdQty } = item;
+
+        const updatedQty = -prdQty;
+
+        let updatedItem = { ...item };
+
+        products.update(
+            { _id },
+            { $inc: { prdQty: updatedQty } },
+            {},
+            (err, numUpdated, updatedDocs) => {
+                if (err) {
+                    console.error(err);
+                } else if (numUpdated && updatedDocs) {
+                    updatedItem = { ...updatedDocs[0] };
+                }
+            }
+        );
+        return updatedItem;
+    });
+
+    return updatedProducts;
+};
+
 ipcMain.on('sale', (event, _targetDb, saleData) => {
-    sales.insert(saleData, (err, newData) => {
+    sales.insert(saleData, (err, newSale) => {
         if (err) {
             event.reply('sale-reply', err);
-        } else if (newData) {
-            const errors = [];
-            let updatedProducts = 0;
-
-            newData.items.forEach((item) => {
-                const { _id, origQty, prdQty } = item;
-
-                const updatedQty = origQty - prdQty;
-
-                products.update(
-                    { _id },
-                    { $set: { prdQty: updatedQty } },
-                    {},
-                    (prderr, numUpdated) => {
-                        if (prderr) {
-                            errors.push(prderr);
-                        } else if (numUpdated) {
-                            updatedProducts += numUpdated;
-                        }
-                    }
-                );
-            });
-
-            if (!errors.length) {
-                event.reply(
-                    'sale-reply',
-                    `Sale Successful, Updated ${updatedProducts} products.`
-                );
-            }
+        } else {
+            const manageUpdate = async () => {
+                const updatedProducts = await updateProducts(newSale);
+                event.reply('sale-reply', { updatedProducts, newSale });
+            };
+            manageUpdate();
         }
     });
 });
