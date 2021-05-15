@@ -9,8 +9,8 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1280,
-        height: 720,
+        width: 1368,
+        height: 768,
         backgroundColor: 'black',
         webPreferences: {
             nodeIntegration: true,
@@ -137,7 +137,6 @@ ipcMain.on('delete', (event, targetDb, data) => {
 ipcMain.on('edit', (event, targetDb, data) => {
     const db = selectDb(targetDb);
     const { id, newData } = data;
-    console.log(newData);
     db.update(
         { _id: id },
         {

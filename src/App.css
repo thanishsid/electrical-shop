@@ -1,5 +1,6 @@
 .screens {
     display: flex;
+    height: 94vh;
 }
 
 .half {

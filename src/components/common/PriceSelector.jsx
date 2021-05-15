@@ -1,10 +1,16 @@
 import React from 'react';
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
+
+const PriceSelectContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+`;
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -45,7 +51,7 @@ export default function PriceSelects({ item, custPriceChange }) {
     }, [saleType]);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <PriceSelectContainer>
             <FormControl>
                 <Select
                     id="price-select"
@@ -70,6 +76,6 @@ export default function PriceSelects({ item, custPriceChange }) {
                     }
                 />
             </FormControl>
-        </div>
+        </PriceSelectContainer>
     );
 }

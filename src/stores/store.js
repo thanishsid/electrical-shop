@@ -133,12 +133,19 @@ export const useSales = create((set) => ({
         set(() => ({ sales: data }));
     },
     insertSale: async (items, customer) => {
+        const compactItems = items.map((item) => {
+            const compactItem = { ...item };
+            delete compactItem.origQty;
+            return compactItem;
+        });
+
+        console.log(compactItems);
         const saleCustomer = customer
             ? { customerId: customer._id, customerName: customer.custName }
             : null;
 
         const saleData = {
-            items,
+            items: compactItems,
             customer: saleCustomer,
             time: new Date().toISOString(),
         };

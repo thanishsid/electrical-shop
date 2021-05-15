@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import NavTabs from './components/common/NavTabs';
 import ProductScreen from './screens/ProductScreen';
@@ -9,6 +10,11 @@ import ReturnsScreen from './screens/ReturnsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { useProducts, useCustomers, useSales } from './stores/store';
 import './App.css';
+
+const AppContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+`;
 
 function App() {
     const setProducts = useProducts((state) => state.setProducts);
@@ -27,29 +33,29 @@ function App() {
 
     return (
         <Router>
-            <>
+            <AppContainer>
                 <NavTabs />
-            </>
-            <Switch>
-                <Route path="/products">
-                    <ProductScreen />
-                </Route>
-                <Route path="/sales">
-                    <SalesScreen />
-                </Route>
-                <Route path="/orders">
-                    <OrdersScreen />
-                </Route>
-                <Route path="/customers">
-                    <CustomersScreen />
-                </Route>
-                <Route path="/returns">
-                    <ReturnsScreen />
-                </Route>
-                <Route path="/settings">
-                    <SettingsScreen />
-                </Route>
-            </Switch>
+                <Switch>
+                    <Route path="/products">
+                        <ProductScreen />
+                    </Route>
+                    <Route path="/sales">
+                        <SalesScreen />
+                    </Route>
+                    <Route path="/orders">
+                        <OrdersScreen />
+                    </Route>
+                    <Route path="/customers">
+                        <CustomersScreen />
+                    </Route>
+                    <Route path="/returns">
+                        <ReturnsScreen />
+                    </Route>
+                    <Route path="/settings">
+                        <SettingsScreen />
+                    </Route>
+                </Switch>
+            </AppContainer>
         </Router>
     );
 }

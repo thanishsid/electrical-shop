@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import Selector from './Selector';
 
 const Table = styled.table`
-    /* border: 2px solid rgb(161, 155, 155);
-    border-radius: 0.5em; */
     width: 100%;
 `;
 
@@ -49,13 +47,8 @@ export default function DataTable({ rowData, columnData, type }) {
 
     const columns = useMemo(() => columnData, [columnData]);
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({ columns, data: allRows || [] }, useSortBy);
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+        useTable({ columns, data: allRows || [] }, useSortBy);
 
     return (
         <Table {...getTableProps()}>

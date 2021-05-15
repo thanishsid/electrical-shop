@@ -12,6 +12,7 @@ import {
     useSales,
 } from '../../stores/store';
 import CartItem from './CartItem';
+import TransactionTypeSelector from '../common/TransactionTypeSelector';
 
 const TransactionContainer = styled.section`
     display: flex;
@@ -70,6 +71,7 @@ const ConfirmSaletButton = styled(Button)`
 `;
 
 const ProductTransaction = () => {
+    const [transactionType, setTransactionType] = React.useState('sale');
     const customers = useCustomers((state) => state.customers);
     const [selectedCustomer, setselectedCustomer] = useState(null);
     const selectedProducts = useProducts((state) => state.selectedProducts);
@@ -98,8 +100,16 @@ const ProductTransaction = () => {
         setselectedCustomer(null);
     };
 
+    const handleChangeTransactionType = (event) => {
+        setTransactionType(event.target.value);
+    };
+
     return (
         <TransactionContainer>
+            <TransactionTypeSelector
+                transactionType={transactionType}
+                handleChangeTransactionType={handleChangeTransactionType}
+            />
             <AddToCartButton
                 disabled={!selectedProducts.length}
                 onClick={handleAdd}

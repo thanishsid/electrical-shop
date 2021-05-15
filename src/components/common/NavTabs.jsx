@@ -11,11 +11,11 @@ const useStyles = makeStyles({
     },
 });
 
-export default function CenteredTabs() {
+export default function NavTabs() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (_event, newValue) => {
         setValue(newValue);
     };
 
@@ -46,12 +46,37 @@ export default function CenteredTabs() {
                 textColor="primary"
                 centered
             >
-                <Tab label="Products" component={Link} to="/products" />
-                <Tab label="Sales" component={Link} to="/sales" />
-                <Tab label="Orders" component={Link} to="/orders" />
-                <Tab label="Customers" component={Link} to="/customers" />
-                <Tab label="Returns" component={Link} to="/returns" />
-                <Tab label="Settings" component={Link} to="/settings" />
+                <Tab
+                    disableRipple
+                    label="Products"
+                    component={Link}
+                    to="/products"
+                />
+                <Tab disableRipple label="Sales" component={Link} to="/sales" />
+                <Tab
+                    disableRipple
+                    label="Orders"
+                    component={Link}
+                    to="/orders"
+                />
+                <Tab
+                    disableRipple
+                    label="Customers"
+                    component={Link}
+                    to="/customers"
+                />
+                <Tab
+                    disableRipple
+                    label="Returns"
+                    component={Link}
+                    to="/returns"
+                />
+                <Tab
+                    disableRipple
+                    label="Settings"
+                    component={Link}
+                    to="/settings"
+                />
             </Tabs>
         </Paper>
     );
