@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { format } from 'date-fns';
 import DataTable from '../common/Table';
 import { useSales } from '../../stores/store';
 
@@ -10,6 +11,12 @@ const SalesTable = () => {
             {
                 Header: 'Time',
                 accessor: 'time',
+                Cell: ({ value }) => {
+                    return format(
+                        new Date(value),
+                        "do 'of' LLL yyyy 'at' hh:mm a"
+                    );
+                },
             },
             {
                 Header: 'Customer',

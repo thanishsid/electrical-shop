@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransactionTypeSelector({
     transactionType,
-    handleChangeTransactionType,
+    handleSwitchTransactionType,
 }) {
     const classes = useStyles();
 
@@ -24,7 +24,7 @@ export default function TransactionTypeSelector({
         <FormControl variant="outlined" className={classes.formControl}>
             <Select
                 value={transactionType}
-                onChange={handleChangeTransactionType}
+                onChange={handleSwitchTransactionType}
             >
                 <MenuItem value="sale">Sale</MenuItem>
                 <MenuItem value="order">Order</MenuItem>

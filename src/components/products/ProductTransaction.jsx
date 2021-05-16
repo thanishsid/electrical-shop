@@ -89,7 +89,7 @@ const ProductTransaction = () => {
         addCartItems(selectedProducts);
     };
 
-    const handleSale = async () => {
+    const handleTransaction = async () => {
         const { updatedProducts } = await insertSale(
             cartItems,
             selectedCustomer
@@ -100,15 +100,17 @@ const ProductTransaction = () => {
         setselectedCustomer(null);
     };
 
-    const handleChangeTransactionType = (event) => {
+    const handleSwitchTransactionType = (event) => {
         setTransactionType(event.target.value);
+        clearCart();
+        setselectedCustomer(null);
     };
 
     return (
         <TransactionContainer>
             <TransactionTypeSelector
                 transactionType={transactionType}
-                handleChangeTransactionType={handleChangeTransactionType}
+                handleSwitchTransactionType={handleSwitchTransactionType}
             />
             <AddToCartButton
                 disabled={!selectedProducts.length}
@@ -132,7 +134,11 @@ const ProductTransaction = () => {
                     <TableBody>
                         {cartItems.length !== 0 &&
                             cartItems.map((item) => (
-                                <CartItem key={item.prdName} item={item} />
+                                <CartItem
+                                    key={item.prdName}
+                                    item={item}
+                                    transactionType={transactionType}
+                                />
                             ))}
                     </TableBody>
                 </Table>
@@ -156,7 +162,7 @@ const ProductTransaction = () => {
             <ConfirmSaletButton
                 disabled={!cartItems.length}
                 variant="contained"
-                onClick={handleSale}
+                onClick={handleTransaction}
             >
                 Confirm Sale
             </ConfirmSaletButton>

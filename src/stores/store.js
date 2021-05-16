@@ -139,7 +139,6 @@ export const useSales = create((set) => ({
             return compactItem;
         });
 
-        console.log(compactItems);
         const saleCustomer = customer
             ? { customerId: customer._id, customerName: customer.custName }
             : null;

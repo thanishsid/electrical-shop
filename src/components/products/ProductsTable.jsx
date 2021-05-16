@@ -3,8 +3,6 @@ import React, { useMemo } from 'react';
 import DataTable from '../common/Table';
 import { useProducts } from '../../stores/store';
 
-// const selectedProds = (state) => state.selectedProducts;
-
 export default function ProductsTable() {
     const data = useProducts((state) => state.products);
 

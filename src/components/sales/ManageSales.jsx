@@ -59,18 +59,21 @@ export default function IconLabelTabs() {
                     aria-label="icon label tabs example"
                 >
                     <Tab
+                        disableRipple
                         icon={<DetailsIcon />}
                         label="Details"
                         component={Link}
                         to={`${url}`}
                     />
                     <Tab
+                        disableRipple
                         icon={<ArrowBackIcon />}
                         label="Return"
                         component={Link}
                         to={`${url}/return`}
                     />
                     <Tab
+                        disableRipple
                         icon={<DeleteForeverIcon />}
                         label="DELETE"
                         component={Link}
