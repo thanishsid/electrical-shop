@@ -6,10 +6,11 @@ import {
     removeItem,
     updateProduct,
     refreshMultipleQty,
-    addCartItem,
+    addCartItems,
     changeQty,
     editSalePrice,
     updatePrdQty,
+    removeOrigQty,
 } from '../functions/storeFunctions';
 
 export const useProducts = create((set) => ({
@@ -107,13 +108,13 @@ export const useCustomers = create((set) => ({
 
 export const useCart = create((set) => ({
     items: [],
-    addItem: (items) =>
+    addItems: (transactionType, items) =>
         set((state) => ({
-            items: addCartItem(state.items, items),
+            items: addCartItems(transactionType, state.items, items),
         })),
-    changeQuantity: (itemToChange, type) =>
+    changeQuantity: (transactionType, itemToChange, type) =>
         set((state) => ({
-            items: changeQty(state.items, itemToChange, type),
+            items: changeQty(transactionType, state.items, itemToChange, type),
         })),
     changeSalePrice: (itemToChange, amount) =>
         set((state) => ({
@@ -133,11 +134,7 @@ export const useSales = create((set) => ({
         set(() => ({ sales: data }));
     },
     insertSale: async (items, customer) => {
-        const compactItems = items.map((item) => {
-            const compactItem = { ...item };
-            delete compactItem.origQty;
-            return compactItem;
-        });
+        const compactItems = removeOrigQty(items);
 
         const saleCustomer = customer
             ? { customerId: customer._id, customerName: customer.custName }
@@ -171,5 +168,28 @@ export const useSales = create((set) => ({
     },
     clearSelectedSales: () => {
         set(() => ({ selectedSales: [] }));
+    },
+}));
+
+export const useOrders = create((set) => ({
+    orders: [],
+    setOrders: async () => {
+        const data = await getData('orders', {});
+        set(() => ({ orders: data }));
+    },
+    insertOrder: async (items, customer) => {
+        const orderCustomer = customer
+            ? { customerId: customer._id, customerName: customer.custName }
+            : null;
+
+        const orderData = {
+            items,
+            customer: orderCustomer,
+            time: new Date().toISOString(),
+        };
+
+        const data = await dbFunction('insert', 'orders', orderData);
+
+        set((state) => ({ orders: [...state.orders, data] }));
     },
 }));

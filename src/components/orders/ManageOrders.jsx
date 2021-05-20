@@ -11,14 +11,10 @@ import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import DetailsIcon from '@material-ui/icons/Details';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import AddCustomers from './AddCustomers';
-import EditCustomer from './EditCustomer';
-import RemoveCustomers from './RemoveCustomers';
-import CustomerTransactions from './CustomerTransactions';
+import OrderDetails from './OrderDetails';
+import RemoveOrders from './RemoveOrders';
 
 const FunctionPanel = styled(Paper)`
     max-width: 100%;
@@ -26,16 +22,12 @@ const FunctionPanel = styled(Paper)`
     border-radius: 0.5em;
 `;
 
-const CustomerFunctions = () => {
+const SaleFunctions = () => {
     const { funcId } = useParams();
 
     switch (funcId) {
-        case 'add':
-            return <AddCustomers />;
-        case 'edit':
-            return <EditCustomer />;
         case 'remove':
-            return <RemoveCustomers />;
+            return <RemoveOrders />;
         default:
             return null;
     }
@@ -53,20 +45,16 @@ export default function IconLabelTabs() {
     const { pathname } = useLocation();
 
     React.useEffect(() => {
-        if (pathname === '/customers') {
+        if (pathname === '/orders') {
             setValue(0);
-        } else if (pathname === '/customers/add') {
+        } else if (pathname === '/orders/remove') {
             setValue(1);
-        } else if (pathname === '/customers/edit') {
-            setValue(2);
-        } else if (pathname === '/customers/remove') {
-            setValue(3);
         }
     }, [pathname]);
 
     return (
         <div className="half">
-            <FunctionPanel square>
+            <FunctionPanel>
                 <Tabs
                     style={{ height: '10vh' }}
                     value={value}
@@ -78,24 +66,10 @@ export default function IconLabelTabs() {
                 >
                     <Tab
                         disableRipple
-                        icon={<AddShoppingCartIcon />}
-                        label="SALES & ORDERS"
+                        icon={<DetailsIcon />}
+                        label="Details"
                         component={Link}
                         to={`${url}`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<AddIcon />}
-                        label="ADD"
-                        component={Link}
-                        to={`${url}/add`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<EditIcon />}
-                        label="EDIT"
-                        component={Link}
-                        to={`${url}/edit`}
                     />
                     <Tab
                         disableRipple
@@ -108,10 +82,10 @@ export default function IconLabelTabs() {
             </FunctionPanel>
             <Switch>
                 <Route path={path} exact>
-                    <CustomerTransactions />
+                    <OrderDetails />
                 </Route>
                 <Route path={`${path}/:funcId`}>
-                    <CustomerFunctions />
+                    <SaleFunctions />
                 </Route>
             </Switch>
         </div>

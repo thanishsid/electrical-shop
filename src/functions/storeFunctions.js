@@ -23,6 +23,16 @@ export const removeItem = (
     return { [targetState]: currentItems };
 };
 
+export const removeOrigQty = (items) => {
+    const compactItems = items.map((item) => {
+        const compactItem = { ...item };
+        delete compactItem.origQty;
+        return compactItem;
+    });
+
+    return compactItems;
+};
+
 export const updateProduct = (currentProducts, productId, updatedProduct) => {
     const updatedProducts = currentProducts.map((product) =>
         product._id === productId ? { ...product, ...updatedProduct } : product
@@ -31,45 +41,88 @@ export const updateProduct = (currentProducts, productId, updatedProduct) => {
     return { products: updatedProducts };
 };
 
-export const addCartItem = (currentItems, itemsToAdd) => {
-    const newItems = itemsToAdd.filter(
-        (item) =>
-            currentItems.every((itm) => itm._id !== item._id) &&
-            item.prdQty !== 0
-    );
+export const addCartItems = (transactionType, currentItems, itemsToAdd) => {
+    let updatedCart = currentItems;
 
-    if (newItems) {
-        const resetQty = newItems.map((item) => {
-            const origQty = item.prdQty;
+    if (transactionType === 'sale') {
+        const newItems = itemsToAdd.filter(
+            (item) =>
+                currentItems.every((itm) => itm._id !== item._id) &&
+                item.prdQty !== 0
+        );
 
-            return { ...item, prdQty: 1, origQty, salePrice: null };
-        });
+        if (newItems) {
+            const resetQty = newItems.map((item) => {
+                const origQty = item.prdQty;
 
-        const newCart = [...currentItems, ...resetQty];
+                return { ...item, prdQty: 1, origQty, salePrice: null };
+            });
 
-        return newCart;
+            const newCart = [...currentItems, ...resetQty];
+
+            updatedCart = newCart;
+        }
+    } else if (transactionType === 'order') {
+        const newItems = itemsToAdd.filter((item) =>
+            currentItems.every((itm) => itm._id !== item._id)
+        );
+
+        if (newItems) {
+            const resetQty = newItems.map((item) => {
+                return { ...item, prdQty: 1, salePrice: null };
+            });
+
+            const newCart = [...currentItems, ...resetQty];
+
+            updatedCart = newCart;
+        }
     }
 
-    return currentItems;
+    return updatedCart;
 };
 
-export const changeQty = (currentItems, itemToChange, type) => {
-    const { origQty } = itemToChange;
-    let quantity = itemToChange.prdQty;
+export const changeQty = (
+    transactionType,
+    currentItems,
+    itemToChange,
+    type
+) => {
+    let changedItems = currentItems;
 
-    if (type === 'inc' && quantity < origQty) {
-        quantity += 1;
-    } else if (type === 'dec' && quantity > 1) {
-        quantity -= 1;
-    }
+    if (transactionType === 'sale') {
+        const { origQty } = itemToChange;
+        let quantity = itemToChange.prdQty;
 
-    const changedItems = currentItems.map((item) => {
-        if (item._id === itemToChange._id) {
-            return { ...item, prdQty: quantity };
+        if (type === 'inc' && quantity < origQty) {
+            quantity += 1;
+        } else if (type === 'dec' && quantity > 1) {
+            quantity -= 1;
         }
 
-        return item;
-    });
+        changedItems = currentItems.map((item) => {
+            if (item._id === itemToChange._id) {
+                return { ...item, prdQty: quantity };
+            }
+
+            return item;
+        });
+    } else if (transactionType === 'order') {
+        let quantity = itemToChange.prdQty;
+
+        if (type === 'inc') {
+            quantity += 1;
+        } else if (type === 'dec' && quantity > 1) {
+            quantity -= 1;
+        }
+
+        changedItems = currentItems.map((item) => {
+            if (item._id === itemToChange._id) {
+                return { ...item, prdQty: quantity };
+            }
+
+            return item;
+        });
+    }
 
     return changedItems;
 };

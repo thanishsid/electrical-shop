@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import styled from 'styled-components';
+import { format } from 'date-fns';
 
 // styled components
 const Table = styled.section`
@@ -44,7 +45,12 @@ const SaleItem = ({ sale }) => {
                     <p>{sale._id}</p>
                 </TableColumn>
                 <TableColumn>
-                    <p>{sale.time}</p>
+                    <p>
+                        {format(
+                            new Date(sale.time),
+                            "do 'of' LLL yyyy 'at' hh:mm a"
+                        )}
+                    </p>
                 </TableColumn>
                 <TableColumn>
                     <p>

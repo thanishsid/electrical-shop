@@ -8,7 +8,7 @@ import OrdersScreen from './screens/OrdersScreen';
 import CustomersScreen from './screens/CustomersScreen';
 import ReturnsScreen from './screens/ReturnsScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import { useProducts, useCustomers, useSales } from './stores/store';
+import { useProducts, useCustomers, useSales, useOrders } from './stores/store';
 import './App.css';
 
 const AppContainer = styled.section`
@@ -20,16 +20,18 @@ function App() {
     const setProducts = useProducts((state) => state.setProducts);
     const setCustomers = useCustomers((state) => state.setCustomers);
     const setSales = useSales((state) => state.setSales);
+    const setOrders = useOrders((state) => state.setOrders);
 
     React.useEffect(() => {
         const setData = async () => {
             await setProducts();
             await setCustomers();
             await setSales();
+            await setOrders();
         };
 
         setData();
-    }, [setProducts, setCustomers, setSales]);
+    }, [setProducts, setCustomers, setSales, setOrders]);
 
     return (
         <Router>

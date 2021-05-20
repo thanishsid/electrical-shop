@@ -1,9 +1,12 @@
 import React from 'react';
+import OrdersTable from '../components/orders/OrdersTable';
+import ManageOrders from '../components/orders/ManageOrders';
 
 const OrdersScreen = () => {
     return (
-        <div>
-            <p>Orders</p>
+        <div className="screens">
+            <OrdersTable />
+            <ManageOrders />
         </div>
     );
 };

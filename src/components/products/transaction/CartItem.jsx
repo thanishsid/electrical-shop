@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Repeatable from 'react-repeatable';
-import { useCart } from '../../stores/store';
-import PriceSelector from '../common/PriceSelector';
-import { roundToTwo } from '../../functions/generalFunctions';
+import { useCart } from '../../../stores/store';
+import PriceSelector from './PriceSelector';
+import { roundToTwo } from '../../../functions/generalFunctions';
 
 const TableRow = styled.tr`
     display: table;
@@ -41,10 +41,17 @@ const RemoveButton = styled.button`
     }
 `;
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, transactionType }) => {
     const changeQuantity = useCart((state) => state.changeQuantity);
     const changeSalePrice = useCart((state) => state.changeSalePrice);
     const removeItem = useCart((state) => state.removeItem);
+
+    const increaseQty = () => {
+        changeQuantity(transactionType, item, 'dec');
+    };
+    const decreaseQty = () => {
+        changeQuantity(transactionType, item, 'inc');
+    };
 
     return (
         <TableRow>
@@ -56,8 +63,8 @@ const CartItem = ({ item }) => {
                             <Repeatable
                                 tag="button"
                                 type="button"
-                                onHold={() => changeQuantity(item, 'dec')}
-                                onPress={() => changeQuantity(item, 'dec')}
+                                onHold={increaseQty}
+                                onPress={increaseQty}
                             >
                                 -
                             </Repeatable>
@@ -65,8 +72,8 @@ const CartItem = ({ item }) => {
                             <Repeatable
                                 tag="button"
                                 type="button"
-                                onHold={() => changeQuantity(item, 'inc')}
-                                onPress={() => changeQuantity(item, 'inc')}
+                                onHold={decreaseQty}
+                                onPress={decreaseQty}
                             >
                                 +
                             </Repeatable>

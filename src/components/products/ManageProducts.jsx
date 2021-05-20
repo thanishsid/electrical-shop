@@ -5,28 +5,43 @@ import {
     useRouteMatch,
     Link,
     useLocation,
+    useParams,
 } from 'react-router-dom';
+import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import ProductFunctions from './ProductFunctions';
+import AddProducts from './AddProducts';
+import EditProducts from './EditProducts';
+import RemoveProducts from './RemoveProducts';
 import ProductTransaction from './ProductTransaction';
 
-const useStyles = makeStyles({
-    root: {
-        maxWidth: '100%',
-        margin: '0, auto',
-        borderRadius: '0.5em',
-    },
-});
+const FunctionPanel = styled(Paper)`
+    max-width: 100%;
+    margin: 0, auto;
+    border-radius: 0.5em;
+`;
+
+const ProductFunctions = () => {
+    const { funcId } = useParams();
+
+    switch (funcId) {
+        case 'add':
+            return <AddProducts />;
+        case 'edit':
+            return <EditProducts />;
+        case 'remove':
+            return <RemoveProducts />;
+        default:
+            return null;
+    }
+};
 
 export default function IconLabelTabs() {
-    const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (_event, newValue) => {
@@ -51,7 +66,7 @@ export default function IconLabelTabs() {
 
     return (
         <div className="half">
-            <Paper square className={classes.root}>
+            <FunctionPanel>
                 <Tabs
                     style={{ height: '10vh' }}
                     value={value}
@@ -90,7 +105,7 @@ export default function IconLabelTabs() {
                         to={`${url}/remove`}
                     />
                 </Tabs>
-            </Paper>
+            </FunctionPanel>
             <Switch>
                 <Route path={path} exact>
                     <ProductTransaction />
