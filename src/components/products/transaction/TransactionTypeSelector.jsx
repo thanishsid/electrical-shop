@@ -1,34 +1,49 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        marginBottom: theme.spacing(2),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-}));
 
 export default function TransactionTypeSelector({
     transactionType,
     handleSwitchTransactionType,
 }) {
-    const classes = useStyles();
-
     return (
-        <FormControl variant="outlined" className={classes.formControl}>
-            <Select
-                value={transactionType}
-                onChange={handleSwitchTransactionType}
+        <div className="flex mb-4 select-none">
+            <label
+                htmlFor="option-1"
+                className={
+                    transactionType === 'sale'
+                        ? 'btn-transaction-type-active rounded-l-md'
+                        : 'btn-transaction-type-inactive rounded-l-md'
+                }
             >
-                <MenuItem value="sale">Sale</MenuItem>
-                <MenuItem value="order">Order</MenuItem>
-            </Select>
-        </FormControl>
+                <input
+                    type="radio"
+                    name="type"
+                    id="option-1"
+                    value="sale"
+                    checked={transactionType === 'sale'}
+                    onChange={handleSwitchTransactionType}
+                    className="appearance-none"
+                />
+                <span className="font-extrabold">Sale</span>
+            </label>
+            <label
+                htmlFor="option-2"
+                className={
+                    transactionType === 'order'
+                        ? 'btn-transaction-type-active rounded-r-md'
+                        : 'btn-transaction-type-inactive rounded-r-md'
+                }
+            >
+                <input
+                    type="radio"
+                    name="type"
+                    id="option-2"
+                    value="order"
+                    checked={transactionType === 'order'}
+                    onChange={handleSwitchTransactionType}
+                    className="appearance-none"
+                />
+                <span className="font-extrabold">Order</span>
+            </label>
+        </div>
     );
 }

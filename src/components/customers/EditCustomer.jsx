@@ -1,30 +1,6 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import { useCustomers } from '../../stores/store';
-
-const Form = styled.form`
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-`;
-
-const FormCtrl = styled(FormControl)`
-    margin-top: 1rem;
-`;
-
-const EditButton = styled(Button)`
-    margin-top: 1rem;
-`;
-
-const MessageContainer = styled.section`
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-`;
 
 const EditCustomers = () => {
     const [cname, setName] = useState('');
@@ -35,12 +11,6 @@ const EditCustomers = () => {
     const editCustomer = useCustomers((state) => state.editCustomer);
 
     const setCustomers = useCustomers((state) => state.setCustomers);
-
-    const refreshCustomerSelection = useCustomers(
-        (state) => state.refreshCustomerSelection
-    );
-
-    console.log(selections[0]);
 
     useEffect(() => {
         const fillEdits = async () => {
@@ -62,64 +32,60 @@ const EditCustomers = () => {
             custPhone: cphone,
         };
 
-        // eslint-disable-next-line no-underscore-dangle
         editCustomer(selections[0]._id, custObj);
-
-        refreshCustomerSelection({
-            ...selections[0],
-            ...custObj,
-        });
 
         setCustomers();
     };
 
     if (selections.length > 1) {
         return (
-            <MessageContainer>
-                <h3>Please Select One Customer Only</h3>;
-            </MessageContainer>
+            <div className="flex h-full justify-center items-center">
+                <h3>Please Select One Customer Only</h3>
+            </div>
         );
     }
     if (selections.length < 1) {
         return (
-            <MessageContainer>
-                <h3>Please Select a Customer to Edit</h3>;
-            </MessageContainer>
+            <div className="flex h-full justify-center items-center">
+                <h3>Please Select a Customer to Edit</h3>
+            </div>
         );
     }
     return (
-        <Form onSubmit={handleSubmit}>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="cust-name">
+        <form className="flex flex-col mx-8 mt-12" onSubmit={handleSubmit}>
+            <div>
+                <label className="input-label" htmlFor="cust-name">
                     Customer Name
-                </InputLabel>
-                <Input
-                    id="cust-name"
-                    type="text"
-                    placeholder="Add Customer Name"
-                    value={cname}
-                    onChange={(event) => setName(event.target.value)}
-                    required
-                />
-            </FormCtrl>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="cust-phone">
+                    <input
+                        className="input"
+                        id="cust-name"
+                        type="text"
+                        placeholder="Add Customer Name"
+                        value={cname}
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                    />
+                </label>
+            </div>
+            <div>
+                <label className="input-label" htmlFor="cust-phone">
                     Customer Phone
-                </InputLabel>
-                <Input
-                    id="cust-phone"
-                    type="tel"
-                    inputProps={{ minLength: '10' }}
-                    placeholder="Add Phone Number"
-                    value={cphone}
-                    onChange={(event) => setPhone(event.target.value)}
-                />
-            </FormCtrl>
+                    <input
+                        className="input"
+                        id="cust-phone"
+                        type="tel"
+                        minLength="10"
+                        placeholder="Add Phone Number"
+                        value={cphone}
+                        onChange={(event) => setPhone(event.target.value)}
+                    />
+                </label>
+            </div>
 
-            <EditButton variant="contained" type="submit">
+            <button className="btn" type="submit">
                 Edit Customer
-            </EditButton>
-        </Form>
+            </button>
+        </form>
     );
 };
 

@@ -157,19 +157,3 @@ export const updatePrdQty = ({ products: currentProducts }, newData) => {
 
     return { products: updatedProducts };
 };
-
-export const refreshMultipleQty = (currentSelections, refreshData) => {
-    const updatedSelections = currentSelections.map((selection) => {
-        for (let i = 0; i < refreshData.length; i += 1) {
-            if (selection._id === refreshData[i]._id) {
-                return {
-                    ...selection,
-                    prdQty: selection.prdQty - refreshData[i].prdQty,
-                };
-            }
-        }
-        return selection;
-    });
-
-    return { selectedProducts: updatedSelections };
-};

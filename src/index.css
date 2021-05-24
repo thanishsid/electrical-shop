@@ -1,13 +1,88 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App Classes */
+
+.half {
+    width: 49.5%;
+    @apply flex flex-col flex-none mt-2 shadow-lg border rounded-lg p-4;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app {
+    @apply flex flex-col h-screen overflow-hidden;
+}
+
+/* Main Tab Classes */
+.active-main-tab-link {
+    @apply text-center block border border-blue-500 rounded-lg py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white;
+}
+
+.inactive-main-tab-link {
+    @apply text-center block border bg-gray-200 border-white rounded-lg hover:border-gray-300 text-gray-800 hover:bg-gray-300 py-2 px-4;
+}
+
+/* Sub Tab Classes */
+.sub-tab-icon-inactive {
+    @apply w-20 text-gray-700 flex justify-center;
+}
+
+.sub-tab-icon-active {
+    @apply w-20 text-red-400 border-b-4 border-red-400 flex justify-center;
+}
+
+/* Common Classes */
+.input {
+    @apply shadow mt-2 rounded-md appearance-none border w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:shadow-lg;
+}
+
+.input-label {
+    @apply block text-gray-700 text-sm font-bold mb-4;
+}
+
+.btn {
+    @apply bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg focus:outline-none;
+}
+
+.btn-danger {
+    @apply bg-red-400 hover:bg-red-500 text-gray-900 font-bold py-2 px-4 rounded-lg focus:outline-none;
+}
+
+.btn-clear {
+    @apply bg-red-300 hover:bg-red-400 text-gray-900 font-bold py-2 px-4 rounded-lg focus:outline-none;
+}
+
+.btn-disabled {
+    @apply text-gray-900 font-bold py-2 px-4 rounded-lg focus:outline-none opacity-50 cursor-default;
+}
+
+.screens {
+    @apply flex h-full mb-4 justify-between px-4;
+}
+
+/* Product Transaction Classes  */
+
+.btn-transaction-type-active {
+    @apply bg-green-500 w-1/2 flex items-center justify-center h-10;
+}
+
+.btn-transaction-type-inactive {
+    @apply border-2 border-green-500 w-1/2 flex items-center justify-center h-10 hover:bg-green-100;
+}
+
+.cart-btn {
+    @apply bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg focus:outline-none transform hover:bg-green-400;
+}
+
+.btn-cart-qty {
+    @apply bg-gray-200 hover:bg-gray-300 py-1 px-3 focus:outline-none rounded-full text-lg;
+}
+
+.cart-qty-count {
+    margin: 0 10%;
+}
+/* Bespoke Classes */
+
+.stopGrow {
+    flex-basis: 1rem;
 }

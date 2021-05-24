@@ -1,23 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import { Link, useLocation } from 'react-router-dom';
 
-const useStyles = makeStyles({
-    root: {
-        flexGrow: 1,
-    },
-});
-
 export default function NavTabs() {
-    const classes = useStyles();
     const [value, setValue] = React.useState(0);
-
-    const handleChange = (_event, newValue) => {
-        setValue(newValue);
-    };
 
     const { pathname } = useLocation();
 
@@ -37,47 +22,47 @@ export default function NavTabs() {
         }
     }, [pathname]);
 
+    const isActive = (index) => {
+        if (value === index) {
+            return 'active-main-tab-link';
+        }
+        return 'inactive-main-tab-link';
+    };
+
     return (
-        <Paper className={classes.root}>
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                indicatorColor="primary"
-                textColor="primary"
-                centered
-            >
-                <Tab
-                    disableRipple
-                    label="Products"
-                    component={Link}
-                    to="/products"
-                />
-                <Tab disableRipple label="Sales" component={Link} to="/sales" />
-                <Tab
-                    disableRipple
-                    label="Orders"
-                    component={Link}
-                    to="/orders"
-                />
-                <Tab
-                    disableRipple
-                    label="Customers"
-                    component={Link}
-                    to="/customers"
-                />
-                <Tab
-                    disableRipple
-                    label="Returns"
-                    component={Link}
-                    to="/returns"
-                />
-                <Tab
-                    disableRipple
-                    label="Settings"
-                    component={Link}
-                    to="/settings"
-                />
-            </Tabs>
-        </Paper>
+        <div className="px-10 py-2">
+            <ul className="flex">
+                <li className="flex-1 mr-2">
+                    <Link to="/products">
+                        <p className={isActive(0)}>Products</p>
+                    </Link>
+                </li>
+                <li className="flex-1 mr-2">
+                    <Link to="/sales">
+                        <p className={isActive(1)}>Sales</p>
+                    </Link>
+                </li>
+                <li className="flex-1 mr-2">
+                    <Link to="/orders">
+                        <p className={isActive(2)}> Orders</p>
+                    </Link>
+                </li>
+                <li className="flex-1 mr-2">
+                    <Link to="/customers">
+                        <p className={isActive(3)}> Customers</p>
+                    </Link>
+                </li>
+                <li className="flex-1 mr-2">
+                    <Link to="/returns">
+                        <p className={isActive(4)}> Returns</p>
+                    </Link>
+                </li>
+                <li className="flex-1">
+                    <Link to="/settings">
+                        <p className={isActive(5)}> Settings</p>
+                    </Link>
+                </li>
+            </ul>
+        </div>
     );
 }

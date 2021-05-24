@@ -1,45 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import { AiOutlineDelete } from 'react-icons/ai';
 import Repeatable from 'react-repeatable';
 import { useCart } from '../../../stores/store';
 import PriceSelector from './PriceSelector';
 import { roundToTwo } from '../../../functions/generalFunctions';
 
-const TableRow = styled.tr`
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-`;
-
-const PriceGroup = styled.section`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-const TableCell = styled.td`
-    padding: 0.3rem;
-    border: solid 1px gray;
-    background: rgb(255, 255, 255);
-    text-align: center;
-`;
-
-const Quantity = styled.p`
-    margin-left: 10%;
-    margin-right: 10%;
-`;
-
-const RemoveButton = styled.button`
-    color: rgb(168, 1, 1);
-    border: none;
-    background: white;
-    transform: scale(1.5);
-    font-weight: 700;
-    &:hover {
-        transform: scale(2);
-        cursor: pointer;
-    }
-`;
+// const RemoveButton = styled.button`
+//     color: rgb(168, 1, 1);
+//     border: none;
+//     background: white;
+//     transform: scale(1.5);
+//     font-weight: 700;
+//     &:hover {
+//         transform: scale(2);
+//         cursor: pointer;
+//     }
+// `;
 
 const CartItem = ({ item, transactionType }) => {
     const changeQuantity = useCart((state) => state.changeQuantity);
@@ -54,53 +30,57 @@ const CartItem = ({ item, transactionType }) => {
     };
 
     return (
-        <TableRow>
+        <tr className="border-2 border-gray-300">
             {item && (
                 <>
-                    <TableCell>{item.prdName}</TableCell>
-                    <TableCell>
-                        <PriceGroup>
+                    <td className="bg-gray-100  p-2 text-center">
+                        {item.prdName}
+                    </td>
+                    <td className="p-2 text-center">
+                        <div className="flex items-center justify-center">
                             <Repeatable
                                 tag="button"
                                 type="button"
                                 onHold={increaseQty}
                                 onPress={increaseQty}
+                                className="btn-cart-qty"
                             >
                                 -
                             </Repeatable>
-                            <Quantity>{item.prdQty}</Quantity>
+                            <p className="cart-qty-count">{item.prdQty}</p>
                             <Repeatable
                                 tag="button"
                                 type="button"
                                 onHold={decreaseQty}
                                 onPress={decreaseQty}
+                                className="btn-cart-qty"
                             >
                                 +
                             </Repeatable>
-                        </PriceGroup>
-                    </TableCell>
+                        </div>
+                    </td>
 
-                    <TableCell>
+                    <td className="bg-gray-100 p-2 w-1/5 text-center">
                         <PriceSelector
                             item={item}
                             custPriceChange={changeSalePrice}
                         />
-                    </TableCell>
-                    <TableCell>{`${item.prdQty} x ${item.salePrice}`}</TableCell>
-                    <TableCell>
+                    </td>
+                    <td className="p-2 text-center">{`${item.prdQty} x ${item.salePrice}`}</td>
+                    <td className="bg-gray-100 p-2 border-gray-300 text-center">
                         {roundToTwo(item.prdQty * item.salePrice)}
-                    </TableCell>
-                    <TableCell>
-                        <RemoveButton
+                    </td>
+                    <td className="p-2 flex h-full justify-center items-center">
+                        <AiOutlineDelete
+                            className=" transform hover:scale-125 hover:text-red-600 cursor-pointer"
+                            size="1.5rem"
                             onClick={() => removeItem(item)}
                             type="button"
-                        >
-                            X
-                        </RemoveButton>
-                    </TableCell>
+                        />
+                    </td>
                 </>
             )}
-        </TableRow>
+        </tr>
     );
 };
 

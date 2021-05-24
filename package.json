@@ -4,9 +4,11 @@
   "main": "public/electron.js",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.1.2",
+    "@headlessui/react": "^1.2.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.0.16",
@@ -17,10 +19,12 @@
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
     "react-repeatable": "^2.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-table": "^7.6.3",
+    "remove": "^0.1.5",
     "styled-components": "^5.2.3",
     "zustand": "^3.3.3"
   },
@@ -29,9 +33,9 @@
   },
   "homepage": "./",
   "scripts": {
-    "react-start": "react-scripts start",
-    "react-build": "react-scripts build",
-    "test": "react-scripts test",
+    "react-start": "craco --max_old_space_size=4096 start",
+    "react-build": "craco --max_old_space_size=4096 build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "start-empty": "BROWSER=none yarn react-start",
     "only-electron": "electron .",
@@ -57,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^9",
     "babel-plugin-styled-components": "^1.12.0",
     "concurrently": "^6.0.0",
     "electron": "^12.0.4",
@@ -67,6 +72,8 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.1",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "wait-on": "^5.3.0"
   }
 }

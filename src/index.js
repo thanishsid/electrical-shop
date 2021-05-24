@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { unregister } from './serviceWorker';
+import './index.css';
 
 ReactDOM.render(
     <CssBaseline>

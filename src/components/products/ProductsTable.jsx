@@ -6,6 +6,10 @@ import { useProducts } from '../../stores/store';
 export default function ProductsTable() {
     const data = useProducts((state) => state.products);
 
+    const setProductSelection = useProducts(
+        (state) => state.setProductSelection
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -34,7 +38,12 @@ export default function ProductsTable() {
 
     return (
         <div className="half">
-            <DataTable type="products" rowData={data} columnData={columns} />
+            <DataTable
+                type="products"
+                rowData={data}
+                columnData={columns}
+                setSelectedRows={setProductSelection}
+            />
         </div>
     );
 }

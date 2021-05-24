@@ -1,42 +1,24 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import { useProducts, useCart } from '../../stores/store';
 
-const FormCtrl = styled(FormControl)`
-    margin-top: 1rem;
-`;
-
-const Form = styled.form`
-    margin-left: 2rem;
-    margin-right: 2rem;
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-`;
-
-const MessageContainer = styled.section`
-    display: flex;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-`;
+const MessageContainer = ({ message }) => (
+    <div className="flex h-full justify-center items-center">
+        <p>{message}</p>
+    </div>
+);
 
 const EditProducts = () => {
-    const [pname, setName] = useState('');
-    const [pqty, setQty] = useState('');
-    const [pcost, setCost] = useState('');
-    const [pwPrice, setWprice] = useState('');
-    const [prPrice, setRprice] = useState('');
+    const [prdName, setName] = useState('');
+    const [prdQty, setQty] = useState('');
+    const [prdCost, setCost] = useState('');
+    const [prdWhPrice, setWprice] = useState('');
+    const [prdRePrice, setRprice] = useState('');
 
     const selections = useProducts((state) => state.selectedProducts);
 
     const editProduct = useProducts((state) => state.editProduct);
 
-    const refreshProductSelection = useProducts(
-        (state) => state.refreshProductSelection
-    );
     const clearCart = useCart((state) => state.clearCart);
 
     useEffect(() => {
@@ -58,110 +40,110 @@ const EditProducts = () => {
         event.preventDefault();
 
         const prdObj = {
-            prdName: pname.trim(),
-            prdQty: parseInt(pqty, 10),
-            prdCost: parseFloat(pcost),
-            prdWhPrice: parseFloat(pwPrice),
-            prdRePrice: parseFloat(prPrice),
+            prdName: prdName.trim(),
+            prdQty,
+            prdCost,
+            prdWhPrice,
+            prdRePrice,
         };
 
         editProduct(selections[0]._id, prdObj);
-
-        refreshProductSelection({ ...selections[0], ...prdObj });
 
         clearCart();
     };
 
     if (selections.length > 1) {
-        return (
-            <MessageContainer>
-                <h3>Please Select One Product Only</h3>
-            </MessageContainer>
-        );
+        return <MessageContainer message="Please Select Only One Product" />;
     }
     if (selections.length < 1) {
-        return (
-            <MessageContainer>
-                <h3>Please Select a Product to Edit</h3>
-            </MessageContainer>
-        );
+        return <MessageContainer message="Please Select a Product to Edit" />;
     }
     return (
-        <Form onSubmit={handleSubmit}>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="prod-name">
+        <form className="mx-8 mt-12 flex flex-col" onSubmit={handleSubmit}>
+            <div>
+                <label className="input-label" htmlFor="prod-name">
                     Product Name
-                </InputLabel>
-                <Input
-                    id="prod-name"
-                    type="text"
-                    placeholder="Add Product Name"
-                    value={pname}
-                    onChange={(event) => setName(event.target.value)}
-                    required
-                />
-            </FormCtrl>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="prod-qty">
+                    <input
+                        className="input"
+                        id="prod-name"
+                        type="text"
+                        placeholder="Add Product Name"
+                        value={prdName}
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                    />
+                </label>
+            </div>
+            <div>
+                <label className="input-label" htmlFor="prod-qty">
                     Quantity
-                </InputLabel>
-                <Input
-                    id="prod-qty"
-                    type="number"
-                    inputProps={{ min: '0' }}
-                    placeholder="Add Quantity"
-                    value={pqty}
-                    onChange={(event) => setQty(event.target.value)}
-                />
-            </FormCtrl>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="prod-cost">
+                    <input
+                        className="input"
+                        id="prod-qty"
+                        type="number"
+                        min="0"
+                        placeholder="Add Quantity"
+                        value={prdQty}
+                        onChange={(event) => setQty(event.target.valueAsNumber)}
+                    />
+                </label>
+            </div>
+            <div>
+                <label className="input-label" htmlFor="prod-cost">
                     Cost
-                </InputLabel>
-                <Input
-                    id="prod-cost"
-                    type="number"
-                    inputProps={{ step: '0.01', min: '0' }}
-                    placeholder="Add Cost"
-                    value={pcost}
-                    onChange={(event) => setCost(event.target.value)}
-                />
-            </FormCtrl>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="prod-wprice">
+                    <input
+                        className="input"
+                        id="prod-cost"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        placeholder="Add Cost"
+                        value={prdCost}
+                        onChange={(event) =>
+                            setCost(event.target.valueAsNumber)
+                        }
+                    />
+                </label>
+            </div>
+            <div>
+                <label className="input-label" htmlFor="prod-wprice">
                     Wholesale Price
-                </InputLabel>
-                <Input
-                    id="prod-wprice"
-                    type="number"
-                    inputProps={{ step: '0.01', min: '0' }}
-                    placeholder="Add Wholesale Price"
-                    value={pwPrice}
-                    onChange={(event) => setWprice(event.target.value)}
-                />
-            </FormCtrl>
-            <FormCtrl>
-                <InputLabel disableAnimation htmlFor="prod-rprice">
+                    <input
+                        className="input"
+                        id="prod-wprice"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        placeholder="Add Wholesale Price"
+                        value={prdWhPrice}
+                        onChange={(event) =>
+                            setWprice(event.target.valueAsNumber)
+                        }
+                    />
+                </label>
+            </div>
+            <div>
+                <label className="input-label" htmlFor="prod-rprice">
                     Retail Price
-                </InputLabel>
-                <Input
-                    id="prod-rprice"
-                    type="number"
-                    inputProps={{ step: '0.01' }}
-                    placeholder="Add Retail Price"
-                    value={prPrice}
-                    onChange={(event) => setRprice(event.target.value)}
-                />
-            </FormCtrl>
+                    <input
+                        className="input"
+                        id="prod-rprice"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        placeholder="Add Retail Price"
+                        value={prdRePrice}
+                        onChange={(event) =>
+                            setRprice(event.target.valueAsNumber)
+                        }
+                    />
+                </label>
+            </div>
 
-            <Button
-                style={{ marginTop: '1rem' }}
-                variant="contained"
-                type="submit"
-            >
+            <button className="btn" type="submit">
                 Edit Product
-            </Button>
-        </Form>
+            </button>
+        </form>
     );
 };
 

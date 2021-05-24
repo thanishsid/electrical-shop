@@ -1,24 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 import { useCustomers } from '../../stores/store';
-
-const FormCtrl = styled(FormControl)`
-    margin-top: 1rem;
-`;
-
-const Form = styled.form`
-    margin: 0rem 2rem;
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-`;
-
-const ButtonContainer = styled.section`
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-around;
-`;
 
 const AddCustomers = () => {
     const [custName, setCustName] = useState('');
@@ -46,47 +27,51 @@ const AddCustomers = () => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <FormCtrl>
-                <InputLabel htmlFor="cust-name">Customer Name</InputLabel>
-                <Input
-                    id="cust-name"
-                    type="text"
-                    placeholder="Add Customer Name"
-                    value={custName}
-                    onChange={(event) => setCustName(event.target.value)}
-                    required
-                />
-            </FormCtrl>
-            <FormCtrl>
-                <InputLabel htmlFor="cust-phone">
+        <form className="mx-8 mt-12 flex flex-col" onSubmit={handleSubmit}>
+            <div>
+                <label className="input-label" htmlFor="cust-name">
+                    Customer Name
+                    <input
+                        className="input"
+                        id="cust-name"
+                        type="text"
+                        placeholder="Add Customer Name"
+                        value={custName}
+                        onChange={(event) => setCustName(event.target.value)}
+                        required
+                    />
+                </label>
+            </div>
+            <div>
+                <label className="input-label" htmlFor="cust-phone">
                     Customer Phone Number
-                </InputLabel>
-                <Input
-                    id="cust-phone"
-                    type="tel"
-                    inputProps={{ min: '0' }}
-                    placeholder="Add Customer Phone Number"
-                    value={custPhone}
-                    onChange={(event) => setCustPhone(event.target.value)}
-                />
-            </FormCtrl>
+                    <input
+                        className="input"
+                        id="cust-phone"
+                        type="tel"
+                        minLength="10"
+                        placeholder="Add Customer Phone Number"
+                        value={custPhone}
+                        onChange={(event) => setCustPhone(event.target.value)}
+                        required
+                    />
+                </label>
+            </div>
 
-            <ButtonContainer>
-                <Button variant="contained" type="submit" className="btn">
+            <div className="flex justify-around">
+                <button className="btn" type="submit">
                     Add Customer
-                </Button>
+                </button>
 
-                <Button
-                    variant="contained"
+                <button
+                    className="btn-danger"
                     type="button"
-                    className="btn"
                     onClick={() => clearEntries()}
                 >
                     Clear Entries
-                </Button>
-            </ButtonContainer>
-        </Form>
+                </button>
+            </div>
+        </form>
     );
 };
 

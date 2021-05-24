@@ -1,8 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-key */
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import React, { useState, useEffect } from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
@@ -15,41 +14,13 @@ import {
 import Cart from './transaction/Cart';
 import TransactionTypeSelector from './transaction/TransactionTypeSelector';
 
-const TransactionContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    height: 100%;
-`;
-
-const AddToCartButton = styled(Button)`
-    &:hover {
-        background: #44cc44;
-    }
-`;
-
-const CustomerSelector = styled(Autocomplete)`
-    width: 100%;
-    margin: 1rem auto;
-`;
-
-const ConfirmSaletButton = styled(Button)`
-    width: 100%;
-    margin-top: auto;
-    &:hover {
-        background: #44cc44;
-    }
-`;
-
 const ProductTransaction = () => {
     const [transactionType, setTransactionType] = React.useState('sale');
     const customers = useCustomers((state) => state.customers);
     const [selectedCustomer, setselectedCustomer] = useState(null);
+    const [addable, setAddable] = useState(0);
     const selectedProducts = useProducts((state) => state.selectedProducts);
     const updateProductQty = useProducts((state) => state.updateProductQty);
-    const refreshProductSelection = useProducts(
-        (state) => state.refreshProductSelection
-    );
 
     const addCartItems = useCart((state) => state.addItems);
     const cartItems = useCart((state) => state.items);
@@ -68,7 +39,6 @@ const ProductTransaction = () => {
                 selectedCustomer
             );
             updateProductQty(updatedProducts);
-            refreshProductSelection(updatedProducts, true);
         } else if (transactionType === 'order') {
             insertOrder(cartItems, selectedCustomer);
         }
@@ -82,20 +52,64 @@ const ProductTransaction = () => {
         setselectedCustomer(null);
     };
 
+    useEffect(() => {
+        const handleCartBtn = () => {
+            const notSame = selectedProducts.filter((product) => {
+                return !cartItems.some((item) => item._id === product._id);
+            });
+
+            return notSame.length;
+        };
+        setAddable(handleCartBtn());
+    }, [cartItems, selectedProducts]);
+
     return (
-        <TransactionContainer>
+        <div className="flex flex-col px-2 pt-4 h-full">
             <TransactionTypeSelector
                 transactionType={transactionType}
                 handleSwitchTransactionType={handleSwitchTransactionType}
             />
-            <AddToCartButton
-                disabled={!selectedProducts.length}
-                onClick={handleAdd}
-                variant="contained"
-                startIcon={<AddIcon />}
-            >{`Add ${selectedProducts.length} items to the cart`}</AddToCartButton>
+            <div className="flex">
+                <button
+                    type="button"
+                    className={`${
+                        addable ? 'cart-btn' : 'btn-disabled bg-gray-200'
+                    } w-1/2 mr-1`}
+                    disabled={!addable}
+                    onClick={handleAdd}
+                >
+                    <span className="flex justify-center">
+                        {addable ? (
+                            <>
+                                <AiOutlinePlus size="1.3rem" />
+                                <p className="ml-1">
+                                    {`Add ${addable} ${
+                                        addable > 1 ? 'items' : 'item'
+                                    } to the cart`}
+                                </p>{' '}
+                            </>
+                        ) : (
+                            <p>No Items to Add</p>
+                        )}
+                    </span>
+                </button>
+
+                <button
+                    type="button"
+                    className={`${
+                        cartItems.length
+                            ? 'btn-clear'
+                            : 'btn-disabled bg-red-200'
+                    } w-1/2 ml-1`}
+                    disabled={!cartItems.length}
+                    onClick={clearCart}
+                >
+                    Clear Cart
+                </button>
+            </div>
             <Cart cartItems={cartItems} transactionType={transactionType} />
-            <CustomerSelector
+            <Autocomplete
+                className="my-4"
                 value={selectedCustomer}
                 onChange={(_event, newValue) => {
                     setselectedCustomer(newValue);
@@ -111,14 +125,17 @@ const ProductTransaction = () => {
                     />
                 )}
             />
-            <ConfirmSaletButton
+            <button
+                className={`${
+                    cartItems.length ? 'cart-btn' : 'btn-disabled bg-gray-300'
+                }`}
+                type="button"
                 disabled={!cartItems.length}
-                variant="contained"
                 onClick={handleTransaction}
             >
                 {transactionType === 'sale' ? 'Confirm Sale' : 'Add Order'}
-            </ConfirmSaletButton>
-        </TransactionContainer>
+            </button>
+        </div>
     );
 };
 

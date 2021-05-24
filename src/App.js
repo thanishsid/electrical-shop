@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import NavTabs from './components/common/NavTabs';
 import ProductScreen from './screens/ProductScreen';
@@ -9,12 +8,6 @@ import CustomersScreen from './screens/CustomersScreen';
 import ReturnsScreen from './screens/ReturnsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { useProducts, useCustomers, useSales, useOrders } from './stores/store';
-import './App.css';
-
-const AppContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-`;
 
 function App() {
     const setProducts = useProducts((state) => state.setProducts);
@@ -35,7 +28,7 @@ function App() {
 
     return (
         <Router>
-            <AppContainer>
+            <div className="app">
                 <NavTabs />
                 <Switch>
                     <Route path="/products">
@@ -57,7 +50,7 @@ function App() {
                         <SettingsScreen />
                     </Route>
                 </Switch>
-            </AppContainer>
+            </div>
         </Router>
     );
 }

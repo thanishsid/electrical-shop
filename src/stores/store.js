@@ -5,7 +5,6 @@ import {
     removeItems,
     removeItem,
     updateProduct,
-    refreshMultipleQty,
     addCartItems,
     changeQty,
     editSalePrice,
@@ -35,25 +34,10 @@ export const useProducts = create((set) => ({
         set((state) => removeItem('products', state.products, id, data));
     },
     selectedProducts: [],
-    setProductSelection: ({ isSelected, data }) => {
-        if (isSelected) {
-            set((state) => ({
-                selectedProducts: [...state.selectedProducts, data],
-            }));
-        } else {
-            set((state) => ({
-                selectedProducts: removeItems(state.selectedProducts, data),
-            }));
-        }
-    },
-    refreshProductSelection: (data, isMany) => {
-        if (isMany) {
-            set((state) => refreshMultipleQty(state.selectedProducts, data));
-        } else {
-            set(() => ({
-                selectedProducts: [data],
-            }));
-        }
+    setProductSelection: (data) => {
+        set(() => ({
+            selectedProducts: data,
+        }));
     },
     updateProductQty: (newData) => {
         set((state) => updatePrdQty(state, newData));
@@ -85,24 +69,10 @@ export const useCustomers = create((set) => ({
         return data;
     },
     selectedCustomers: [],
-    setCustomerSelection: ({ isSelected, data }) => {
-        if (isSelected) {
-            set((state) => ({
-                selectedCustomers: [...state.selectedCustomers, data],
-            }));
-        } else {
-            set((state) => ({
-                selectedCustomers: removeItems(state.selectedCustomers, data),
-            }));
-        }
-    },
-    refreshCustomerSelection: (data) => {
+    setCustomerSelection: (data) => {
         set(() => ({
-            selectedCustomers: [data],
+            selectedCustomers: data,
         }));
-    },
-    clearSelectedCustomers: () => {
-        set(() => ({ selectedCustomers: [] }));
     },
 }));
 
@@ -151,23 +121,14 @@ export const useSales = create((set) => ({
         return data;
     },
     selectedSales: [],
-    setSalesSelection: ({ isSelected, data }) => {
-        if (isSelected) {
-            set((state) => ({
-                selectedSales: [...state.selectedSales, data],
-            }));
-        } else {
-            set((state) => ({
-                selectedSales: removeItems(state.selectedSales, data),
-            }));
-        }
+    setSalesSelection: (data) => {
+        set(() => ({
+            selectedSales: data,
+        }));
     },
     deleteSale: async (id) => {
         const data = await dbFunction('delete', 'sales', id);
         set((state) => removeItem('sales', state.sales, id, data));
-    },
-    clearSelectedSales: () => {
-        set(() => ({ selectedSales: [] }));
     },
 }));
 
@@ -191,5 +152,9 @@ export const useOrders = create((set) => ({
         const data = await dbFunction('insert', 'orders', orderData);
 
         set((state) => ({ orders: [...state.orders, data] }));
+    },
+    selectedOrders: [],
+    setOrdersSelection: (data) => {
+        set(() => ({ selectedOrders: data }));
     },
 }));

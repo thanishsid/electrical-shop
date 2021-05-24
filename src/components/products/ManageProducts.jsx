@@ -7,24 +7,17 @@ import {
     useLocation,
     useParams,
 } from 'react-router-dom';
-import styled from 'styled-components';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import {
+    AiOutlineShoppingCart,
+    AiFillEdit,
+    AiOutlinePlus,
+    AiFillDelete,
+} from 'react-icons/ai';
+import { IconContext } from 'react-icons';
 import AddProducts from './AddProducts';
 import EditProducts from './EditProducts';
 import RemoveProducts from './RemoveProducts';
 import ProductTransaction from './ProductTransaction';
-
-const FunctionPanel = styled(Paper)`
-    max-width: 100%;
-    margin: 0, auto;
-    border-radius: 0.5em;
-`;
 
 const ProductFunctions = () => {
     const { funcId } = useParams();
@@ -44,10 +37,6 @@ const ProductFunctions = () => {
 export default function IconLabelTabs() {
     const [value, setValue] = React.useState(0);
 
-    const handleChange = (_event, newValue) => {
-        setValue(newValue);
-    };
-
     const { path, url } = useRouteMatch();
 
     const { pathname } = useLocation();
@@ -64,48 +53,35 @@ export default function IconLabelTabs() {
         }
     }, [pathname]);
 
+    const isActive = (index) =>
+        value === index ? 'sub-tab-icon-active' : 'sub-tab-icon-inactive ';
+
     return (
         <div className="half">
-            <FunctionPanel>
-                <Tabs
-                    style={{ height: '10vh' }}
-                    value={value}
-                    onChange={handleChange}
-                    variant="fullWidth"
-                    indicatorColor="secondary"
-                    textColor="secondary"
-                    aria-label="icon label tabs example"
-                >
-                    <Tab
-                        disableRipple
-                        icon={<AddShoppingCartIcon />}
-                        label="TRANSACTION"
-                        component={Link}
-                        to={`${url}`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<EditIcon />}
-                        label="EDIT"
-                        component={Link}
-                        to={`${url}/edit`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<AddIcon />}
-                        label="ADD"
-                        component={Link}
-                        to={`${url}/add`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<DeleteForeverIcon />}
-                        label="DELETE"
-                        component={Link}
-                        to={`${url}/remove`}
-                    />
-                </Tabs>
-            </FunctionPanel>
+            <IconContext.Provider value={{ size: '3rem' }}>
+                <ul className="flex justify-around shadow-md border-b-2 pb-4">
+                    <li className={isActive(0)}>
+                        <Link to={`${url}`}>
+                            <AiOutlineShoppingCart />
+                        </Link>
+                    </li>
+                    <li className={isActive(1)}>
+                        <Link to={`${url}/edit`}>
+                            <AiFillEdit />
+                        </Link>
+                    </li>
+                    <li className={isActive(2)}>
+                        <Link to={`${url}/add`}>
+                            <AiOutlinePlus />
+                        </Link>
+                    </li>
+                    <li className={isActive(3)}>
+                        <Link to={`${url}/remove`}>
+                            <AiFillDelete />
+                        </Link>
+                    </li>
+                </ul>
+            </IconContext.Provider>
             <Switch>
                 <Route path={path} exact>
                     <ProductTransaction />

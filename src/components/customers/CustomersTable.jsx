@@ -5,6 +5,10 @@ import { useCustomers } from '../../stores/store';
 const CustomersTable = () => {
     const data = useCustomers((state) => state.customers);
 
+    const setCustomerSelection = useCustomers(
+        (state) => state.setCustomerSelection
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -21,7 +25,12 @@ const CustomersTable = () => {
 
     return (
         <div className="half">
-            <DataTable type="customers" rowData={data} columnData={columns} />
+            <DataTable
+                type="customers"
+                rowData={data}
+                columnData={columns}
+                setSelectedRows={setCustomerSelection}
+            />
         </div>
     );
 };

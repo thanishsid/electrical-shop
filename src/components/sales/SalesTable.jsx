@@ -6,6 +6,8 @@ import { useSales } from '../../stores/store';
 const SalesTable = () => {
     const data = useSales((state) => state.sales);
 
+    const setSalesSelection = useSales((state) => state.setSalesSelection);
+
     const columns = useMemo(
         () => [
             {
@@ -28,7 +30,12 @@ const SalesTable = () => {
 
     return (
         <div className="half">
-            <DataTable type="sales" rowData={data} columnData={columns} />
+            <DataTable
+                type="sales"
+                rowData={data}
+                columnData={columns}
+                setSelectedRows={setSalesSelection}
+            />
         </div>
     );
 };

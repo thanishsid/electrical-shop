@@ -59,10 +59,10 @@ const AddProducts = () => {
 
         const product = {
             prdName: prdName.trim(),
-            prdQty: parseInt(prdQty, 10),
-            prdCost: parseFloat(prdCost),
-            prdWhPrice: parseFloat(prdWhPrice),
-            prdRePrice: parseFloat(prdRePrice),
+            prdQty,
+            prdCost,
+            prdWhPrice,
+            prdRePrice,
         };
 
         insertProducts(product);
@@ -91,7 +91,7 @@ const AddProducts = () => {
                     inputProps={{ min: '0' }}
                     placeholder="Add Quantity"
                     value={prdQty}
-                    onChange={(event) => setQty(event.target.value)}
+                    onChange={(event) => setQty(event.target.valueAsNumber)}
                 />
             </FormCtrl>
             <FormCtrl>
@@ -102,7 +102,7 @@ const AddProducts = () => {
                     inputProps={{ step: '0.01', min: '0' }}
                     placeholder="Add Cost"
                     value={prdCost}
-                    onChange={(event) => setCost(event.target.value)}
+                    onChange={(event) => setCost(event.target.valueAsNumber)}
                 />
             </FormCtrl>
             <FormCtrl>
@@ -113,7 +113,7 @@ const AddProducts = () => {
                     inputProps={{ step: '0.01', min: '0' }}
                     placeholder="Add Wholesale Price"
                     value={prdWhPrice}
-                    onChange={(event) => setWprice(event.target.value)}
+                    onChange={(event) => setWprice(event.target.valueAsNumber)}
                 />
             </FormCtrl>
             <FormCtrl>
@@ -124,7 +124,7 @@ const AddProducts = () => {
                     inputProps={{ step: '0.01' }}
                     placeholder="Add Retail Price"
                     value={prdRePrice}
-                    onChange={(event) => setRprice(event.target.value)}
+                    onChange={(event) => setRprice(event.target.valueAsNumber)}
                 />
             </FormCtrl>
             <ButtonContainer>
