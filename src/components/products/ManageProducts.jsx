@@ -7,12 +7,8 @@ import {
     useLocation,
     useParams,
 } from 'react-router-dom';
-import {
-    AiOutlineShoppingCart,
-    AiFillEdit,
-    AiOutlinePlus,
-    AiFillDelete,
-} from 'react-icons/ai';
+import { MdShoppingCart, MdEdit, MdDelete } from 'react-icons/md';
+import { GoPlus } from 'react-icons/go';
 import { IconContext } from 'react-icons';
 import AddProducts from './AddProducts';
 import EditProducts from './EditProducts';
@@ -34,7 +30,7 @@ const ProductFunctions = () => {
     }
 };
 
-export default function IconLabelTabs() {
+export default function ManageProducts() {
     const [value, setValue] = React.useState(0);
 
     const { path, url } = useRouteMatch();
@@ -62,22 +58,22 @@ export default function IconLabelTabs() {
                 <ul className="flex justify-around shadow-md border-b-2 pb-4">
                     <li className={isActive(0)}>
                         <Link to={`${url}`}>
-                            <AiOutlineShoppingCart />
+                            <MdShoppingCart />
                         </Link>
                     </li>
                     <li className={isActive(1)}>
                         <Link to={`${url}/edit`}>
-                            <AiFillEdit />
+                            <MdEdit />
                         </Link>
                     </li>
                     <li className={isActive(2)}>
                         <Link to={`${url}/add`}>
-                            <AiOutlinePlus />
+                            <GoPlus />
                         </Link>
                     </li>
                     <li className={isActive(3)}>
                         <Link to={`${url}/remove`}>
-                            <AiFillDelete />
+                            <MdDelete />
                         </Link>
                     </li>
                 </ul>

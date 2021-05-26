@@ -24,11 +24,11 @@
 
 /* Sub Tab Classes */
 .sub-tab-icon-inactive {
-    @apply w-20 text-gray-700 flex justify-center;
+    @apply w-20 text-gray-700 flex justify-center transform hover:scale-125;
 }
 
 .sub-tab-icon-active {
-    @apply w-20 text-red-400 border-b-4 border-red-400 flex justify-center;
+    @apply w-20 text-red-400 flex justify-center;
 }
 
 /* Common Classes */
