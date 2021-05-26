@@ -5,22 +5,25 @@ import { useCart } from '../../../stores/store';
 import PriceSelector from './PriceSelector';
 import { roundToTwo } from '../../../functions/generalFunctions';
 
-// const RemoveButton = styled.button`
-//     color: rgb(168, 1, 1);
-//     border: none;
-//     background: white;
-//     transform: scale(1.5);
-//     font-weight: 700;
-//     &:hover {
-//         transform: scale(2);
-//         cursor: pointer;
-//     }
-// `;
-
 const CartItem = ({ item, transactionType }) => {
+    const [saleType, setSaleType] = React.useState('retail');
     const changeQuantity = useCart((state) => state.changeQuantity);
     const changeSalePrice = useCart((state) => state.changeSalePrice);
     const removeItem = useCart((state) => state.removeItem);
+
+    React.useEffect(() => {
+        if (saleType === 'retail') {
+            changeSalePrice(item, item.prdRePrice);
+        } else if (saleType === 'wholesale') {
+            changeSalePrice(item, item.prdWhPrice);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [saleType]);
+
+    const handleCustomSalePrice = (event) => {
+        const customPrice = event.target.value || 0;
+        changeSalePrice(item, customPrice);
+    };
 
     const increaseQty = () => {
         changeQuantity(transactionType, item, 'dec');
@@ -62,15 +65,16 @@ const CartItem = ({ item, transactionType }) => {
 
                     <td className="bg-gray-100 p-2 w-1/5 text-center">
                         <PriceSelector
-                            item={item}
-                            custPriceChange={changeSalePrice}
+                            saleType={saleType}
+                            setSaleType={setSaleType}
+                            handleCustomSalePrice={handleCustomSalePrice}
                         />
                     </td>
                     <td className="p-2 text-center">{`${item.prdQty} x ${item.salePrice}`}</td>
                     <td className="bg-gray-100 p-2 border-gray-300 text-center">
                         {roundToTwo(item.prdQty * item.salePrice)}
                     </td>
-                    <td className="p-2 flex h-full justify-center items-center">
+                    <td className="p-2 flex h-full justify-center items-center select-none">
                         <AiOutlineDelete
                             className=" transform hover:scale-125 hover:text-red-600 cursor-pointer"
                             size="1.5rem"

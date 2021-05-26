@@ -80,7 +80,7 @@ export default function DataTable({ rowData, columnData, setSelectedRows }) {
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 <th
-                                    className="select-none h-8"
+                                    className="select-none h-8 hover:bg-blue-200"
                                     {...column.getHeaderProps(
                                         column.getSortByToggleProps()
                                     )}

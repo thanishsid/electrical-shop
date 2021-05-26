@@ -1,81 +1,60 @@
+/* eslint-disable jsx-a11y/no-onchange */
 import React from 'react';
-import styled from 'styled-components';
-import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputBase from '@material-ui/core/InputBase';
 
-const PriceSelectContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-`;
+export default function PriceSelector({
+    saleType,
+    setSaleType,
+    handleCustomSalePrice,
+}) {
+    const types = [
+        { name: 'Retail', value: 'retail' },
+        { name: 'Wholesale', value: 'wholesale' },
+        { name: 'Custom', value: 'custom' },
+    ];
 
-const BootstrapInput = withStyles((theme) => ({
-    root: {
-        'label + &': {
-            marginTop: '0',
-        },
-    },
-    input: {
-        borderRadius: 4,
-        // position: 'relative',
-        backgroundColor: theme.palette.background.paper,
-        border: '1px solid #ced4da',
-        padding: '10px 12px 10px 12px',
-        textAlign: 'center',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-    },
-}))(InputBase);
-
-export default function PriceSelects({ item, custPriceChange }) {
-    // const classes = useStyles();
-    const [saleType, setsaleType] = React.useState('retail');
-    const handleSelectChange = (event) => {
-        setsaleType(event.target.value);
+    const preventMinus = (e) => {
+        if (e.code === 'Minus') {
+            e.preventDefault();
+        }
     };
 
-    React.useEffect(() => {
-        if (saleType === 'retail') {
-            custPriceChange(item, item.prdRePrice);
-        } else if (saleType === 'wholesale') {
-            custPriceChange(item, item.prdWhPrice);
+    const preventPasteNegative = (e) => {
+        const clipboardData = e.clipboardData || window.clipboardData;
+        const pastedData = parseFloat(clipboardData.getData('text'));
+
+        if (pastedData < 0) {
+            e.preventDefault();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [saleType]);
+    };
 
     return (
-        <PriceSelectContainer>
-            <FormControl>
-                <Select
-                    id="price-select"
-                    value={saleType}
-                    onChange={handleSelectChange}
-                    input={<BootstrapInput />}
-                >
-                    <MenuItem value="retail">Retail</MenuItem>
-                    <MenuItem value="wholesale">Wholesale</MenuItem>
-                    <MenuItem value="custom">Custom</MenuItem>
-                </Select>
-            </FormControl>
-            <FormControl>
-                <InputLabel htmlFor="price-textbox">Price</InputLabel>
-                <BootstrapInput
-                    type="number"
-                    disabled={saleType !== 'custom'}
-                    placeholder="Set Price"
-                    id="price-textbox"
-                    onChange={(event) =>
-                        custPriceChange(item, parseFloat(event.target.value))
-                    }
-                />
-            </FormControl>
-        </PriceSelectContainer>
+        <div className="flex flex-col">
+            <select
+                className="font-bold h-8 rounded-md focus:outline-none pl-2"
+                name="types"
+                id="types"
+                onChange={(event) => setSaleType(event.target.value)}
+            >
+                {types.map((type) => (
+                    <option
+                        className="font-bold rounded-lg"
+                        key={type.value}
+                        value={type.value}
+                    >
+                        {type.name}
+                    </option>
+                ))}
+            </select>
+            <input
+                className={`${saleType !== 'custom' ? 'hidden' : ''} input`}
+                type="number"
+                min="0"
+                disabled={saleType !== 'custom'}
+                placeholder="Set Price"
+                onPaste={preventPasteNegative}
+                onChange={handleCustomSalePrice}
+                onKeyPress={preventMinus}
+            />
+        </div>
     );
 }

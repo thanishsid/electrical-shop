@@ -4,7 +4,7 @@ import { useProducts, useCart } from '../../stores/store';
 
 const MessageContainer = ({ message }) => (
     <div className="flex h-full justify-center items-center">
-        <p>{message}</p>
+        <p className="font-bold text-gray-700 select-none">{message}</p>
     </div>
 );
 
@@ -60,87 +60,75 @@ const EditProducts = () => {
     }
     return (
         <form className="mx-8 mt-12 flex flex-col" onSubmit={handleSubmit}>
-            <div>
-                <label className="input-label" htmlFor="prod-name">
-                    Product Name
-                    <input
-                        className="input"
-                        id="prod-name"
-                        type="text"
-                        placeholder="Add Product Name"
-                        value={prdName}
-                        onChange={(event) => setName(event.target.value)}
-                        required
-                    />
-                </label>
-            </div>
-            <div>
-                <label className="input-label" htmlFor="prod-qty">
-                    Quantity
-                    <input
-                        className="input"
-                        id="prod-qty"
-                        type="number"
-                        min="0"
-                        placeholder="Add Quantity"
-                        value={prdQty}
-                        onChange={(event) => setQty(event.target.valueAsNumber)}
-                    />
-                </label>
-            </div>
-            <div>
-                <label className="input-label" htmlFor="prod-cost">
-                    Cost
-                    <input
-                        className="input"
-                        id="prod-cost"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        placeholder="Add Cost"
-                        value={prdCost}
-                        onChange={(event) =>
-                            setCost(event.target.valueAsNumber)
-                        }
-                    />
-                </label>
-            </div>
-            <div>
-                <label className="input-label" htmlFor="prod-wprice">
-                    Wholesale Price
-                    <input
-                        className="input"
-                        id="prod-wprice"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        placeholder="Add Wholesale Price"
-                        value={prdWhPrice}
-                        onChange={(event) =>
-                            setWprice(event.target.valueAsNumber)
-                        }
-                    />
-                </label>
-            </div>
-            <div>
-                <label className="input-label" htmlFor="prod-rprice">
-                    Retail Price
-                    <input
-                        className="input"
-                        id="prod-rprice"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        placeholder="Add Retail Price"
-                        value={prdRePrice}
-                        onChange={(event) =>
-                            setRprice(event.target.valueAsNumber)
-                        }
-                    />
-                </label>
-            </div>
+            <label className="input-label" htmlFor="prod-name">
+                Product Name
+                <input
+                    className="input"
+                    id="prod-name"
+                    type="text"
+                    placeholder="Add Product Name"
+                    value={prdName}
+                    onChange={(event) => setName(event.target.value)}
+                    required
+                />
+            </label>
 
-            <button className="btn" type="submit">
+            <label className="input-label" htmlFor="prod-qty">
+                Quantity
+                <input
+                    className="input"
+                    id="prod-qty"
+                    type="number"
+                    min="0"
+                    placeholder="Add Quantity"
+                    value={prdQty}
+                    onChange={(event) => setQty(event.target.valueAsNumber)}
+                />
+            </label>
+
+            <label className="input-label" htmlFor="prod-cost">
+                Cost
+                <input
+                    className="input"
+                    id="prod-cost"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="Add Cost"
+                    value={prdCost}
+                    onChange={(event) => setCost(event.target.valueAsNumber)}
+                />
+            </label>
+
+            <label className="input-label" htmlFor="prod-wprice">
+                Wholesale Price
+                <input
+                    className="input"
+                    id="prod-wprice"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="Add Wholesale Price"
+                    value={prdWhPrice}
+                    onChange={(event) => setWprice(event.target.valueAsNumber)}
+                />
+            </label>
+
+            <label className="input-label" htmlFor="prod-rprice">
+                Retail Price
+                <input
+                    className="input"
+                    id="prod-rprice"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="Add Retail Price"
+                    value={prdRePrice}
+                    onChange={(event) => setRprice(event.target.valueAsNumber)}
+                />
+            </label>
+
+            <button className="btn mt-2" type="submit">
                 Edit Product
             </button>
         </form>

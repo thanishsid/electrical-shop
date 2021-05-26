@@ -28,7 +28,9 @@ const Cart = ({ cartItems, transactionType }) => {
                     </tbody>
                 </table>
             ) : (
-                <p>Cart Empty</p>
+                <p className="font-bold text-gray-700 select-none">
+                    Cart Empty
+                </p>
             )}
         </div>
     );

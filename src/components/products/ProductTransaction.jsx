@@ -120,7 +120,7 @@ const ProductTransaction = () => {
                 renderInput={(params) => (
                     <TextField
                         {...params}
-                        label="Select Customer"
+                        placeholder="Select Customer"
                         variant="outlined"
                     />
                 )}

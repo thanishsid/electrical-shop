@@ -52,6 +52,10 @@
     @apply bg-red-300 hover:bg-red-400 text-gray-900 font-bold py-2 px-4 rounded-lg focus:outline-none;
 }
 
+.btn-delete {
+    @apply bg-red-400 flex justify-center font-bold text-white p-2 rounded-full hover:bg-red-500;
+}
+
 .btn-disabled {
     @apply text-gray-900 font-bold py-2 px-4 rounded-lg focus:outline-none opacity-50 cursor-default;
 }
@@ -75,7 +79,7 @@
 }
 
 .btn-cart-qty {
-    @apply bg-gray-200 hover:bg-gray-300 py-1 px-3 focus:outline-none rounded-full text-lg;
+    @apply bg-gray-200 hover:bg-gray-300 py-0.5 px-3 focus:outline-none rounded-full text-lg;
 }
 
 .cart-qty-count {
