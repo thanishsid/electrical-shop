@@ -20,7 +20,11 @@ export const useProducts = create((set) => ({
     },
     insertProducts: async (product) => {
         const data = await dbFunction('insert', 'products', product);
+        if (data.name === 'Error') {
+            return data;
+        }
         set((state) => ({ products: [...state.products, data] }));
+        return data;
     },
     editProduct: async (id, productData) => {
         const data = await dbFunction('edit', 'products', {
@@ -41,9 +45,6 @@ export const useProducts = create((set) => ({
     },
     updateProductQty: (newData) => {
         set((state) => updatePrdQty(state, newData));
-    },
-    clearSelectedProducts: () => {
-        set(() => ({ selectedProducts: [] }));
     },
 }));
 

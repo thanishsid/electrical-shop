@@ -9,11 +9,12 @@ import {
 } from 'react-router-dom';
 import { MdShoppingCart, MdEdit, MdDelete } from 'react-icons/md';
 import { GoPlus } from 'react-icons/go';
-import { IconContext } from 'react-icons';
+import SubNav from '../common/SubNav';
 import AddProducts from './AddProducts';
 import EditProducts from './EditProducts';
 import RemoveProducts from './RemoveProducts';
 import ProductTransaction from './ProductTransaction';
+import { isActive } from '../../functions/generalFunctions';
 
 const ProductFunctions = () => {
     const { funcId } = useParams();
@@ -49,35 +50,31 @@ export default function ManageProducts() {
         }
     }, [pathname]);
 
-    const isActive = (index) =>
-        value === index ? 'sub-tab-icon-active' : 'sub-tab-icon-inactive ';
-
     return (
         <div className="half">
-            <IconContext.Provider value={{ size: '3rem' }}>
-                <ul className="flex justify-around shadow-md border-b-2 pb-4">
-                    <li className={isActive(0)}>
-                        <Link to={`${url}`}>
-                            <MdShoppingCart />
-                        </Link>
-                    </li>
-                    <li className={isActive(1)}>
-                        <Link to={`${url}/edit`}>
-                            <MdEdit />
-                        </Link>
-                    </li>
-                    <li className={isActive(2)}>
-                        <Link to={`${url}/add`}>
-                            <GoPlus />
-                        </Link>
-                    </li>
-                    <li className={isActive(3)}>
-                        <Link to={`${url}/remove`}>
-                            <MdDelete />
-                        </Link>
-                    </li>
-                </ul>
-            </IconContext.Provider>
+            <SubNav>
+                <li className={isActive(0, value)}>
+                    <Link className="sub-tab-link" to={`${url}`}>
+                        <MdShoppingCart />
+                    </Link>
+                </li>
+                <li className={isActive(1, value)}>
+                    <Link className="sub-tab-link" to={`${url}/edit`}>
+                        <MdEdit />
+                    </Link>
+                </li>
+                <li className={isActive(2, value)}>
+                    <Link className="sub-tab-link" to={`${url}/add`}>
+                        <GoPlus />
+                    </Link>
+                </li>
+                <li className={isActive(3, value)}>
+                    <Link className="sub-tab-link" to={`${url}/remove`}>
+                        <MdDelete />
+                    </Link>
+                </li>
+            </SubNav>
+
             <Switch>
                 <Route path={path} exact>
                     <ProductTransaction />

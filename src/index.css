@@ -4,16 +4,31 @@
 
 /* App Classes */
 
-.half {
-    width: 49.5%;
-    @apply flex flex-col flex-none mt-2 shadow-lg border rounded-lg p-4;
+.app-container {
+    height: 100vh;
+    max-height: 100vh;
 }
 
 .app {
-    @apply flex flex-col h-screen overflow-hidden;
+    @apply h-full flex flex-col;
 }
 
+.screens {
+    @apply flex justify-center gap-4 px-4 pb-4;
+    flex-grow: 1;
+}
+
+.half {
+    @apply flex flex-col mt-2 shadow-lg border rounded-lg p-4;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+}
 /* Main Tab Classes */
+
+.nav-tab {
+    @apply px-10 py-2;
+}
 .active-main-tab-link {
     @apply text-center block border border-blue-500 rounded-lg py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white;
 }
@@ -24,11 +39,18 @@
 
 /* Sub Tab Classes */
 .sub-tab-icon-inactive {
-    @apply w-20 text-gray-700 flex justify-center transform hover:scale-125;
+    @apply w-20 text-gray-700 flex justify-center hover:shadow-lg rounded-lg flex-1;
 }
 
 .sub-tab-icon-active {
-    @apply w-20 text-red-400 flex justify-center;
+    @apply w-20 text-red-400 flex justify-center rounded-lg flex-1;
+    --tw-shadow: inset 0 4px 6px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.sub-tab-link {
+    @apply w-full h-full flex justify-center items-center;
 }
 
 /* Common Classes */
@@ -60,10 +82,6 @@
     @apply text-gray-900 font-bold py-2 px-4 rounded-lg focus:outline-none opacity-50 cursor-default;
 }
 
-.screens {
-    @apply flex h-full mb-4 justify-between px-4;
-}
-
 /* Product Transaction Classes  */
 
 .btn-transaction-type-active {
@@ -87,6 +105,16 @@
 }
 /* Bespoke Classes */
 
-.stopGrow {
-    flex-basis: 1rem;
+.cartContainer {
+    @apply overflow-auto border-2 border-gray-300 rounded-md mt-4;
+    background-color: rgba(84, 88, 88, 0.082);
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.cart-header {
+    @apply bg-green-100 border-b text-base select-none h-8;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }

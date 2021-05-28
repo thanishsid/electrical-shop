@@ -7,22 +7,14 @@ import {
     useLocation,
     useParams,
 } from 'react-router-dom';
-import styled from 'styled-components';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import DetailsIcon from '@material-ui/icons/Details';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { BiDetail } from 'react-icons/bi';
+import { MdDelete } from 'react-icons/md';
+import SubNav from '../common/SubNav';
 import OrderDetails from './OrderDetails';
 import RemoveOrders from './RemoveOrders';
+import { isActive } from '../../functions/generalFunctions';
 
-const FunctionPanel = styled(Paper)`
-    max-width: 100%;
-    margin: 0, auto;
-    border-radius: 0.5em;
-`;
-
-const SaleFunctions = () => {
+const OrderFunctions = () => {
     const { funcId } = useParams();
 
     switch (funcId) {
@@ -33,12 +25,8 @@ const SaleFunctions = () => {
     }
 };
 
-export default function IconLabelTabs() {
+export default function ManageOrders() {
     const [value, setValue] = React.useState(0);
-
-    const handleChange = (_event, newValue) => {
-        setValue(newValue);
-    };
 
     const { path, url } = useRouteMatch();
 
@@ -54,38 +42,25 @@ export default function IconLabelTabs() {
 
     return (
         <div className="half">
-            <FunctionPanel>
-                <Tabs
-                    style={{ height: '10vh' }}
-                    value={value}
-                    onChange={handleChange}
-                    variant="fullWidth"
-                    indicatorColor="secondary"
-                    textColor="secondary"
-                    aria-label="icon label tabs example"
-                >
-                    <Tab
-                        disableRipple
-                        icon={<DetailsIcon />}
-                        label="Details"
-                        component={Link}
-                        to={`${url}`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<DeleteForeverIcon />}
-                        label="DELETE"
-                        component={Link}
-                        to={`${url}/remove`}
-                    />
-                </Tabs>
-            </FunctionPanel>
+            <SubNav>
+                <li className={isActive(0, value)}>
+                    <Link className="sub-tab-link" to={`${url}`}>
+                        <BiDetail />
+                    </Link>
+                </li>
+                <li className={isActive(1, value)}>
+                    <Link className="sub-tab-link" to={`${url}/remove`}>
+                        <MdDelete />
+                    </Link>
+                </li>
+            </SubNav>
+
             <Switch>
                 <Route path={path} exact>
                     <OrderDetails />
                 </Route>
                 <Route path={`${path}/:funcId`}>
-                    <SaleFunctions />
+                    <OrderFunctions />
                 </Route>
             </Switch>
         </div>

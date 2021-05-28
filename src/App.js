@@ -27,31 +27,33 @@ function App() {
     }, [setProducts, setCustomers, setSales, setOrders]);
 
     return (
-        <Router>
-            <div className="app">
-                <NavTabs />
-                <Switch>
-                    <Route path="/products">
-                        <ProductScreen />
-                    </Route>
-                    <Route path="/sales">
-                        <SalesScreen />
-                    </Route>
-                    <Route path="/orders">
-                        <OrdersScreen />
-                    </Route>
-                    <Route path="/customers">
-                        <CustomersScreen />
-                    </Route>
-                    <Route path="/returns">
-                        <ReturnsScreen />
-                    </Route>
-                    <Route path="/settings">
-                        <SettingsScreen />
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+        <div className="app-container">
+            <Router>
+                <div className="app">
+                    <NavTabs />
+                    <Switch>
+                        <Route path="/products">
+                            <ProductScreen />
+                        </Route>
+                        <Route path="/sales">
+                            <SalesScreen />
+                        </Route>
+                        <Route path="/orders">
+                            <OrdersScreen />
+                        </Route>
+                        <Route path="/customers">
+                            <CustomersScreen />
+                        </Route>
+                        <Route path="/returns">
+                            <ReturnsScreen />
+                        </Route>
+                        <Route path="/settings">
+                            <SettingsScreen />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </div>
     );
 }
 

@@ -33,13 +33,13 @@ const CartItem = ({ item, transactionType }) => {
     };
 
     return (
-        <tr className="border-2 border-gray-300">
+        <tr className="border-b border-gray-300">
             {item && (
                 <>
-                    <td className="bg-gray-100  p-2 text-center">
+                    <td className="bg-gray-100 p-2 text-center break-all">
                         {item.prdName}
                     </td>
-                    <td className="p-2 text-center">
+                    <td className="bg-white p-2 text-center">
                         <div className="flex items-center justify-center">
                             <Repeatable
                                 tag="button"
@@ -70,13 +70,13 @@ const CartItem = ({ item, transactionType }) => {
                             handleCustomSalePrice={handleCustomSalePrice}
                         />
                     </td>
-                    <td className="p-2 text-center">{`${item.prdQty} x ${item.salePrice}`}</td>
-                    <td className="bg-gray-100 p-2 border-gray-300 text-center">
+                    <td className="bg-white p-2 text-center">{`${item.prdQty} x ${item.salePrice}`}</td>
+                    <td className="bg-gray-100 p-2 text-center">
                         {roundToTwo(item.prdQty * item.salePrice)}
                     </td>
-                    <td className="p-2 flex h-full justify-center items-center select-none">
+                    <td className="bg-white p-2 text-center select-none">
                         <AiOutlineDelete
-                            className=" transform hover:scale-125 hover:text-red-600 cursor-pointer"
+                            className="transform m-auto hover:scale-125 hover:text-red-600 cursor-pointer"
                             size="1.5rem"
                             onClick={() => removeItem(item)}
                             type="button"

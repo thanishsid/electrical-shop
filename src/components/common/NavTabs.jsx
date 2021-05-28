@@ -30,29 +30,29 @@ export default function NavTabs() {
     };
 
     return (
-        <div className="px-10 py-2">
-            <ul className="flex">
-                <li className="flex-1 mr-2">
+        <div className="nav-tab">
+            <ul className="flex gap-4">
+                <li className="flex-1">
                     <Link to="/products">
                         <p className={isActive(0)}>Products</p>
                     </Link>
                 </li>
-                <li className="flex-1 mr-2">
+                <li className="flex-1">
                     <Link to="/sales">
                         <p className={isActive(1)}>Sales</p>
                     </Link>
                 </li>
-                <li className="flex-1 mr-2">
+                <li className="flex-1">
                     <Link to="/orders">
                         <p className={isActive(2)}> Orders</p>
                     </Link>
                 </li>
-                <li className="flex-1 mr-2">
+                <li className="flex-1">
                     <Link to="/customers">
                         <p className={isActive(3)}> Customers</p>
                     </Link>
                 </li>
-                <li className="flex-1 mr-2">
+                <li className="flex-1">
                     <Link to="/returns">
                         <p className={isActive(4)}> Returns</p>
                     </Link>

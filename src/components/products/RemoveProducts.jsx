@@ -1,14 +1,12 @@
 import React from 'react';
 import DeleteItems from '../common/DeleteItems';
-import { useProducts } from '../../stores/store';
+import { useProducts, useCart } from '../../stores/store';
 
 const RemoveProducts = () => {
     const selections = useProducts((state) => state.selectedProducts);
 
     const removeSelectedProduct = useProducts((state) => state.deleteProduct);
-    const clearSelectedProducts = useProducts(
-        (state) => state.clearSelectedProducts
-    );
+    const clearCart = useCart((state) => state.clearCart);
 
     const removeProducts = () => {
         // eslint-disable-next-line no-underscore-dangle
@@ -20,7 +18,7 @@ const RemoveProducts = () => {
             btnLabel="Delete Products"
             items={selections}
             deleteFunction={removeProducts}
-            updateFunction={clearSelectedProducts}
+            updateFunction={clearCart}
         />
     );
 };

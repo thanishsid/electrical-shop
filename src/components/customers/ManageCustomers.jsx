@@ -7,24 +7,15 @@ import {
     useLocation,
     useParams,
 } from 'react-router-dom';
-import styled from 'styled-components';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { MdEdit, MdDelete } from 'react-icons/md';
+import { FaHandshake } from 'react-icons/fa';
+import { GoPlus } from 'react-icons/go';
+import SubNav from '../common/SubNav';
 import AddCustomers from './AddCustomers';
 import EditCustomer from './EditCustomer';
 import RemoveCustomers from './RemoveCustomers';
 import CustomerTransactions from './CustomerTransactions';
-
-const FunctionPanel = styled(Paper)`
-    max-width: 100%;
-    margin: 0, auto;
-    border-radius: 0.5em;
-`;
+import { isActive } from '../../functions/generalFunctions';
 
 const CustomerFunctions = () => {
     const { funcId } = useParams();
@@ -41,12 +32,8 @@ const CustomerFunctions = () => {
     }
 };
 
-export default function IconLabelTabs() {
+export default function ManageProducts() {
     const [value, setValue] = React.useState(0);
-
-    const handleChange = (_event, newValue) => {
-        setValue(newValue);
-    };
 
     const { path, url } = useRouteMatch();
 
@@ -66,46 +53,28 @@ export default function IconLabelTabs() {
 
     return (
         <div className="half">
-            <FunctionPanel square>
-                <Tabs
-                    style={{ height: '10vh' }}
-                    value={value}
-                    onChange={handleChange}
-                    variant="fullWidth"
-                    indicatorColor="secondary"
-                    textColor="secondary"
-                    aria-label="icon label tabs example"
-                >
-                    <Tab
-                        disableRipple
-                        icon={<AddShoppingCartIcon />}
-                        label="SALES & ORDERS"
-                        component={Link}
-                        to={`${url}`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<AddIcon />}
-                        label="ADD"
-                        component={Link}
-                        to={`${url}/add`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<EditIcon />}
-                        label="EDIT"
-                        component={Link}
-                        to={`${url}/edit`}
-                    />
-                    <Tab
-                        disableRipple
-                        icon={<DeleteForeverIcon />}
-                        label="DELETE"
-                        component={Link}
-                        to={`${url}/remove`}
-                    />
-                </Tabs>
-            </FunctionPanel>
+            <SubNav>
+                <li className={isActive(0, value)}>
+                    <Link className="sub-tab-link" to={`${url}`}>
+                        <FaHandshake />
+                    </Link>
+                </li>
+                <li className={isActive(1, value)} to="add">
+                    <Link className="sub-tab-link" to={`${url}/add`}>
+                        <GoPlus />
+                    </Link>
+                </li>
+                <li className={isActive(2, value)}>
+                    <Link className="sub-tab-link" to={`${url}/edit`}>
+                        <MdEdit />
+                    </Link>
+                </li>
+                <li className={isActive(3, value)}>
+                    <Link className="sub-tab-link" to={`${url}/remove`}>
+                        <MdDelete />
+                    </Link>
+                </li>
+            </SubNav>
             <Switch>
                 <Route path={path} exact>
                     <CustomerTransactions />

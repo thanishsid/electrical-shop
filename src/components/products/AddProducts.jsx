@@ -1,35 +1,10 @@
 import React, { useState } from 'react';
-// import styled from 'styled-components';
-// import { InputLabel, Input, Button as Btn } from '@material-ui/core';
+import { useAlert } from 'react-alert';
 import { useProducts } from '../../stores/store';
-
-// Styled Components
-// const FormCtrl = styled(FormControl)`
-//     margin-top: 1rem;
-// `;
-// const Form = styled.form`
-//     margin: 0rem 2rem;
-//     margin-top: 3rem;
-//     display: flex;
-//     flex-direction: column;
-// `;
-
-// const Button = styled(Btn)`
-//     width: 40%;
-//     height: 3rem;
-//     background: ${(props) => (props.bgcolor ? props.bgcolor : '')};
-//     color: ${(props) => (props.textcolor ? props.textcolor : '')};
-//     &:hover {
-//         background: rgb(189, 184, 184);
-//         color: black;
-//     }
-// `;
-// const ButtonContainer = styled.section`
-//     margin-top: 2rem;
-//     display: flex;
-//     justify-content: space-around;
-// `;
-// Styled Components
+import {
+    Product,
+    preventNegativeProps,
+} from '../../functions/generalFunctions';
 
 const AddProducts = () => {
     const [prdName, setName] = useState('');
@@ -48,20 +23,25 @@ const AddProducts = () => {
         setCost('');
     };
 
-    const handleSubmit = (event) => {
+    const alert = useAlert();
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const product = {
-            prdName: prdName.trim(),
+        const product = new Product(
+            prdName,
             prdQty,
             prdCost,
             prdWhPrice,
-            prdRePrice,
-        };
-
-        insertProducts(product);
-
-        clearEntries();
+            prdRePrice
+        );
+        const msg = await insertProducts(product);
+        if (msg.name === 'Error') {
+            alert.error(msg.message);
+        } else {
+            alert.success('Product Added Successfully');
+            clearEntries();
+        }
     };
 
     return (
@@ -89,6 +69,7 @@ const AddProducts = () => {
                     placeholder="Add Quantity"
                     value={prdQty}
                     onChange={(event) => setQty(event.target.valueAsNumber)}
+                    {...preventNegativeProps}
                 />
             </label>
 
@@ -103,6 +84,7 @@ const AddProducts = () => {
                     placeholder="Add Cost"
                     value={prdCost}
                     onChange={(event) => setCost(event.target.valueAsNumber)}
+                    {...preventNegativeProps}
                 />
             </label>
 
@@ -117,6 +99,7 @@ const AddProducts = () => {
                     placeholder="Add Wholesale Price"
                     value={prdWhPrice}
                     onChange={(event) => setWprice(event.target.valueAsNumber)}
+                    {...preventNegativeProps}
                 />
             </label>
 
@@ -131,6 +114,7 @@ const AddProducts = () => {
                     placeholder="Add Retail Price"
                     value={prdRePrice}
                     onChange={(event) => setRprice(event.target.valueAsNumber)}
+                    {...preventNegativeProps}
                 />
             </label>
 

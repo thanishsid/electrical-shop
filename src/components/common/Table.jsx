@@ -109,7 +109,7 @@ export default function DataTable({ rowData, columnData, setSelectedRows }) {
                                 {row.cells.map((cell) => {
                                     return (
                                         <td
-                                            className="border p-2 border-gray-300 text-center"
+                                            className="border p-2 border-gray-300 text-center break-words"
                                             {...cell.getCellProps()}
                                         >
                                             {cell.render('Cell')}

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-onchange */
 import React from 'react';
+import { preventNegativeProps } from '../../../functions/generalFunctions';
 
 export default function PriceSelector({
     saleType,
@@ -11,21 +12,6 @@ export default function PriceSelector({
         { name: 'Wholesale', value: 'wholesale' },
         { name: 'Custom', value: 'custom' },
     ];
-
-    const preventMinus = (e) => {
-        if (e.code === 'Minus') {
-            e.preventDefault();
-        }
-    };
-
-    const preventPasteNegative = (e) => {
-        const clipboardData = e.clipboardData || window.clipboardData;
-        const pastedData = parseFloat(clipboardData.getData('text'));
-
-        if (pastedData < 0) {
-            e.preventDefault();
-        }
-    };
 
     return (
         <div className="flex flex-col">
@@ -51,9 +37,8 @@ export default function PriceSelector({
                 min="0"
                 disabled={saleType !== 'custom'}
                 placeholder="Set Price"
-                onPaste={preventPasteNegative}
                 onChange={handleCustomSalePrice}
-                onKeyPress={preventMinus}
+                {...preventNegativeProps}
             />
         </div>
     );

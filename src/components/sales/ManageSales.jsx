@@ -9,10 +9,11 @@ import {
 } from 'react-router-dom';
 import { BiDetail } from 'react-icons/bi';
 import { MdAssignmentReturn, MdDelete } from 'react-icons/md';
-import { IconContext } from 'react-icons';
+import SubNav from '../common/SubNav';
 import SaleDetails from './SaleDetails';
 import ReturnSale from './ReturnSale';
 import RemoveSales from './RemoveSales';
+import { isActive } from '../../functions/generalFunctions';
 
 const SaleFunctions = () => {
     const { funcId } = useParams();
@@ -44,30 +45,26 @@ export default function ManageSales() {
         }
     }, [pathname]);
 
-    const isActive = (index) =>
-        value === index ? 'sub-tab-icon-active' : 'sub-tab-icon-inactive';
-
     return (
         <div className="half">
-            <IconContext.Provider value={{ size: '3rem' }}>
-                <ul className="flex justify-around shadow-md border-b-2 pb-4">
-                    <li className={isActive(0)}>
-                        <Link to={`${url}`}>
-                            <BiDetail />
-                        </Link>
-                    </li>
-                    <li className={isActive(1)}>
-                        <Link to={`${url}/return`}>
-                            <MdAssignmentReturn />
-                        </Link>
-                    </li>
-                    <li className={isActive(2)}>
-                        <Link to={`${url}/remove`}>
-                            <MdDelete />
-                        </Link>
-                    </li>
-                </ul>
-            </IconContext.Provider>
+            <SubNav>
+                <li className={isActive(0, value)}>
+                    <Link className="sub-tab-link" to={`${url}`}>
+                        <BiDetail />
+                    </Link>
+                </li>
+                <li className={isActive(1, value)}>
+                    <Link className="sub-tab-link" to={`${url}/return`}>
+                        <MdAssignmentReturn />
+                    </Link>
+                </li>
+                <li className={isActive(2, value)}>
+                    <Link className="sub-tab-link" to={`${url}/remove`}>
+                        <MdDelete />
+                    </Link>
+                </li>
+            </SubNav>
+
             <Switch>
                 <Route path={path} exact>
                     <SaleDetails />

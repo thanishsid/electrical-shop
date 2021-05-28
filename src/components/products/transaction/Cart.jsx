@@ -3,17 +3,17 @@ import CartItem from './CartItem';
 
 const Cart = ({ cartItems, transactionType }) => {
     return (
-        <div className="flex flex-col overflow-auto stopGrow border-2 justify-center items-center border-gray-300 rounded-md flex-grow mt-4">
+        <div className="cartContainer">
             {cartItems.length ? (
-                <table className="table-auto border w-full h-full">
-                    <thead className="bg-green-100 border text-base">
+                <table className="table w-full">
+                    <thead className="">
                         <tr>
-                            <th className="h-8">Name</th>
-                            <th className="h-8">Qty</th>
-                            <th className="h-8">Price</th>
-                            <th className="h-8">Net</th>
-                            <th className="h-8">Total</th>
-                            <th className="h-8">Remove</th>
+                            <th className="cart-header">Name</th>
+                            <th className="cart-header">Qty</th>
+                            <th className="cart-header">Price</th>
+                            <th className="cart-header">Net</th>
+                            <th className="cart-header">Total</th>
+                            <th className="cart-header">Remove</th>
                         </tr>
                     </thead>
                     <tbody className="font-semibold">
@@ -28,9 +28,11 @@ const Cart = ({ cartItems, transactionType }) => {
                     </tbody>
                 </table>
             ) : (
-                <p className="font-bold text-gray-700 select-none">
-                    Cart Empty
-                </p>
+                <div className="flex h-full justify-center items-center">
+                    <p className="font-bold text-center text-gray-700 select-none">
+                        Cart Empty
+                    </p>
+                </div>
             )}
         </div>
     );

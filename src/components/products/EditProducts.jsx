@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import { useProducts, useCart } from '../../stores/store';
+import { Product } from '../../functions/generalFunctions';
 
 const MessageContainer = ({ message }) => (
     <div className="flex h-full justify-center items-center">
@@ -39,15 +40,15 @@ const EditProducts = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const prdObj = {
-            prdName: prdName.trim(),
+        const product = new Product(
+            prdName,
             prdQty,
             prdCost,
             prdWhPrice,
-            prdRePrice,
-        };
+            prdRePrice
+        );
 
-        editProduct(selections[0]._id, prdObj);
+        editProduct(selections[0]._id, product);
 
         clearCart();
     };
