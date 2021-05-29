@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { useAlert } from 'react-alert';
 import {
     useProducts,
     useCustomers,
@@ -28,19 +29,26 @@ const ProductTransaction = () => {
     const insertSale = useSales((state) => state.insertSale);
     const insertOrder = useOrders((state) => state.insertOrder);
 
+    const alert = useAlert();
+
     const handleAdd = () => {
         addCartItems(transactionType, selectedProducts);
     };
 
     const handleTransaction = async () => {
         if (transactionType === 'sale') {
-            const { updatedProducts } = await insertSale(
-                cartItems,
-                selectedCustomer
-            );
-            updateProductQty(updatedProducts);
+            const data = await insertSale(cartItems, selectedCustomer);
+            if (data.name !== 'Error') {
+                updateProductQty(data.updatedProducts);
+                alert.success('Sale Successful');
+            } else {
+                alert.error(data.message);
+            }
         } else if (transactionType === 'order') {
-            insertOrder(cartItems, selectedCustomer);
+            const data = insertOrder(cartItems, selectedCustomer);
+            if (data.name !== 'Error') {
+                alert.success('Order Added Successfully');
+            }
         }
         clearCart();
         setselectedCustomer(null);
@@ -116,6 +124,7 @@ const ProductTransaction = () => {
                 }}
                 id="combo-box-demo"
                 options={customers}
+                noOptionsText="No Customers"
                 getOptionLabel={(option) => option.custName}
                 renderInput={(params) => (
                     <TextField

@@ -157,3 +157,21 @@ export const updatePrdQty = ({ products: currentProducts }, newData) => {
 
     return { products: updatedProducts };
 };
+
+export class TransactionItem {
+    constructor(type, items, customer) {
+        let transactionItems = items;
+
+        if (type === 'sale') {
+            transactionItems = removeOrigQty(items);
+        }
+
+        const saleCustomer = customer
+            ? { customerId: customer._id, customerName: customer.custName }
+            : null;
+
+        this.items = transactionItems;
+        this.customer = saleCustomer;
+        this.time = new Date().toISOString();
+    }
+}

@@ -9,7 +9,7 @@ import {
     changeQty,
     editSalePrice,
     updatePrdQty,
-    removeOrigQty,
+    TransactionItem,
 } from '../functions/storeFunctions';
 
 export const useProducts = create((set) => ({
@@ -105,20 +105,11 @@ export const useSales = create((set) => ({
         set(() => ({ sales: data }));
     },
     insertSale: async (items, customer) => {
-        const compactItems = removeOrigQty(items);
-
-        const saleCustomer = customer
-            ? { customerId: customer._id, customerName: customer.custName }
-            : null;
-
-        const saleData = {
-            items: compactItems,
-            customer: saleCustomer,
-            time: new Date().toISOString(),
-        };
+        const saleData = new TransactionItem('sale', items, customer);
         const data = await dbFunction('sale', null, saleData);
-        const { newSale } = data;
-        set((state) => ({ sales: [...state.sales, newSale] }));
+        if (data.name !== 'Error' && data.newSale) {
+            set((state) => ({ sales: [...state.sales, data.newSale] }));
+        }
         return data;
     },
     selectedSales: [],
@@ -140,22 +131,16 @@ export const useOrders = create((set) => ({
         set(() => ({ orders: data }));
     },
     insertOrder: async (items, customer) => {
-        const orderCustomer = customer
-            ? { customerId: customer._id, customerName: customer.custName }
-            : null;
-
-        const orderData = {
-            items,
-            customer: orderCustomer,
-            time: new Date().toISOString(),
-        };
-
+        const orderData = new TransactionItem('order', items, customer);
         const data = await dbFunction('insert', 'orders', orderData);
-
         set((state) => ({ orders: [...state.orders, data] }));
     },
     selectedOrders: [],
     setOrdersSelection: (data) => {
         set(() => ({ selectedOrders: data }));
+    },
+    deleteOrder: async (id) => {
+        const data = await dbFunction('delete', 'orders', id);
+        set((state) => removeItem('orders', state.orders, id, data));
     },
 }));

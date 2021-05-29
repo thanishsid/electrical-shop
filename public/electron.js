@@ -194,16 +194,6 @@ ipcMain.on('sale', (event, _targetDb, saleData) => {
     });
 });
 
-// ipcMain.on('order', (event, _targetDb, orderData) => {
-//     orders.insert(orderData, (err, newOrder) => {
-//         if(err) {
-//             event.reply('order-reply', err);
-//         } else {
-//             event.reply('order-reply', )
-//         }
-//     })
-// })
-
 ipcMain.on('return', (event, _targetDb, returnData) => {
     returns.insert(returnData, (err, newData) => {
         if (err) {
