@@ -1,12 +1,12 @@
 import React from 'react';
 import DeleteItems from '../common/DeleteItems';
-import { useProducts, useCart } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const RemoveProducts = () => {
-    const selections = useProducts((state) => state.selectedProducts);
+    const selections = useStore((state) => state.selectedProducts);
 
-    const removeSelectedProduct = useProducts((state) => state.deleteProduct);
-    const clearCart = useCart((state) => state.clearCart);
+    const removeSelectedProduct = useStore((state) => state.deleteProduct);
+    const clearCart = useStore((state) => state.clearCart);
 
     const removeProducts = () => {
         // eslint-disable-next-line no-underscore-dangle

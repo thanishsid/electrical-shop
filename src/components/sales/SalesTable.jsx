@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { format } from 'date-fns';
 import DataTable from '../common/Table';
-import { useSales } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const SalesTable = () => {
-    const data = useSales((state) => state.sales);
+    const data = useStore((state) => state.sales);
 
-    const setSalesSelection = useSales((state) => state.setSalesSelection);
+    const setSalesSelection = useStore((state) => state.setSalesSelection);
 
     const columns = useMemo(
         () => [

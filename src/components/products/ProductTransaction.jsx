@@ -5,29 +5,23 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useAlert } from 'react-alert';
-import {
-    useProducts,
-    useCustomers,
-    useCart,
-    useSales,
-    useOrders,
-} from '../../stores/store';
+import useStore from '../../stores/store';
 import Cart from './transaction/Cart';
 import TransactionTypeSelector from './transaction/TransactionTypeSelector';
 
 const ProductTransaction = () => {
     const [transactionType, setTransactionType] = React.useState('sale');
-    const customers = useCustomers((state) => state.customers);
+    const customers = useStore((state) => state.customers);
     const [selectedCustomer, setselectedCustomer] = useState(null);
     const [addable, setAddable] = useState(0);
-    const selectedProducts = useProducts((state) => state.selectedProducts);
-    const updateProductQty = useProducts((state) => state.updateProductQty);
+    const selectedProducts = useStore((state) => state.selectedProducts);
+    const updateProductQty = useStore((state) => state.updateProductQty);
 
-    const addCartItems = useCart((state) => state.addItems);
-    const cartItems = useCart((state) => state.items);
-    const clearCart = useCart((state) => state.clearCart);
-    const insertSale = useSales((state) => state.insertSale);
-    const insertOrder = useOrders((state) => state.insertOrder);
+    const addCartItems = useStore((state) => state.addItems);
+    const cartItems = useStore((state) => state.items);
+    const clearCart = useStore((state) => state.clearCart);
+    const insertSale = useStore((state) => state.insertSale);
+    const insertOrder = useStore((state) => state.insertOrder);
 
     const alert = useAlert();
 

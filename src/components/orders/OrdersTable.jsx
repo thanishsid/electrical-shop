@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { format } from 'date-fns';
 import DataTable from '../common/Table';
-import { useOrders } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const OrdersTable = () => {
-    const data = useOrders((state) => state.orders);
-    const setOrdersSelection = useOrders((state) => state.setOrdersSelection);
+    const data = useStore((state) => state.orders);
+    const setOrdersSelection = useStore((state) => state.setOrdersSelection);
 
     const columns = useMemo(
         () => [

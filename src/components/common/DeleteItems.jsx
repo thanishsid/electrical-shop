@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Button } from '@material-ui/core';
 import { AiOutlineDelete } from 'react-icons/ai';
 
 const DeleteItems = ({ btnLabel, items, deleteFunction, updateFunction }) => {

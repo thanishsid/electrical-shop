@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import DataTable from '../common/Table';
-import { useCustomers } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const CustomersTable = () => {
-    const data = useCustomers((state) => state.customers);
+    const data = useStore((state) => state.customers);
 
-    const setCustomerSelection = useCustomers(
+    const setCustomerSelection = useStore(
         (state) => state.setCustomerSelection
     );
 

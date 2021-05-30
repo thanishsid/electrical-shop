@@ -1,15 +1,15 @@
 import React from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import Repeatable from 'react-repeatable';
-import { useCart } from '../../../stores/store';
+import useStore from '../../../stores/store';
 import PriceSelector from './PriceSelector';
 import { roundToTwo } from '../../../functions/generalFunctions';
 
 const CartItem = ({ item, transactionType }) => {
     const [saleType, setSaleType] = React.useState('retail');
-    const changeQuantity = useCart((state) => state.changeQuantity);
-    const changeSalePrice = useCart((state) => state.changeSalePrice);
-    const removeItem = useCart((state) => state.removeItem);
+    const changeQuantity = useStore((state) => state.changeQuantity);
+    const changeSalePrice = useStore((state) => state.changeSalePrice);
+    const removeItem = useStore((state) => state.removeItem);
 
     React.useEffect(() => {
         if (saleType === 'retail') {

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useCustomers } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const AddCustomers = () => {
     const [custName, setCustName] = useState('');
     const [custPhone, setCustPhone] = useState('');
-
-    const insertCustomer = useCustomers((state) => state.insertCustomers);
-    const setCustomers = useCustomers((state) => state.setCustomers);
+    const insertCustomer = useStore((state) => state.insertCustomers);
+    const setCustomers = useStore((state) => state.setCustomers);
 
     const clearEntries = () => {
         setCustName('');

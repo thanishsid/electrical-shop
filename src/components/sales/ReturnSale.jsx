@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 import ReturnItem from './ReturnItem';
-import { useSales } from '../../stores/store';
+import useStore from '../../stores/store';
 
 // styled components
 const ReturnContainer = styled.section`
@@ -45,7 +45,7 @@ const MessageContainer = styled.section`
 // styled components
 
 const ReturnSale = () => {
-    const selectedSales = useSales((state) => state.selectedSales);
+    const selectedSales = useStore((state) => state.selectedSales);
     const [returnSale, setReturnSale] = useState([]);
 
     useEffect(() => {

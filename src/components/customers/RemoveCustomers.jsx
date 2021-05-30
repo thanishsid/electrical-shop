@@ -1,16 +1,14 @@
 import React from 'react';
 import DeleteItems from '../common/DeleteItems';
-import { useCustomers } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const RemoveCustomers = () => {
-    const selections = useCustomers((state) => state.selectedCustomers);
+    const selections = useStore((state) => state.selectedCustomers);
 
-    const removeSelectedCustomer = useCustomers(
-        (state) => state.deleteCustomer
-    );
+    const removeSelectedCustomer = useStore((state) => state.deleteCustomer);
 
-    const setCustomers = useCustomers((state) => state.setCustomers);
-    const clearSelectedCustomers = useCustomers(
+    const setCustomers = useStore((state) => state.setCustomers);
+    const clearSelectedCustomers = useStore(
         (state) => state.clearSelectedCustomers
     );
 

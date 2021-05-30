@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useProducts } from '../../stores/store';
+import useStore from '../../stores/store';
 import {
     Product,
     preventNegativeProps,
@@ -13,7 +13,7 @@ const AddProducts = () => {
     const [prdWhPrice, setWprice] = useState('');
     const [prdRePrice, setRprice] = useState('');
 
-    const insertProducts = useProducts((state) => state.insertProducts);
+    const insertProducts = useStore((state) => state.insertProducts);
 
     const clearEntries = () => {
         setName('');

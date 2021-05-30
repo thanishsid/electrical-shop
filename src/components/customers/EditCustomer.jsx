@@ -1,16 +1,16 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { useCustomers } from '../../stores/store';
+import useStore from '../../stores/store';
 
 const EditCustomers = () => {
     const [cname, setName] = useState('');
     const [cphone, setPhone] = useState('');
 
-    const selections = useCustomers((state) => state.selectedCustomers);
+    const selections = useStore((state) => state.selectedCustomers);
 
-    const editCustomer = useCustomers((state) => state.editCustomer);
+    const editCustomer = useStore((state) => state.editCustomer);
 
-    const setCustomers = useCustomers((state) => state.setCustomers);
+    const setCustomers = useStore((state) => state.setCustomers);
 
     useEffect(() => {
         const fillEdits = async () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import styled from 'styled-components';
-import { useSales } from '../../stores/store';
+import useStore from '../../stores/store';
 import SaleItem from './SaleItem';
 
 // styled components
@@ -26,7 +26,7 @@ const TableColumn = styled.section`
 // styled components
 
 const SaleDetails = () => {
-    const selectedSales = useSales((state) => state.selectedSales);
+    const selectedSales = useStore((state) => state.selectedSales);
 
     return (
         <SaleDetailsContainer>

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { useProducts, useCart } from '../../stores/store';
+import useStore from '../../stores/store';
 import { Product } from '../../functions/generalFunctions';
 
 const MessageContainer = ({ message }) => (
@@ -16,11 +16,11 @@ const EditProducts = () => {
     const [prdWhPrice, setWprice] = useState('');
     const [prdRePrice, setRprice] = useState('');
 
-    const selections = useProducts((state) => state.selectedProducts);
+    const selections = useStore((state) => state.selectedProducts);
 
-    const editProduct = useProducts((state) => state.editProduct);
+    const editProduct = useStore((state) => state.editProduct);
 
-    const clearCart = useCart((state) => state.clearCart);
+    const clearCart = useStore((state) => state.clearCart);
 
     useEffect(() => {
         const fillEdits = async () => {
