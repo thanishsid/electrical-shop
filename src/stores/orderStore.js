@@ -11,6 +11,7 @@ const orderStore = (set) => ({
         const orderData = new TransactionItem('order', items, customer);
         const data = await dbFunction('insert', 'orders', orderData);
         set((state) => ({ orders: [...state.orders, data] }));
+        return data;
     },
     selectedOrders: [],
     setOrdersSelection: (data) => {

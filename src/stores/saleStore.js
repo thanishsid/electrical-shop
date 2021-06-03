@@ -1,5 +1,9 @@
 import { getData, dbFunction } from '../dbcontroller/renderer';
-import { removeItem, TransactionItem } from '../functions/storeFunctions';
+import {
+    removeItem,
+    TransactionItem,
+    updatePrdQty,
+} from '../functions/storeFunctions';
 
 const saleStore = (set) => ({
     sales: [],
@@ -10,8 +14,9 @@ const saleStore = (set) => ({
     insertSale: async (items, customer) => {
         const saleData = new TransactionItem('sale', items, customer);
         const data = await dbFunction('sale', null, saleData);
-        if (data.name !== 'Error' && data.newSale) {
+        if (data.name !== 'Error' && data.newSale && data.updatedProducts) {
             set((state) => ({ sales: [...state.sales, data.newSale] }));
+            set((state) => updatePrdQty(state.products, data.updatedProducts));
         }
         return data;
     },

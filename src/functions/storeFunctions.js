@@ -139,8 +139,8 @@ export const editSalePrice = (currentItems, itemToChange, amount) => {
     return changedItems;
 };
 
-export const updatePrdQty = ({ products: currentProducts }, newData) => {
-    const updatedProducts = currentProducts.map((product) => {
+export const updatePrdQty = (products, newData) => {
+    const updatedProducts = products.map((product) => {
         let updatedProduct = { ...product };
 
         for (let i = 0; i < newData.length; i += 1) {

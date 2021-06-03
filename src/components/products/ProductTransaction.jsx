@@ -10,13 +10,12 @@ import Cart from './transaction/Cart';
 import TransactionTypeSelector from './transaction/TransactionTypeSelector';
 
 const ProductTransaction = () => {
-    const [transactionType, setTransactionType] = React.useState('sale');
-    const customers = useStore((state) => state.customers);
+    const [transactionType, setTransactionType] = useState('sale');
     const [selectedCustomer, setselectedCustomer] = useState(null);
     const [addable, setAddable] = useState(0);
-    const selectedProducts = useStore((state) => state.selectedProducts);
-    const updateProductQty = useStore((state) => state.updateProductQty);
 
+    const customers = useStore((state) => state.customers);
+    const selectedProducts = useStore((state) => state.selectedProducts);
     const addCartItems = useStore((state) => state.addItems);
     const cartItems = useStore((state) => state.items);
     const clearCart = useStore((state) => state.clearCart);
@@ -29,23 +28,29 @@ const ProductTransaction = () => {
         addCartItems(transactionType, selectedProducts);
     };
 
+    const clearFields = () => {
+        clearCart();
+        setselectedCustomer(null);
+    };
+
     const handleTransaction = async () => {
         if (transactionType === 'sale') {
             const data = await insertSale(cartItems, selectedCustomer);
             if (data.name !== 'Error') {
-                updateProductQty(data.updatedProducts);
                 alert.success('Sale Successful');
+                clearFields();
             } else {
                 alert.error(data.message);
             }
         } else if (transactionType === 'order') {
-            const data = insertOrder(cartItems, selectedCustomer);
+            const data = await insertOrder(cartItems, selectedCustomer);
             if (data.name !== 'Error') {
                 alert.success('Order Added Successfully');
+                clearFields();
+            } else {
+                alert.error(data.message);
             }
         }
-        clearCart();
-        setselectedCustomer(null);
     };
 
     const handleSwitchTransactionType = (event) => {

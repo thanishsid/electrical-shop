@@ -1,9 +1,5 @@
 import { getData, dbFunction } from '../dbcontroller/renderer';
-import {
-    removeItem,
-    updateProduct,
-    updatePrdQty,
-} from '../functions/storeFunctions';
+import { removeItem, updateProduct } from '../functions/storeFunctions';
 
 const productStore = (set) => ({
     products: [],
@@ -35,9 +31,6 @@ const productStore = (set) => ({
         set(() => ({
             selectedProducts: data,
         }));
-    },
-    updateProductQty: (newData) => {
-        set((state) => updatePrdQty(state, newData));
     },
 });
 
